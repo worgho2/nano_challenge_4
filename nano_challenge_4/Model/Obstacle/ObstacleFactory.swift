@@ -8,45 +8,134 @@
 
 import SpriteKit
 
+enum ObstaclePosition: CaseIterable {
+    case leading
+    case trailing
+    case center
+    
+    static func random() -> ObstaclePosition {
+        ObstaclePosition.allCases.randomElement()!
+    }
+}
+
+enum ObstacleOrientation: CaseIterable {
+    case horizontal
+    case vertical
+    
+    static func random() -> ObstacleOrientation {
+        ObstacleOrientation.allCases.randomElement()!
+    }
+}
+
+enum ObstacleType: CaseIterable {
+    case rectangle
+    case square
+    
+    static func random() -> ObstacleType {
+        ObstacleType.allCases.randomElement()!
+    }
+}
+
 class ObstacleFactory: SceneSupplicant {
     
     var scene: GameScene!
-    var baseNode: SKNode!
+    
+    private var rectangleBaseNode: SKNode!
+    private var squareBaseNode: SKNode!
     
     init(scene: GameScene?) {
         self.scene = scene
-        self.baseNode = self.getBaseNode()
+        self.rectangleBaseNode = RectangleObstacle(scene: self.scene).node
+        self.squareBaseNode = SquareObstacle(scene: self.scene).node
     }
-    
-    private func getBaseNode() -> SKNode {
-        let node = self.scene.childNode(withName: "obstacle")!
-        let body = SKPhysicsBody(rectangleOf: .init(width: 250, height: 70))
+
+    private func getNode(type: ObstacleType, orientation: ObstacleOrientation, position: ObstaclePosition) -> SKNode {
+        let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKNode
+        let nodeRotation: CGFloat = (orientation == .horizontal ? 0 : CGFloat.pi/2)
+        var nodePosition: CGPoint = CGPoint(x: 0, y: 0)
+        let bounds = self.scene.getBounds()
         
-        body.affectedByGravity = false
-        body.allowsRotation = false
-        body.pinned = false
-        body.isDynamic = true
-        body.categoryBitMask = ContactMask.obstacle.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.painter.bitMask | ContactMask.drop.bitMask
+        nodePosition.y = (orientation == .horizontal ? bounds.minY - node.frame.size.height/2 : bounds.minY - node.frame.size.width/2)
         
-        node.physicsBody = body
+        switch position {
+        case .center:
+            nodePosition.x = 0
+        case .leading:
+
+            nodePosition.x = bounds.minX + node.frame.size.width/2
+            if !(type == .rectangle && orientation == .horizontal) {
+//                nodePosition.x = bounds.minX + node.frame.size.width/2
+                
+                nodePosition.x = (orientation == .horizontal ? -node.frame.size.width * 2/3 : -node.frame.size.height * 2/3)
+            } else {
+//                nodePosition.x = (orientation == .horizontal ? -node.frame.size.width * 2/3 : -node.frame.size.height * 2/3)
+            }
+        case .trailing:
+            if type == .rectangle && orientation == .horizontal {
+                nodePosition.x = -bounds.minX - node.frame.size.width/2
+            } else {
+                nodePosition.x = (orientation == .horizontal ? node.frame.size.width * 2/3 : node.frame.size.height * 2/3)
+            }
+        }
         
-        return node
-    }
-    
-    private func getNode() -> SKNode {
-        let node = self.baseNode.copy() as! SKNode
-        
-        node.position = CGPoint(x: 0, y: self.scene.getBounds().minY - 35)
+        node.position = nodePosition
+        node.zRotation = nodeRotation
         node.zPosition = 100
         
         return node
     }
     
-    func getNewObstacle() -> Obstacle {
-        let node = self.getNode()
+    func getNewObstacle(type: ObstacleType, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
+        print(type, orientation, position)
+        let node = self.getNode(type: type, orientation: orientation, position: position)
         
-        return Obstacle(node: node, scene: self.scene)
+        return type == .rectangle ? RectangleObstacle(node: node, scene: self.scene) : SquareObstacle(node: node, scene: self.scene)
     }
+
 }
+
+//class Builder {
+//
+//    private var currentBuild: Builder! {
+//        get {
+//            if self.currentBuild == nil { self.currentBuild = Builder() }
+//            return self.currentBuild
+//        } set (to){
+//
+//        }
+//    }
+//
+//    private var type: ObstacleType!
+//    private var orientation: ObstacleOrientation!
+//    private var position: ObstaclePosition!
+//
+//    func type(_ type: ObstacleType) -> Builder {
+//        self.currentBuild.type = type
+//        return self
+//    }
+//
+//    func orientation(_ orientation: ObstacleOrientation) -> Builder {
+//
+//        self.currentBuild.orientation = orientation
+//        return self
+//    }
+//
+//    func position(_ position: ObstaclePosition) -> Builder {
+//
+//        self.currentBuild.position = position
+//        return self
+//
+//    }
+//
+//    func build() -> Builder {
+//        let ret = self.currentBuild!
+//        self.currentBuild = nil
+//        return ret
+//    }
+//}
+//
+//let builder = Builder()
+//    .type(.bar)
+//    .orientation(.horizontal)
+//    .position(.leading)
+//    .build()

@@ -10,12 +10,12 @@ import SpriteKit
 
 class Obstacle: GameObject {
     
-    override func shouldDespawn() -> Bool {
-        return self.node.position.y > self.scene.getBounds().height + 35
+    override init(node: SKNode?, scene: GameScene?) {
+        super.init(node: node, scene: scene)
     }
     
     override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * 100
+        let dY = CGFloat(deltaTime) * 200
         
         self.node.position.y += dY
     }

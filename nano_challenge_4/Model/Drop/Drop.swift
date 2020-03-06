@@ -17,7 +17,7 @@ class Drop: GameObject {
         self.configurePhysics(on: self.node)
     }
     
-    func configurePhysics(on node: SKNode) {
+    override func configurePhysics(on node: SKNode) {
         let body = SKPhysicsBody(rectangleOf: .init(width: 40, height: 40))
         
         body.affectedByGravity = false
@@ -28,6 +28,6 @@ class Drop: GameObject {
         body.collisionBitMask = ContactMask.none.bitMask
         body.contactTestBitMask = ContactMask.obstacle.bitMask
         
-        node.physicsBody = body
+        self.node.physicsBody = body
     }
 }

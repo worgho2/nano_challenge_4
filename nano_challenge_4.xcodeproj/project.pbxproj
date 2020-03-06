@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
+		7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64122324128934005ABD82 /* SquareObstacle.swift */; };
+		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
 		7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C360240FF8300011F586 /* AppDelegate.swift */; };
 		7AC3C363240FF8300011F586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AC3C362240FF8300011F586 /* GameScene.sks */; };
 		7AC3C367240FF8300011F586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C366240FF8300011F586 /* GameScene.swift */; };
@@ -27,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
+		7A64122324128934005ABD82 /* SquareObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareObstacle.swift; sourceTree = "<group>"; };
+		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
 		7AC3C35D240FF8300011F586 /* nano_challenge_4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nano_challenge_4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC3C360240FF8300011F586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC3C362240FF8300011F586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -90,6 +96,7 @@
 		7AC3C37C24112EEB0011F586 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7A641225241289B0005ABD82 /* PhysicsObject.swift */,
 				7AC3C37A24101A260011F586 /* ContactMask.swift */,
 				7AC3C37F24112F860011F586 /* SceneSupplicant.swift */,
 				7AC3C389241144CE0011F586 /* TouchSensitive.swift */,
@@ -106,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				7AC3C38124112FFB0011F586 /* Obstacle.swift */,
+				7A6412212412891D005ABD82 /* RectangleObstacle.swift */,
+				7A64122324128934005ABD82 /* SquareObstacle.swift */,
 				7AC3C3832411301C0011F586 /* ObstacleFactory.swift */,
 				7AC3C385241130520011F586 /* ObstacleSpawner.swift */,
 			);
@@ -132,10 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				7AC3C36F240FF8310011F586 /* LaunchScreen.storyboard */,
+				7AC3C36A240FF8300011F586 /* Main.storyboard */,
+				7AC3C368240FF8300011F586 /* GameViewController.swift */,
 				7AC3C366240FF8300011F586 /* GameScene.swift */,
 				7AC3C362240FF8300011F586 /* GameScene.sks */,
-				7AC3C368240FF8300011F586 /* GameViewController.swift */,
-				7AC3C36A240FF8300011F586 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,9 +229,12 @@
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
+				7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */,
+				7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */,
 				7AC3C38A241144CE0011F586 /* TouchSensitive.swift in Sources */,
 				7AC3C386241130520011F586 /* ObstacleSpawner.swift in Sources */,
 				7AC3C38F241166080011F586 /* Drop.swift in Sources */,
+				7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */,
 				7AC3C37E24112F650011F586 /* Updateable.swift in Sources */,
 				7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */,
 			);

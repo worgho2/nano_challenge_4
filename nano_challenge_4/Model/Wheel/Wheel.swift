@@ -37,7 +37,13 @@ class Wheel: GameObject {
         self.node.children.forEach { self.configurePhysics(on: $0) }
     }
     
-    func configurePhysics(on node: SKNode) {
+    private func getRotationDirection() -> RotationDirection {
+        return isTouching.right ? .right : (isTouching.left ? .left : .none)
+    }
+    
+    //MARK: - PHYSICS OBJECT PROTOCOL
+    
+    override func configurePhysics(on node: SKNode) {
         let body = SKPhysicsBody(rectangleOf: .init(width: 40, height: 40))
         
         body.affectedByGravity = false
@@ -49,10 +55,6 @@ class Wheel: GameObject {
         body.contactTestBitMask = ContactMask.obstacle.bitMask
         
         node.physicsBody = body
-    }
-    
-    private func getRotationDirection() -> RotationDirection {
-        return isTouching.right ? .right : (isTouching.left ? .left : .none)
     }
     
     //MARK: - TOUCH SENSITIVE PROTOCOL

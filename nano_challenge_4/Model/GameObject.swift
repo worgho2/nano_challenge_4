@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameObject: Updateable, SceneSupplicant, TouchSensitive {
+class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject {
     
     var node: SKNode!
     var scene: GameScene!
@@ -24,4 +24,6 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive {
     
     func touchDown(atPoint pos: CGPoint) { return }
     func touchUp(atPoint pos: CGPoint) { return }
+    
+    func configurePhysics(on node: SKNode) { return }
 }
