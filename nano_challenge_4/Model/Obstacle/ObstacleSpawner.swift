@@ -12,30 +12,30 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
     
     var scene: GameScene!
     var obstacleFactory: ObstacleFactory!
-    var enemies: [Obstacle]!
+    var obstacles: [Obstacle]!
     
-    private let spawnThreshold = TimeInterval(3)
-    private var currentSpawnTimer = TimeInterval(0)
+    private let spawnThreshold = TimeInterval(2)
+    private var currentSpawnTimer = TimeInterval(2)
     
     init(scene: GameScene?) {
         self.scene = scene
         self.obstacleFactory = ObstacleFactory(scene: self.scene)
-        self.enemies = [Obstacle]()
+        self.obstacles = [Obstacle]()
     }
     
     func update(_ deltaTime: TimeInterval) {
         self.currentSpawnTimer += deltaTime
         
-        self.enemies.forEach { $0.update(deltaTime) }
+        self.obstacles.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
             self.spawn()
             self.currentSpawnTimer -= spawnThreshold
         }
         
-        for (i, obstacle) in self.enemies.enumerated() {
+        for (i, obstacle) in self.obstacles.enumerated() {
             if obstacle.shouldDespawn() {
-                self.enemies.remove(at: i)
+                self.obstacles.remove(at: i)
                 obstacle.node.removeFromParent()
             }
         }
@@ -44,7 +44,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
     func spawn() {
         let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
         
-        self.enemies.append(newObstacle)
+        self.obstacles.append(newObstacle)
         self.scene.addChild(newObstacle.node)
     }
 }

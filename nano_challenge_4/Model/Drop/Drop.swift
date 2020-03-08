@@ -18,6 +18,7 @@ class Drop: GameObject {
     }
     
     override func configurePhysics(on node: SKNode) {
+        return
         let body = SKPhysicsBody(rectangleOf: .init(width: 40, height: 40))
         
         body.affectedByGravity = false

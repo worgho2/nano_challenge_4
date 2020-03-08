@@ -61,14 +61,10 @@ class ObstacleFactory: SceneSupplicant {
         case .center:
             nodePosition.x = 0
         case .leading:
-
-            nodePosition.x = bounds.minX + node.frame.size.width/2
-            if !(type == .rectangle && orientation == .horizontal) {
-//                nodePosition.x = bounds.minX + node.frame.size.width/2
-                
-                nodePosition.x = (orientation == .horizontal ? -node.frame.size.width * 2/3 : -node.frame.size.height * 2/3)
+            if (type == .rectangle && orientation == .horizontal) {
+                nodePosition.x = bounds.minX + node.frame.size.width/2
             } else {
-//                nodePosition.x = (orientation == .horizontal ? -node.frame.size.width * 2/3 : -node.frame.size.height * 2/3)
+                nodePosition.x = (orientation == .horizontal ? -node.frame.size.width * 2/3 : -node.frame.size.height * 2/3)
             }
         case .trailing:
             if type == .rectangle && orientation == .horizontal {
@@ -93,49 +89,3 @@ class ObstacleFactory: SceneSupplicant {
     }
 
 }
-
-//class Builder {
-//
-//    private var currentBuild: Builder! {
-//        get {
-//            if self.currentBuild == nil { self.currentBuild = Builder() }
-//            return self.currentBuild
-//        } set (to){
-//
-//        }
-//    }
-//
-//    private var type: ObstacleType!
-//    private var orientation: ObstacleOrientation!
-//    private var position: ObstaclePosition!
-//
-//    func type(_ type: ObstacleType) -> Builder {
-//        self.currentBuild.type = type
-//        return self
-//    }
-//
-//    func orientation(_ orientation: ObstacleOrientation) -> Builder {
-//
-//        self.currentBuild.orientation = orientation
-//        return self
-//    }
-//
-//    func position(_ position: ObstaclePosition) -> Builder {
-//
-//        self.currentBuild.position = position
-//        return self
-//
-//    }
-//
-//    func build() -> Builder {
-//        let ret = self.currentBuild!
-//        self.currentBuild = nil
-//        return ret
-//    }
-//}
-//
-//let builder = Builder()
-//    .type(.bar)
-//    .orientation(.horizontal)
-//    .position(.leading)
-//    .build()

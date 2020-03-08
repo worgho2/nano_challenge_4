@@ -11,6 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var vc: GameViewController?
+    
     private var lastUpdate: TimeInterval = TimeInterval(0)
     
     var wheel: Wheel!
@@ -70,6 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func onCollision(_ bodyA: SKPhysicsBody, _ bodyB: SKPhysicsBody) {
         print("Colidiu!", bodyA.node!.name as Any, bodyB.node!.name as Any)
+        self.vc?.onGameOver()
     }
     
     // MARK: - Touch callbacks
