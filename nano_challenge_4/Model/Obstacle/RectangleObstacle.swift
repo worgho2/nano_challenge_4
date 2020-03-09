@@ -17,7 +17,6 @@ class RectangleObstacle: Obstacle {
     init(scene: GameScene?) {
         let node = scene?.childNode(withName: "rectangleObstacle")!
         super.init(node: node, scene: scene)
-        
         self.configurePhysics(on: self.node)
     }
     

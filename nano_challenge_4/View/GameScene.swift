@@ -64,15 +64,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: - Physics methods
     
     func didBegin(_ contact: SKPhysicsContact) {
-        guard let _ = contact.bodyA.node else { return }
-        guard let _ = contact.bodyB.node else { return }
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
         
-        self.onCollision(contact.bodyA, contact.bodyB)
+        if [nodeA.name, nodeB.name].contains("drop") {
+            self.vc?.onGameOver()
+            return
+        }
+        
+        if nodeA.name!.contains("Painter") {
+            self.onCollision(nodeA, nodeB)
+        } else {
+            self.onCollision(nodeB, nodeA)
+        }
     }
     
-    func onCollision(_ bodyA: SKPhysicsBody, _ bodyB: SKPhysicsBody) {
-        print("Colidiu!", bodyA.node!.name as Any, bodyB.node!.name as Any)
-        self.vc?.onGameOver()
+    func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
+        print("[COLISION: \(painterNode.name!) -> \(obstacleNode.name!)]")
+        
+        guard let painter = painterNode as? SKShapeNode else {
+            fatalError()
+//            return
+        }
+        
+        enemySpawner.obstacles.first?.onCollision(withPanterColor: painter.fillColor)
     }
     
     // MARK: - Touch callbacks

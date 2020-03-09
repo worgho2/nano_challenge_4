@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, GameEventListener {
+class GameViewController: UIViewController {
     
     var scene: SKScene?
     
@@ -21,62 +21,61 @@ class GameViewController: UIViewController, GameEventListener {
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
             scene.scaleMode = .aspectFill
             scene.vc = self
+            
             self.scene = scene
-            self.skView.presentScene(scene)
+            
+            skView.presentScene(scene)
         }
-    }
-    
-    func bindGameEventListener() {
-        GameEvent.allCases.forEach { GameEventBinder.bind(self, to: $0) }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.bindGameEventListener()
+        playButton.setTitle("Play", for: .normal)
+        pauseButton.isHidden = true
         
-        self.playButton.setTitle("Play", for: .normal)
-        self.pauseButton.isHidden = true
+        loadScene()
         
-        self.loadScene()
-        self.scene?.isPaused = true
+        scene?.isPaused = true
         
-        self.skView.ignoresSiblingOrder = true
-        self.skView.showsFPS = true
-        self.skView.showsNodeCount = true
-        self.skView.showsPhysics = true
+        skView.ignoresSiblingOrder = true
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = false
     }
     
     @IBAction func onPlayButton(_ sender: Any) {
-        GameEventBinder.center.post(name: GameEvent.gameStart.asNotificationName(), object: nil)
-        self.playButton.isHidden = true
-        self.pauseButton.isHidden = false
+        onGameStart()
+        
+        playButton.isHidden = true
+        pauseButton.isHidden = false
     }
     
     @IBAction func onPauseButton(_ sender: Any) {
-        GameEventBinder.center.post(name: GameEvent.gamePause.asNotificationName(), object: nil)
-        self.playButton.isHidden = false
-        self.playButton.setTitle("Continue", for: .normal)
-        self.pauseButton.isHidden = true
+        onGamePause()
+        
+        playButton.isHidden = false
+        playButton.setTitle("Continue", for: .normal)
+        pauseButton.isHidden = true
     }
     
     //MARK: - Game Event Listener
     
     func onGameStart() {
-        self.scene?.isPaused = false
+        scene?.isPaused = false
     }
     
     func onGamePause() {
-        self.scene?.isPaused = true
+        scene?.isPaused = true
     }
     
     func onGameOver() {
-        self.loadScene()
-        self.scene?.isPaused = true
+        loadScene()
+        scene?.isPaused = true
         
-        self.playButton.isHidden = false
-        self.playButton.setTitle("Play", for: .normal)
-        self.pauseButton.isHidden = true
+        playButton.isHidden = false
+        playButton.setTitle("Play", for: .normal)
+        pauseButton.isHidden = true
     }
     
     

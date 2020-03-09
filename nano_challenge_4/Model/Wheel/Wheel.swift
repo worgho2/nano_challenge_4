@@ -34,17 +34,52 @@ class Wheel: GameObject {
         
         super.init(node: node, scene: scene)
         
-        self.node.children.forEach { self.configurePhysics(on: $0) }
+        self.setupPainters()
+        self.setupWheelBackground()
     }
     
     private func getRotationDirection() -> RotationDirection {
         return isTouching.right ? .right : (isTouching.left ? .left : .none)
     }
     
+    private func setupPainters() {
+        let leftPainterNode = SKShapeNode(circleOfRadius: 20)
+        leftPainterNode.name = "leftPainter"
+        leftPainterNode.position = CGPoint(x: -100, y: 0)
+        leftPainterNode.strokeColor = .clear
+        leftPainterNode.zPosition = 1
+        leftPainterNode.fillColor = .red
+        self.configurePhysics(on: leftPainterNode)
+        
+        let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
+        rightPainterNode.name = "rightPainter"
+        rightPainterNode.position = CGPoint(x: 100, y: 0)
+        rightPainterNode.fillColor = .blue
+        self.configurePhysics(on: rightPainterNode)
+        
+        self.node.addChild(leftPainterNode)
+        self.node.addChild(rightPainterNode)
+    }
+    
+    
+    private func setupWheelBackground() {
+        let circleNode = SKShapeNode(circleOfRadius: 100)
+        
+        circleNode.position = .zero
+        circleNode.strokeColor = .black
+        circleNode.lineWidth = 0.1
+        circleNode.glowWidth = 1.0
+        circleNode.zPosition = -1
+        circleNode.fillColor = .clear
+        circleNode.alpha = 0.7
+        
+        self.node.addChild(circleNode)
+    }
+    
     //MARK: - PHYSICS OBJECT PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(rectangleOf: .init(width: 40, height: 40))
+        let body = SKPhysicsBody(circleOfRadius: 20)
         
         body.affectedByGravity = false
         body.allowsRotation = false

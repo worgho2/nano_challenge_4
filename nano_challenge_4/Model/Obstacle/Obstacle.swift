@@ -20,4 +20,13 @@ class Obstacle: GameObject {
         self.node.position.y += dY
     }
     
+    func onCollision(withPanterColor color: UIColor) {
+        guard let node = self.node as? SKSpriteNode else {
+            fatalError()
+        }
+        
+        node.color = .black
+        node.physicsBody = nil
+    }
+    
 }
