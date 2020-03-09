@@ -11,20 +11,40 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    let colorPalleteGenerator = PaletteGenerator(baseHSV: HSV(hue: 0, saturation: 1, value: 1))
+    
     var vc: GameViewController?
     
     private var lastUpdate: TimeInterval = TimeInterval(0)
     
     var wheel: Wheel!
     var drop: Drop!
-    var enemySpawner: ObstacleSpawner!
+    var obstacleSpawner: ObstacleSpawner!
+    
+    let impactFeedback = UIImpactFeedbackGenerator()
+    
+    var realPaused: Bool = false {
+        didSet {
+            self.isPaused = realPaused
+        }
+    }
+    
+    override var isPaused: Bool {
+        didSet {
+            if (self.isPaused == false && self.realPaused == true) {
+                self.isPaused = true
+            }
+        }
+    }
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         
         self.wheel = Wheel(scene: self)
         self.drop = Drop(scene: self)
-        self.enemySpawner = ObstacleSpawner(scene: self)
+        self.obstacleSpawner = ObstacleSpawner(scene: self)
+        
+        
     }
     
     func getBounds() -> CGRect {
@@ -49,15 +69,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            let deltaTime = currentTime - lastUpdate
            self.lastUpdate = currentTime
            
-           if deltaTime > 0.1 { return  nil}
+           if deltaTime > 0.1 { return  nil }
            
            return deltaTime
-       }
+    }
     
     private func getUpdatables() -> [Updateable] {
        return [
            self.wheel,
-           self.enemySpawner
+           self.obstacleSpawner
        ]
     }
     
@@ -84,10 +104,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         guard let painter = painterNode as? SKShapeNode else {
             fatalError()
-//            return
         }
         
-        enemySpawner.obstacles.first?.onCollision(withPanterColor: painter.fillColor)
+        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
+        obstacle.onCollision(withPanterColor: painter.fillColor)
     }
     
     // MARK: - Touch callbacks

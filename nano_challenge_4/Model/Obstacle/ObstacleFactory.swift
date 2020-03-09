@@ -36,6 +36,8 @@ enum ObstacleType: CaseIterable {
     }
 }
 
+
+
 class ObstacleFactory: SceneSupplicant {
     
     var scene: GameScene!
@@ -84,7 +86,6 @@ class ObstacleFactory: SceneSupplicant {
     func getNewObstacle(type: ObstacleType, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
         print("[SPAWN OBSTACLE: \(type) - \(orientation) - \(position)]")
         let node = self.getNode(type: type, orientation: orientation, position: position)
-        
         return type == .rectangle ? RectangleObstacle(node: node, scene: self.scene) : SquareObstacle(node: node, scene: self.scene)
     }
 

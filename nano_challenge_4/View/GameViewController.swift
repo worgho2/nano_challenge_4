@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     
-    var scene: SKScene?
+    weak var scene: SKScene?
     
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var playButton: UIButton!
@@ -30,11 +30,13 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         playButton.setTitle("Play", for: .normal)
         pauseButton.isHidden = true
         
         loadScene()
+        
+        
         
         scene?.isPaused = true
         
@@ -42,6 +44,15 @@ class GameViewController: UIViewController {
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.showsPhysics = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        self.view.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
+        self.skView.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
+        self.scene!.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
     }
     
     @IBAction func onPlayButton(_ sender: Any) {

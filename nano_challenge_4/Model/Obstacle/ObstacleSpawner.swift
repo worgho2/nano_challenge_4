@@ -14,8 +14,8 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
     var obstacleFactory: ObstacleFactory!
     var obstacles: [Obstacle]!
     
-    private let spawnThreshold = TimeInterval(2)
-    private var currentSpawnTimer = TimeInterval(2)
+    private let spawnThreshold = TimeInterval(1)
+    private var currentSpawnTimer = TimeInterval(1)
     
     init(scene: GameScene?) {
         self.scene = scene
@@ -47,5 +47,9 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
         
         self.obstacles.append(newObstacle)
         self.scene.addChild(newObstacle.node)
+    }
+    
+    func getObstacleBy(node: SKNode) -> Obstacle {
+        return obstacles.first(where: {$0.node == node})!
     }
 }

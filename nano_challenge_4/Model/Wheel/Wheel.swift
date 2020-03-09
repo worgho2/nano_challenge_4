@@ -48,13 +48,13 @@ class Wheel: GameObject {
         leftPainterNode.position = CGPoint(x: -100, y: 0)
         leftPainterNode.strokeColor = .clear
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = .red
+        leftPainterNode.fillColor = self.scene.colorPalleteGenerator.getTriad()[1].getUIColor()
         self.configurePhysics(on: leftPainterNode)
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
         rightPainterNode.position = CGPoint(x: 100, y: 0)
-        rightPainterNode.fillColor = .blue
+        rightPainterNode.fillColor = self.scene.colorPalleteGenerator.getTriad()[3].getUIColor()
         self.configurePhysics(on: rightPainterNode)
         
         self.node.addChild(leftPainterNode)
@@ -113,7 +113,7 @@ class Wheel: GameObject {
     //MARK: - UPDATEABLE PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let rotation = CGFloat(deltaTime) * CGFloat.pi / 2 * self.getRotationDirection().multiplier
+        let rotation = CGFloat(deltaTime) * CGFloat.pi / 2 * self.getRotationDirection().multiplier * 5
         self.node.zRotation += rotation
     }
 }

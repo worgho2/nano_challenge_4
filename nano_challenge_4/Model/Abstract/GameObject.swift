@@ -10,10 +10,16 @@ import SpriteKit
 
 class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject {
     
+    static var next_id = 0
+    
+    var id: Int
     var node: SKNode!
     var scene: GameScene!
     
     init(node: SKNode?, scene: GameScene?) {
+        self.id = GameObject.next_id
+        GameObject.next_id += 1
+        
         self.node = node
         self.scene = scene
     }

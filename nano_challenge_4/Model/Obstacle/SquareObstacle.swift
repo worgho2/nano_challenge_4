@@ -17,7 +17,6 @@ class SquareObstacle: Obstacle {
     init(scene: GameScene?) {
         let node = scene?.childNode(withName: "squareObstacle")!
         super.init(node: node, scene: scene)
-        
         self.configurePhysics(on: self.node)
     }
     
