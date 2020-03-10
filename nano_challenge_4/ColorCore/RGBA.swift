@@ -6,14 +6,13 @@
 //  Copyright © 2019 Bruno Pastre. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class RGB {
     
-    var red: CGFloat // [0,1]
-    var green: CGFloat // [0,1]
-    var blue: CGFloat // [0,1]
+    var red: CGFloat
+    var green: CGFloat
+    var blue: CGFloat
     
     init(red: CGFloat, green: CGFloat, blue: CGFloat) {
         self.red = red
@@ -21,8 +20,7 @@ class RGB {
         self.blue = blue
     }
     
-    
-    init(fromHSV hsv: HSV){
+    init(fromHSV hsv: HSV) {
         let h = hsv.hue!, s = hsv.saturation!, v = hsv.value!
         if s == 0{
             self.red = v
@@ -73,7 +71,7 @@ class RGB {
         }
     }
     
-    func getMax() -> CGFloat{
+    func getMax() -> CGFloat {
         if self.red >= self.green && self.red >= self.blue{
             return self.red
         }
@@ -84,7 +82,7 @@ class RGB {
         return self.blue
     }
     
-    func getMin() -> CGFloat{
+    func getMin() -> CGFloat {
         if self.red <= self.green && self.red <= self.blue{
             return self.red
         }
@@ -95,13 +93,12 @@ class RGB {
         return self.blue
     }
     
-    func unpack() -> (CGFloat, CGFloat, CGFloat){
+    func unpack() -> (CGFloat, CGFloat, CGFloat) {
         return (self.red, self.green, self.blue)
     }
-
 }
 
-class RGBA: RGB{
+class RGBA: RGB {
     
     var alpha: CGFloat!
     
@@ -109,7 +106,6 @@ class RGBA: RGB{
         super.init(red: red, green: green, blue: blue)
         self.alpha = alpha
     }
-    
 }
 
 

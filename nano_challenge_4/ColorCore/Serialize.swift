@@ -10,26 +10,22 @@ import Foundation
 
 protocol Serializable: Codable {
     func serialize() -> Data?
-//    func deserialize(from data: Data?) -> Self?
 }
 
 extension Serializable {
-    func toBase64() -> String?{
+    func toBase64() -> String? {
         return self.serialize()!.base64EncodedString()
     }
 }
 
 extension Serializable {
-    func serialize() -> Data?{
+    func serialize() -> Data? {
         return try? JSONEncoder().encode(self)
     }
-    
-    static func deserialize(from data: Data?) -> Self?{
-//        let json = String(from: data, encoding: .utf8)
+    static func deserialize(from data: Data?) -> Self? {
         return try? JSONDecoder().decode(Self.self, from: data!)
     }
 }
-
 
 extension JSONEncoder {
     func encodeJSONObject<T: Encodable>(_ value: T, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {

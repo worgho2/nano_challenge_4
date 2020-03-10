@@ -11,48 +11,23 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     
-    weak var scene: SKScene?
-    
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     
+    weak var scene: GameScene?
+    
     private func loadScene() {
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
             scene.scaleMode = .aspectFill
+            
             scene.vc = self
+            scene.gameColorPalette = GameColorPalette(generator: PaletteGenerator(baseHSV: HSV(hue: CGFloat.random(in: 0...360), saturation: CGFloat.random(in: 0.5...1), value: 1)))
+            scene.backgroundColor = scene.gameColorPalette!.backgroundColor
             
             self.scene = scene
-            
             skView.presentScene(scene)
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-         
-        playButton.setTitle("Play", for: .normal)
-        pauseButton.isHidden = true
-        
-        loadScene()
-        
-        
-        
-        scene?.isPaused = true
-        
-        skView.ignoresSiblingOrder = true
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        self.view.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
-        self.skView.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
-        self.scene!.backgroundColor = (self.scene as! GameScene).colorPalleteGenerator.baseHSV.getUIColor()
     }
     
     @IBAction func onPlayButton(_ sender: Any) {
@@ -70,27 +45,46 @@ class GameViewController: UIViewController {
         pauseButton.isHidden = true
     }
     
-    //MARK: - Game Event Listener
-    
     func onGameStart() {
-        scene?.isPaused = false
+        scene?.realPaused = false
     }
     
     func onGamePause() {
-        scene?.isPaused = true
+        scene?.realPaused = true
     }
     
     func onGameOver() {
         loadScene()
-        scene?.isPaused = true
+        scene?.realPaused = true
         
         playButton.isHidden = false
         playButton.setTitle("Play", for: .normal)
         pauseButton.isHidden = true
     }
     
-    
     //MARK: - View Setup
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.backgroundColor = self.scene?.gameColorPalette?.backgroundColor
+        self.skView.backgroundColor = self.scene?.gameColorPalette?.backgroundColor
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+         
+        playButton.setTitle("Play", for: .normal)
+        pauseButton.isHidden = true
+        
+        loadScene()
+        
+        scene?.isPaused = true
+        
+        skView.ignoresSiblingOrder = true
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = false
+    }
     
     override var shouldAutorotate: Bool {
         return false

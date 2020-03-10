@@ -10,13 +10,20 @@
 		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
 		7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64122324128934005ABD82 /* SquareObstacle.swift */; };
 		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
-		7AB85A772416C41200A7FB68 /* GameColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A762416C41200A7FB68 /* GameColorScheme.swift */; };
 		7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A792416C55800A7FB68 /* UIColor.swift */; };
 		7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7C2416D38C00A7FB68 /* HSV.swift */; };
 		7AB85A812416D38D00A7FB68 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7D2416D38C00A7FB68 /* RGBA.swift */; };
 		7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7E2416D38C00A7FB68 /* Palette.swift */; };
 		7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7F2416D38D00A7FB68 /* Serialize.swift */; };
 		7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A842416D45E00A7FB68 /* PaletteGenerator.swift */; };
+		7AB85A872417C55D00A7FB68 /* GameColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */; };
+		7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */; };
+		7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */; };
+		7AB85A8F2417F74200A7FB68 /* StoragePW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8E2417F74200A7FB68 /* StoragePW.swift */; };
+		7AB85A922417FC9B00A7FB68 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A912417FC9B00A7FB68 /* Score.swift */; };
+		7AB85A942418054600A7FB68 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A932418054600A7FB68 /* TimeInterval.swift */; };
+		7AB85A962418055D00A7FB68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A952418055D00A7FB68 /* Int.swift */; };
+		7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */; };
 		7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C360240FF8300011F586 /* AppDelegate.swift */; };
 		7AC3C363240FF8300011F586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AC3C362240FF8300011F586 /* GameScene.sks */; };
 		7AC3C367240FF8300011F586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C366240FF8300011F586 /* GameScene.swift */; };
@@ -40,13 +47,20 @@
 		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
 		7A64122324128934005ABD82 /* SquareObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareObstacle.swift; sourceTree = "<group>"; };
 		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
-		7AB85A762416C41200A7FB68 /* GameColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColorScheme.swift; sourceTree = "<group>"; };
 		7AB85A792416C55800A7FB68 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7AB85A7C2416D38C00A7FB68 /* HSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
 		7AB85A7D2416D38C00A7FB68 /* RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
 		7AB85A7E2416D38C00A7FB68 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		7AB85A7F2416D38D00A7FB68 /* Serialize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialize.swift; sourceTree = "<group>"; };
 		7AB85A842416D45E00A7FB68 /* PaletteGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteGenerator.swift; sourceTree = "<group>"; };
+		7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColorPalette.swift; sourceTree = "<group>"; };
+		7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSpeedManager.swift; sourceTree = "<group>"; };
+		7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreManager.swift; sourceTree = "<group>"; };
+		7AB85A8E2417F74200A7FB68 /* StoragePW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragePW.swift; sourceTree = "<group>"; };
+		7AB85A912417FC9B00A7FB68 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		7AB85A932418054600A7FB68 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
+		7AB85A952418055D00A7FB68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredByGameState.swift; sourceTree = "<group>"; };
 		7AC3C35D240FF8300011F586 /* nano_challenge_4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nano_challenge_4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC3C360240FF8300011F586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC3C362240FF8300011F586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -82,6 +96,8 @@
 		7A60FA1A24157AF1009D9361 /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
+				7AB85A8E2417F74200A7FB68 /* StoragePW.swift */,
+				7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */,
 				7A641225241289B0005ABD82 /* PhysicsObject.swift */,
 				7AC3C37A24101A260011F586 /* ContactMask.swift */,
 				7AC3C37F24112F860011F586 /* SceneSupplicant.swift */,
@@ -95,7 +111,9 @@
 		7A60FA1B24157B07009D9361 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				7AB85A762416C41200A7FB68 /* GameColorScheme.swift */,
+				7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */,
+				7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */,
+				7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -104,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				7AB85A792416C55800A7FB68 /* UIColor.swift */,
+				7AB85A932418054600A7FB68 /* TimeInterval.swift */,
+				7AB85A952418055D00A7FB68 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -118,6 +138,14 @@
 				7AB85A7F2416D38D00A7FB68 /* Serialize.swift */,
 			);
 			path = ColorCore;
+			sourceTree = "<group>";
+		};
+		7AB85A902417FC8F00A7FB68 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				7AB85A912417FC9B00A7FB68 /* Score.swift */,
+			);
+			path = Score;
 			sourceTree = "<group>";
 		};
 		7AC3C354240FF8300011F586 = {
@@ -158,6 +186,7 @@
 				7AC3C38D241158480011F586 /* Drop */,
 				7AC3C38C2411583B0011F586 /* Wheel */,
 				7AC3C38B2411575F0011F586 /* Obstacle */,
+				7AB85A902417FC8F00A7FB68 /* Score */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,20 +312,27 @@
 				7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */,
 				7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */,
 				7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */,
+				7AB85A872417C55D00A7FB68 /* GameColorPalette.swift in Sources */,
 				7AC3C38224112FFB0011F586 /* Obstacle.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
+				7AB85A8F2417F74200A7FB68 /* StoragePW.swift in Sources */,
+				7AB85A922417FC9B00A7FB68 /* Score.swift in Sources */,
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
+				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
 				7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */,
+				7AB85A942418054600A7FB68 /* TimeInterval.swift in Sources */,
+				7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */,
 				7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */,
 				7AC3C38A241144CE0011F586 /* TouchSensitive.swift in Sources */,
 				7AC3C386241130520011F586 /* ObstacleSpawner.swift in Sources */,
 				7AC3C38F241166080011F586 /* Drop.swift in Sources */,
-				7AB85A772416C41200A7FB68 /* GameColorScheme.swift in Sources */,
 				7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */,
 				7AC3C37E24112F650011F586 /* Updateable.swift in Sources */,
+				7AB85A962418055D00A7FB68 /* Int.swift in Sources */,
 				7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */,
+				7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

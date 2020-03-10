@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject {
+class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState {
     
     static var next_id = 0
     
@@ -32,4 +32,8 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject {
     func touchUp(atPoint pos: CGPoint) { return }
     
     func configurePhysics(on node: SKNode) { return }
+    
+    func onGameStart() { return }
+    func onGamePause() { return }
+    func onGameOver() { return }
 }

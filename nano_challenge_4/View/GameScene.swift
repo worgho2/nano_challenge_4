@@ -7,19 +7,13 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    let colorPalleteGenerator = PaletteGenerator(baseHSV: HSV(hue: 0, saturation: 1, value: 1))
-    
     var vc: GameViewController?
+    var gameColorPalette: GameColorPalette?
     
-    private var lastUpdate: TimeInterval = TimeInterval(0)
-    
-    var wheel: Wheel!
-    var drop: Drop!
-    var obstacleSpawner: ObstacleSpawner!
+    private var lastUpdate = TimeInterval(0)
     
     let impactFeedback = UIImpactFeedbackGenerator()
     
@@ -28,27 +22,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.isPaused = realPaused
         }
     }
-    
     override var isPaused: Bool {
         didSet {
-            if (self.isPaused == false && self.realPaused == true) {
+            if (!self.isPaused && self.realPaused) {
                 self.isPaused = true
             }
         }
     }
     
+    var score: Score!
+    var wheel: Wheel!
+    var drop: Drop!
+    var obstacleSpawner: ObstacleSpawner!
+    
+    var gameSpeedManager: GameSpeedManager!
+    
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         
+        self.score = Score(scene: self, manager: GameScoreManager())
         self.wheel = Wheel(scene: self)
         self.drop = Drop(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self)
-        
-        
+        self.gameSpeedManager = GameSpeedManager()
     }
     
     func getBounds() -> CGRect {
         return CGRect(x: -self.scene!.size.width / 2, y: -self.scene!.size.height / 2, width: self.scene!.size.width / 2, height: self.scene!.size.height / 2 )
+    }
+    
+    private func getTriggeredsByGameState() -> [TriggeredByGameState] {
+        return [
+            self.score
+        ]
     }
     
     //MARK: - Updateable Protocol
@@ -60,25 +66,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func updateDeltaTime(_ currentTime: TimeInterval) -> TimeInterval? {
-           
-           if lastUpdate == 0 {
-               lastUpdate = currentTime
-               return nil
-           }
-
-           let deltaTime = currentTime - lastUpdate
-           self.lastUpdate = currentTime
-           
-           if deltaTime > 0.1 { return  nil }
-           
-           return deltaTime
+        
+        if lastUpdate == 0 {
+            lastUpdate = currentTime
+            return nil
+        }
+        
+        let deltaTime = currentTime - lastUpdate
+        self.lastUpdate = currentTime
+        
+        if deltaTime > 0.1 { return  nil }
+        
+        return deltaTime
     }
     
     private func getUpdatables() -> [Updateable] {
-       return [
-           self.wheel,
-           self.obstacleSpawner
-       ]
+        return [
+            self.score,
+            self.wheel,
+            self.obstacleSpawner,
+            self.gameSpeedManager
+        ]
     }
     
     // MARK: - Physics methods
@@ -100,14 +108,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
-        print("[COLISION: \(painterNode.name!) -> \(obstacleNode.name!)]")
+        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
         
-        guard let painter = painterNode as? SKShapeNode else {
-            fatalError()
+        guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
+        guard let obstacleNode = obstacleNode as? SKSpriteNode else { fatalError() }
+        
+        if painterNode.fillColor == obstacleNode.color {
+            self.vc?.onGameOver()
+            return
         }
         
-        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
-        obstacle.onCollision(withPanterColor: painter.fillColor)
+        print("[COLLISION] \(painterNode.name!) -> \(obstacleNode.name!)")
+        
+        obstacle.onCollision(paintWith: self.gameColorPalette!.backgroundColor)
+        self.score.incrementObstacleHighScore()
     }
     
     // MARK: - Touch callbacks
@@ -123,7 +137,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchUp(atPoint pos : CGPoint) {
-       self.getTouchSensitives().forEach { $0.touchUp(atPoint: pos) }
+        self.getTouchSensitives().forEach { $0.touchUp(atPoint: pos) }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -38,7 +38,7 @@ class Wheel: GameObject {
         self.setupWheelBackground()
     }
     
-    private func getRotationDirection() -> RotationDirection {
+    private func getRotationDirection() -> RotationDirection {//problema aqui
         return isTouching.right ? .right : (isTouching.left ? .left : .none)
     }
     
@@ -48,19 +48,18 @@ class Wheel: GameObject {
         leftPainterNode.position = CGPoint(x: -100, y: 0)
         leftPainterNode.strokeColor = .clear
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = self.scene.colorPalleteGenerator.getTriad()[1].getUIColor()
+        leftPainterNode.fillColor = self.scene.gameColorPalette!.leftColor
         self.configurePhysics(on: leftPainterNode)
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
         rightPainterNode.position = CGPoint(x: 100, y: 0)
-        rightPainterNode.fillColor = self.scene.colorPalleteGenerator.getTriad()[3].getUIColor()
+        rightPainterNode.fillColor = self.scene.gameColorPalette!.rightColor
         self.configurePhysics(on: rightPainterNode)
         
         self.node.addChild(leftPainterNode)
         self.node.addChild(rightPainterNode)
     }
-    
     
     private func setupWheelBackground() {
         let circleNode = SKShapeNode(circleOfRadius: 100)
@@ -113,7 +112,7 @@ class Wheel: GameObject {
     //MARK: - UPDATEABLE PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let rotation = CGFloat(deltaTime) * CGFloat.pi / 2 * self.getRotationDirection().multiplier * 5
+        let rotation = CGFloat(deltaTime) * 2 * CGFloat.pi * self.getRotationDirection().multiplier
         self.node.zRotation += rotation
     }
 }

@@ -6,21 +6,14 @@
 //  Copyright © 2019 Bruno Pastre. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class BallView: UIView {
     var hsv: HSV!
 }
 
-
-
-class HSV: NSObject, NSCoding, Serializable{
+class HSV: NSObject, NSCoding, Serializable {
     
-    required init(fromJSON: Data?) {
-        
-    }
-
     static let HUE_CEILING: CGFloat = 360
     static let HUE_FLOOR: CGFloat = 0
     
@@ -67,43 +60,48 @@ class HSV: NSObject, NSCoding, Serializable{
         self.isFavorite = (aDecoder.decodeObject(forKey: "isFavorite") as! Bool)
     }
     
+    required init(fromJSON: Data?) {
+        
+    }
     
-    func rotated(by degrees: CGFloat) -> HSV{
+    func rotated(by degrees: CGFloat) -> HSV {
         return HSV(hue: self.hue + degrees < 0 ? (self.hue + degrees) + 360 : self.hue + degrees, saturation: self.saturation, value: self.value)
     }
     
-    func rotatedClockwise(by degrees: CGFloat) -> HSV{
+    func rotatedClockwise(by degrees: CGFloat) -> HSV {
         return HSV(hue: self.hue - degrees < 0 ? (self.hue - degrees) + 360 : self.hue - degrees, saturation: self.saturation, value: self.value)
     }
     
-    func rotatedAntiClockwise(by degrees: CGFloat) -> HSV{
+    func rotatedAntiClockwise(by degrees: CGFloat) -> HSV {
         return HSV(hue: self.hue + degrees > 360 ? (self.hue + degrees).truncatingRemainder(dividingBy: 360) : self.hue + degrees , saturation: self.saturation, value: self.value)
     }
     
-    func saturated(by offset: CGFloat) -> HSV{
+    func saturated(by offset: CGFloat) -> HSV {
         return HSV(hue: self.hue, saturation: self.saturation + offset > 1 ? 1 : self.saturation + offset, value: self.value)
     }
     
-    func valued(by value: CGFloat) -> HSV{
+    func valued(by value: CGFloat) -> HSV {
         return HSV(hue: self.hue, saturation: self.saturation, value: self.value + value > 1 ? 1 : self.value + value)
     }
     
-    func withRotation(angle: CGFloat) -> HSV{
+    func withRotation(angle: CGFloat) -> HSV {
         return HSV(hue: angle, saturation: self.saturation, value: self.value)
     }
-    func withSaturation(saturation: CGFloat) -> HSV{
+    
+    func withSaturation(saturation: CGFloat) -> HSV {
         return HSV(hue: self.hue, saturation: saturation < 0 ? 0 : saturation, value: self.value)
     }
-    func withValue(value: CGFloat) -> HSV{
+    
+    func withValue(value: CGFloat) -> HSV {
         return HSV(hue: self.hue, saturation: self.saturation, value: value <  0 ? 0 : value )
     }
     //
-   static func getSaturation(from rgb: RGB) -> CGFloat {
+    static func getSaturation(from rgb: RGB) -> CGFloat {
         let max = rgb.getMax(), min = rgb.getMin()
         return CGFloat((max - min) / max).isNaN ? CGFloat(0) : CGFloat((max - min) / max)
     }
     
-    static func getHue(from rgb: RGB) -> CGFloat{
+    static func getHue(from rgb: RGB) -> CGFloat {
         var r: CGFloat, g: CGFloat, b: CGFloat
         (r, g, b) = rgb.unpack()
         let max = rgb.getMax()
@@ -125,7 +123,8 @@ class HSV: NSObject, NSCoding, Serializable{
         assert(!ret.isNaN, "Deu NaN irmao")
         return ret
     }
-    func getUIColor() -> UIColor{
+    
+    func getUIColor() -> UIColor {
         return UIColor(hue: self.hue / 360, saturation: self.saturation, brightness: self.value, alpha: 1)
     }
     
@@ -136,7 +135,7 @@ class HSV: NSObject, NSCoding, Serializable{
         aCoder.encode(self.isFavorite, forKey: "isFavorite")
     }
     
-    func asCircularView(radius ballRadius: CGFloat = 50) -> UIView{
+    func asCircularView(radius ballRadius: CGFloat = 50) -> UIView {
         //        let ballRadius:  = 50
         let ballView = BallView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         //                ballView.clipsToBounds = true
@@ -152,18 +151,18 @@ class HSV: NSObject, NSCoding, Serializable{
         return ballView
     }
     
-    func getDescriptiveHex() -> String{
+    func getDescriptiveHex() -> String {
         let rgb = RGB(fromHSV: self)
         let r = Int(rgb.red * 255), g = Int(rgb.green * 255), b = Int(rgb.blue * 255)
 
-        print(self.hue, self.saturation, self.value)
+        print(self.hue!, self.saturation!, self.value!)
         print(r, g, b)
     
         return (String(format: "%02X%02X%02X", r, g, b))
         
     }
     
-    static func == (lhs: HSV, rhs: HSV) -> Bool{
+    static func == (lhs: HSV, rhs: HSV) -> Bool {
         return lhs.hue == rhs.hue && lhs.saturation == rhs.saturation && lhs.value == rhs.value
     }
 }

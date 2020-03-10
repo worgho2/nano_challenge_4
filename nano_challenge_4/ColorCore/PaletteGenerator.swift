@@ -6,7 +6,6 @@
 //  Copyright © 2019 Bruno Pastre. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class PaletteGenerator {
@@ -60,7 +59,6 @@ class PaletteGenerator {
         let farLeft = self.baseHSV.rotatedClockwise(by: 2 * angleOffset).withValue(value: value).withSaturation(saturation: saturation)
         let farRight = self.baseHSV.rotatedAntiClockwise(by: 2 * angleOffset).withSaturation(saturation: saturation).withValue(value: value)
         
-        //        let closeLeft = HSV(hue: self.baseHSV, saturation: <#T##CGFloat?#>, value: <#T##CGFloat?#>)
         return [
             farLeft,
             closeLeft,
@@ -85,22 +83,6 @@ class PaletteGenerator {
             darkerLeft
         ]
     }
-    
-    
-    //    func getTriad() -> [HSV] {
-    //        /*
-    //         formula: H1 = |(H0 + 120 degrees) - 360 degrees|
-    //         formula: H2 = |(H0 + 240 degrees) - 360 degrees|
-    //        */
-    //
-    //        return [
-    //            self.baseHSV.rotated(by: <#T##CGFloat#>)
-    //            self.baseHSV
-    //        ]
-    //
-    //
-    //    }
-    
     
 }
 

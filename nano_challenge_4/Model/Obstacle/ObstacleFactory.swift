@@ -36,6 +36,14 @@ enum ObstacleType: CaseIterable {
     }
 }
 
+enum ObstacleColor: CaseIterable {
+    case leftColor
+    case rightColor
+    
+    static func random() -> ObstacleColor {
+        ObstacleColor.allCases.randomElement()!
+    }
+}
 
 
 class ObstacleFactory: SceneSupplicant {
@@ -51,8 +59,8 @@ class ObstacleFactory: SceneSupplicant {
         self.squareBaseNode = SquareObstacle(scene: self.scene).node
     }
 
-    private func getNode(type: ObstacleType, orientation: ObstacleOrientation, position: ObstaclePosition) -> SKNode {
-        let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKNode
+    private func getNode(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> SKNode {
+        let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKSpriteNode
         let nodeRotation: CGFloat = (orientation == .horizontal ? 0 : CGFloat.pi/2)
         var nodePosition: CGPoint = CGPoint(x: 0, y: 0)
         let bounds = self.scene.getBounds()
@@ -79,13 +87,15 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
+        node.color = (color == .leftColor ? self.scene.gameColorPalette?.leftColor : self.scene.gameColorPalette?.rightColor)!
         
         return node
     }
     
-    func getNewObstacle(type: ObstacleType, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
-        print("[SPAWN OBSTACLE: \(type) - \(orientation) - \(position)]")
-        let node = self.getNode(type: type, orientation: orientation, position: position)
+    func getNewObstacle(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
+        print("[SPAWN OBSTACLE] \(type) - \(orientation) - \(position)")
+        
+        let node = self.getNode(type: type, color: color, orientation: orientation, position: position)
         return type == .rectangle ? RectangleObstacle(node: node, scene: self.scene) : SquareObstacle(node: node, scene: self.scene)
     }
 
