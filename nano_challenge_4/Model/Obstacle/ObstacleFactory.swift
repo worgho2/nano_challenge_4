@@ -58,6 +58,8 @@ class ObstacleFactory: SceneSupplicant {
         self.rectangleBaseNode = RectangleObstacle(scene: self.scene).node
         self.squareBaseNode = SquareObstacle(scene: self.scene).node
     }
+    
+    //MARK: - Class Methods
 
     private func getNode(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> SKNode {
         let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKSpriteNode

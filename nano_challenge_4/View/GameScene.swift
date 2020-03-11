@@ -14,7 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameColorPalette: GameColorPalette?
     
     private var lastUpdate = TimeInterval(0)
-    
+
     let impactFeedback = UIImpactFeedbackGenerator()
     
     var realPaused: Bool = false {
@@ -34,8 +34,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var wheel: Wheel!
     var drop: Drop!
     var obstacleSpawner: ObstacleSpawner!
-    
     var gameSpeedManager: GameSpeedManager!
+    
+    //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
@@ -47,24 +48,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameSpeedManager = GameSpeedManager()
     }
     
-    func getBounds() -> CGRect {
-        return CGRect(x: -self.scene!.size.width / 2, y: -self.scene!.size.height / 2, width: self.scene!.size.width / 2, height: self.scene!.size.height / 2 )
-    }
-    
-    private func getTriggeredsByGameState() -> [TriggeredByGameState] {
-        return [
-            self.score
-        ]
-    }
-    
-    //MARK: - Updateable Protocol
-    
     override func update(_ currentTime: TimeInterval) {
         guard let deltaTime = self.updateDeltaTime(currentTime) else { return }
         
         self.getUpdatables().forEach { $0.update(deltaTime) }
     }
-    
     private func updateDeltaTime(_ currentTime: TimeInterval) -> TimeInterval? {
         
         if lastUpdate == 0 {
@@ -80,6 +68,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return deltaTime
     }
     
+    private func getTriggeredsByGameState() -> [TriggeredByGameState] {
+        return [
+            self.score
+        ]
+    }
+    private func getTouchSensitives() -> [TouchSensitive] {
+        return [
+            self.wheel
+        ]
+    }
     private func getUpdatables() -> [Updateable] {
         return [
             self.score,
@@ -89,7 +87,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ]
     }
     
-    // MARK: - Physics methods
+    func onGameStart() {
+        self.realPaused = false
+        self.getTriggeredsByGameState().forEach { $0.onGameStart() }
+    }
+    func onGamePause() {
+        self.realPaused = true
+        self.getTriggeredsByGameState().forEach { $0.onGamePause() }
+    }
+    func onGameOver() {
+        self.realPaused = true
+        self.getTriggeredsByGameState().forEach { $0.onGameOver() }
+    }
+    
+    // MARK: - Physics Methods
     
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
@@ -106,7 +117,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.onCollision(nodeB, nodeA)
         }
     }
-    
     func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
         let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
         
@@ -124,28 +134,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.score.incrementObstacleHighScore()
     }
     
-    // MARK: - Touch callbacks
-    
-    private func getTouchSensitives() -> [TouchSensitive] {
-        return [
-            self.wheel
-        ]
-    }
-    
-    func touchDown(atPoint pos : CGPoint) {
-        self.getTouchSensitives().forEach { $0.touchDown(atPoint: pos) }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        self.getTouchSensitives().forEach { $0.touchUp(atPoint: pos) }
-    }
+    // MARK: - Touch Callbacks
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for t in touches { self.getTouchSensitives().forEach { $0.touchDown(atPoint: t.location(in: self)) } }
     }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for t in touches { self.getTouchSensitives().forEach { $0.touchUp(atPoint: t.location(in: self)) } }
     }
-    
 }

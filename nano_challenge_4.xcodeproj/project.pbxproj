@@ -19,7 +19,7 @@
 		7AB85A872417C55D00A7FB68 /* GameColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */; };
 		7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */; };
 		7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */; };
-		7AB85A8F2417F74200A7FB68 /* StoragePW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8E2417F74200A7FB68 /* StoragePW.swift */; };
+		7AB85A8F2417F74200A7FB68 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8E2417F74200A7FB68 /* Storage.swift */; };
 		7AB85A922417FC9B00A7FB68 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A912417FC9B00A7FB68 /* Score.swift */; };
 		7AB85A942418054600A7FB68 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A932418054600A7FB68 /* TimeInterval.swift */; };
 		7AB85A962418055D00A7FB68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A952418055D00A7FB68 /* Int.swift */; };
@@ -41,6 +41,7 @@
 		7AC3C388241130700011F586 /* Wheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C387241130700011F586 /* Wheel.swift */; };
 		7AC3C38A241144CE0011F586 /* TouchSensitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C389241144CE0011F586 /* TouchSensitive.swift */; };
 		7AC3C38F241166080011F586 /* Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C38E241166080011F586 /* Drop.swift */; };
+		7AE988B724191F67002AD679 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE988B624191F67002AD679 /* SKScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +57,7 @@
 		7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColorPalette.swift; sourceTree = "<group>"; };
 		7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSpeedManager.swift; sourceTree = "<group>"; };
 		7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreManager.swift; sourceTree = "<group>"; };
-		7AB85A8E2417F74200A7FB68 /* StoragePW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragePW.swift; sourceTree = "<group>"; };
+		7AB85A8E2417F74200A7FB68 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		7AB85A912417FC9B00A7FB68 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		7AB85A932418054600A7FB68 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		7AB85A952418055D00A7FB68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		7AC3C387241130700011F586 /* Wheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wheel.swift; sourceTree = "<group>"; };
 		7AC3C389241144CE0011F586 /* TouchSensitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchSensitive.swift; sourceTree = "<group>"; };
 		7AC3C38E241166080011F586 /* Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drop.swift; sourceTree = "<group>"; };
+		7AE988B624191F67002AD679 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,13 +98,10 @@
 		7A60FA1A24157AF1009D9361 /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
-				7AB85A8E2417F74200A7FB68 /* StoragePW.swift */,
-				7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */,
-				7A641225241289B0005ABD82 /* PhysicsObject.swift */,
+				7AE988B9241924B6002AD679 /* Protocols */,
+				7AE988B8241923E4002AD679 /* PropertyWrappers */,
+				7AB85A782416C54100A7FB68 /* Extensions */,
 				7AC3C37A24101A260011F586 /* ContactMask.swift */,
-				7AC3C37F24112F860011F586 /* SceneSupplicant.swift */,
-				7AC3C389241144CE0011F586 /* TouchSensitive.swift */,
-				7AC3C37D24112F650011F586 /* Updateable.swift */,
 				7AC3C378240FFC370011F586 /* GameObject.swift */,
 			);
 			path = Abstract;
@@ -124,6 +123,7 @@
 				7AB85A792416C55800A7FB68 /* UIColor.swift */,
 				7AB85A932418054600A7FB68 /* TimeInterval.swift */,
 				7AB85A952418055D00A7FB68 /* Int.swift */,
+				7AE988B624191F67002AD679 /* SKScene.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -170,10 +170,9 @@
 				7AC3C360240FF8300011F586 /* AppDelegate.swift */,
 				7AC3C36D240FF8310011F586 /* Assets.xcassets */,
 				7AC3C372240FF8310011F586 /* Info.plist */,
-				7AB85A7B2416D1ED00A7FB68 /* ColorCore */,
 				7AC3C37C24112EEB0011F586 /* Model */,
 				7AC3C39024116EDC0011F586 /* View */,
-				7AB85A782416C54100A7FB68 /* Extensions */,
+				7AE988BA24192510002AD679 /* Modules */,
 			);
 			path = nano_challenge_4;
 			sourceTree = "<group>";
@@ -181,12 +180,12 @@
 		7AC3C37C24112EEB0011F586 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A60FA1B24157B07009D9361 /* Game */,
 				7A60FA1A24157AF1009D9361 /* Abstract */,
+				7A60FA1B24157B07009D9361 /* Game */,
 				7AC3C38D241158480011F586 /* Drop */,
 				7AC3C38C2411583B0011F586 /* Wheel */,
-				7AC3C38B2411575F0011F586 /* Obstacle */,
 				7AB85A902417FC8F00A7FB68 /* Score */,
+				7AC3C38B2411575F0011F586 /* Obstacle */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,6 +228,34 @@
 				7AC3C362240FF8300011F586 /* GameScene.sks */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7AE988B8241923E4002AD679 /* PropertyWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				7AB85A8E2417F74200A7FB68 /* Storage.swift */,
+			);
+			path = PropertyWrappers;
+			sourceTree = "<group>";
+		};
+		7AE988B9241924B6002AD679 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */,
+				7A641225241289B0005ABD82 /* PhysicsObject.swift */,
+				7AC3C37F24112F860011F586 /* SceneSupplicant.swift */,
+				7AC3C389241144CE0011F586 /* TouchSensitive.swift */,
+				7AC3C37D24112F650011F586 /* Updateable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7AE988BA24192510002AD679 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				7AB85A7B2416D1ED00A7FB68 /* ColorCore */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,6 +336,7 @@
 				7AC3C369240FF8300011F586 /* GameViewController.swift in Sources */,
 				7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */,
 				7AC3C37B24101A260011F586 /* ContactMask.swift in Sources */,
+				7AE988B724191F67002AD679 /* SKScene.swift in Sources */,
 				7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */,
 				7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */,
 				7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */,
@@ -316,7 +344,7 @@
 				7AC3C38224112FFB0011F586 /* Obstacle.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
-				7AB85A8F2417F74200A7FB68 /* StoragePW.swift in Sources */,
+				7AB85A8F2417F74200A7FB68 /* Storage.swift in Sources */,
 				7AB85A922417FC9B00A7FB68 /* Score.swift in Sources */,
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,

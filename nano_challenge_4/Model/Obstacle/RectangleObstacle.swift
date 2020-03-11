@@ -20,10 +20,14 @@ class RectangleObstacle: Obstacle {
         self.configurePhysics(on: self.node)
     }
     
+    //MARK: - Class Methods
+    
     override func shouldDespawn() -> Bool {
         return self.node.position.y > self.scene.getBounds().height + 200
         // ajustar para o tamanho do retangulo
     }
+    
+    //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
         let body = SKPhysicsBody(rectangleOf: .init(width: 250, height: 70))
@@ -38,5 +42,4 @@ class RectangleObstacle: Obstacle {
         
         self.node.physicsBody = body
     }
-    
 }

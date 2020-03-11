@@ -11,37 +11,33 @@ import SpriteKit
 class GameSpeedManager: Updateable {
     
     private var currentSpeed: CGFloat!
-    var currentAngle: CGFloat! = -.pi/2
-    let acceleration: CGFloat = 0.1 //0.01
+    let acceleration: CGFloat = 5
     let maxVelocity: CGFloat = 600
     let minVelocity: CGFloat = 200
-    var radius: CGFloat!
     
     init() {
         self.configure()
     }
     
-    private func configure() {
-        self.currentSpeed = 300// minVelocity
-        self.currentAngle = -1
-        self.radius = (maxVelocity - minVelocity) / 2
-    }
+    //MARK: - Class Methods
     
+    private func configure() {
+        self.currentSpeed = minVelocity
+    }
     func getCurrentSpeed() -> CGFloat {
         return self.currentSpeed
     }
-
+    func getProgress() -> CGFloat {
+        return ( (maxVelocity + currentSpeed) / (maxVelocity - minVelocity) ) - 2
+    }
+    
+    //MARK: - Updateable PROTOCOL
+    
     func update(_ deltaTime: TimeInterval) {
         if self.currentSpeed >= self.maxVelocity { return }
-        self.currentAngle += self.acceleration * CGFloat(deltaTime)
-        self.currentSpeed = ((sin(self.currentAngle) + 1 ) * self.radius) + self.minVelocity
-    }
-    
-    func getProgress() -> CGFloat {
-         return (self.maxVelocity - self.getCurrentSpeed()) / self.maxVelocity
-    }
-    
-    func onGameOver() {
-        self.configure()
+        
+        self.currentSpeed += self.acceleration * CGFloat(deltaTime)
+        print("[progress] - \(self.getProgress()) - \(self.getCurrentSpeed())")
+
     }
 }

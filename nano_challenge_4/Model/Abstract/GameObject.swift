@@ -24,14 +24,24 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
         self.scene = scene
     }
     
+    //MARK: - Class Methods
+    
     func shouldDespawn() -> Bool { return false }
     
+    //MARK: - Updateable PROTOCOL
+    
     func update(_ deltaTime: TimeInterval) { return }
+    
+    //MARK: - TouchSensitive PROTOCOL
     
     func touchDown(atPoint pos: CGPoint) { return }
     func touchUp(atPoint pos: CGPoint) { return }
     
+    //MARK: - PhysicsObject PROTOCOL
+    
     func configurePhysics(on node: SKNode) { return }
+    
+    //MARK: - TriggeredByGameState PROTOCOL
     
     func onGameStart() { return }
     func onGamePause() { return }

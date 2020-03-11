@@ -20,10 +20,14 @@ class SquareObstacle: Obstacle {
         self.configurePhysics(on: self.node)
     }
     
+    //MARK: - Class Methods
+    
     override func shouldDespawn() -> Bool {
         return self.node.position.y > self.scene.getBounds().height + 50
         // ajustar para o tamanho do quadrado
     }
+    
+    //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
         let body = SKPhysicsBody(rectangleOf: .init(width: 100, height: 100))
@@ -38,5 +42,4 @@ class SquareObstacle: Obstacle {
         
         self.node.physicsBody = body
     }
-    
 }

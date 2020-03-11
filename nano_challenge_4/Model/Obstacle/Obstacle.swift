@@ -15,11 +15,7 @@ class Obstacle: GameObject {
         self.node.zPosition = -1
     }
     
-    override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.scene.gameSpeedManager.getCurrentSpeed()
-        
-        self.node.position.y += dY
-    }
+    //MARK: - Class Methods
     
     func onCollision(paintWith color: UIColor) {
         guard let node = self.node as? SKSpriteNode else { fatalError() }
@@ -42,4 +38,10 @@ class Obstacle: GameObject {
         self.scene?.impactFeedback.impactOccurred()
     }
     
+    //MARK: - Updateable PROTOCOL
+    
+    override func update(_ deltaTime: TimeInterval) {
+        let dY = CGFloat(deltaTime) * self.scene.gameSpeedManager.getCurrentSpeed()
+        self.node.position.y += dY
+    }
 }

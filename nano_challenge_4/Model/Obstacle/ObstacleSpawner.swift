@@ -14,7 +14,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
     var obstacleFactory: ObstacleFactory!
     var obstacles: [Obstacle]!
     
-    private let spawnThreshold = TimeInterval(1)
+    private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
     
     init(scene: GameScene?) {
@@ -23,8 +23,23 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
         self.obstacles = [Obstacle]()
     }
     
+    //MARK: - Class Methods
+
+    func spawn() {
+        let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), color: ObstacleColor.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
+        
+        self.obstacles.append(newObstacle)
+        self.scene.addChild(newObstacle.node)
+    }
+    func getObstacleBy(node: SKNode) -> Obstacle {
+        return obstacles.first(where: {$0.node == node})!
+    }
+    
+    //MARK: - Updateable PROTOCOL
+    
     func update(_ deltaTime: TimeInterval) {
         self.currentSpawnTimer += deltaTime
+        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.scene.gameSpeedManager.getProgress())
         
         self.obstacles.forEach { $0.update(deltaTime) }
         
@@ -41,15 +56,5 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
             }
         }
     }
-
-    func spawn() {
-        let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), color: ObstacleColor.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
-        
-        self.obstacles.append(newObstacle)
-        self.scene.addChild(newObstacle.node)
-    }
-    
-    func getObstacleBy(node: SKNode) -> Obstacle {
-        return obstacles.first(where: {$0.node == node})!
-    }
 }
+

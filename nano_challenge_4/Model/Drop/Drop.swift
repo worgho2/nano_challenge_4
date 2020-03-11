@@ -17,6 +17,8 @@ class Drop: GameObject {
         self.configurePhysics(on: self.node)
     }
     
+    //MARK: - PhysicsObject PROTOCOL
+    
     override func configurePhysics(on node: SKNode) {
         let texture = SKTexture(imageNamed: "drop")
         let body = SKPhysicsBody(texture: texture, size: CGSize(width: 40, height: 40))

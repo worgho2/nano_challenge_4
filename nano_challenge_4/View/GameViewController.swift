@@ -12,13 +12,20 @@ import SpriteKit
 class GameViewController: UIViewController {
     
     @IBOutlet weak var skView: SKView!
+    
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     
+    @IBOutlet weak var highScoreObstacleLabel: UILabel!
+    @IBOutlet weak var highScoreTimeLabel: UILabel!
+    
     weak var scene: GameScene?
+    
+    //MARK: - Class Methods
     
     private func loadScene() {
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
+            scene.realPaused = true
             scene.scaleMode = .aspectFill
             
             scene.vc = self
@@ -26,17 +33,14 @@ class GameViewController: UIViewController {
             scene.backgroundColor = scene.gameColorPalette!.backgroundColor
             
             self.scene = scene
+            skView.isMultipleTouchEnabled = true
             skView.presentScene(scene)
         }
     }
     
     @IBAction func onPlayButton(_ sender: Any) {
         onGameStart()
-        
-        playButton.isHidden = true
-        pauseButton.isHidden = false
     }
-    
     @IBAction func onPauseButton(_ sender: Any) {
         onGamePause()
         
@@ -46,17 +50,28 @@ class GameViewController: UIViewController {
     }
     
     func onGameStart() {
-        scene?.realPaused = false
-    }
-    
-    func onGamePause() {
-        scene?.realPaused = true
-    }
-    
-    func onGameOver() {
-        loadScene()
-        scene?.realPaused = true
+        self.scene?.onGameStart()
         
+        playButton.isHidden = true
+        pauseButton.isHidden = false
+        
+        highScoreObstacleLabel.isHidden = true
+        highScoreTimeLabel.isHidden = true
+    }
+    func onGamePause() {
+        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
+        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+        highScoreObstacleLabel.isHidden = false
+        highScoreTimeLabel.isHidden = false
+        self.scene?.onGamePause()
+    }
+    func onGameOver() {
+        self.scene?.onGameOver()
+        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
+        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+        highScoreObstacleLabel.isHidden = false
+        highScoreTimeLabel.isHidden = false
+        loadScene()
         playButton.isHidden = false
         playButton.setTitle("Play", for: .normal)
         pauseButton.isHidden = true
@@ -68,8 +83,10 @@ class GameViewController: UIViewController {
         super.viewDidAppear(animated)
         self.view.backgroundColor = self.scene?.gameColorPalette?.backgroundColor
         self.skView.backgroundColor = self.scene?.gameColorPalette?.backgroundColor
+        
+        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
+        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -85,11 +102,9 @@ class GameViewController: UIViewController {
         skView.showsNodeCount = true
         skView.showsPhysics = false
     }
-    
     override var shouldAutorotate: Bool {
         return false
     }
-
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -97,7 +112,6 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
     override var prefersStatusBarHidden: Bool {
         return true
     }

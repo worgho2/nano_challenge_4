@@ -38,8 +38,23 @@ class Wheel: GameObject {
         self.setupWheelBackground()
     }
     
+    //MARK: - Class Methods
+    
     private func getRotationDirection() -> RotationDirection {//problema aqui
-        return isTouching.right ? .right : (isTouching.left ? .left : .none)
+        
+        if isTouching.right && isTouching.left {
+            return .left
+        }
+        
+        if isTouching.left {
+            return .left
+        }
+        
+        if isTouching.right {
+            return .right
+        }
+        
+        return .none
     }
     
     private func setupPainters() {
@@ -60,7 +75,6 @@ class Wheel: GameObject {
         self.node.addChild(leftPainterNode)
         self.node.addChild(rightPainterNode)
     }
-    
     private func setupWheelBackground() {
         let circleNode = SKShapeNode(circleOfRadius: 100)
         
@@ -75,7 +89,7 @@ class Wheel: GameObject {
         self.node.addChild(circleNode)
     }
     
-    //MARK: - PHYSICS OBJECT PROTOCOL
+    //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
         let body = SKPhysicsBody(circleOfRadius: 20)
@@ -91,16 +105,17 @@ class Wheel: GameObject {
         node.physicsBody = body
     }
     
-    //MARK: - TOUCH SENSITIVE PROTOCOL
+    //MARK: - TouchSensitive PROTOCOL
     
     override func touchDown(atPoint pos: CGPoint) {
         if pos.x > 0 {
             self.isTouching.right = true
+            self.isTouching.left = false
         } else {
             self.isTouching.left = true
+            self.isTouching.right = false
         }
     }
-    
     override func touchUp(atPoint pos: CGPoint) {
         if pos.x > 0 {
             self.isTouching.right = false
@@ -109,7 +124,7 @@ class Wheel: GameObject {
         }
     }
     
-    //MARK: - UPDATEABLE PROTOCOL
+    //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
         let rotation = CGFloat(deltaTime) * 2 * CGFloat.pi * self.getRotationDirection().multiplier
