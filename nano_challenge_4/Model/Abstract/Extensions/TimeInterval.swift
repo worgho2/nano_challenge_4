@@ -10,6 +10,6 @@ import Foundation
 
 extension TimeInterval {
     func asString() -> String {
-        return String(self)
+        return String(format: "%.02f", self)
     }
 }

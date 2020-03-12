@@ -31,7 +31,7 @@ class Wheel: GameObject {
     
     init(scene: GameScene?) {
         let node = scene?.childNode(withName: "wheelNode")!
-        
+        node?.position = CGPoint(x: 0, y: 0)
         super.init(node: node, scene: scene)
         
         self.setupPainters()
@@ -40,7 +40,7 @@ class Wheel: GameObject {
     
     //MARK: - Class Methods
     
-    private func getRotationDirection() -> RotationDirection {//problema aqui
+    private func getRotationDirection() -> RotationDirection {
         
         if isTouching.right && isTouching.left {
             return .left
@@ -60,7 +60,7 @@ class Wheel: GameObject {
     private func setupPainters() {
         let leftPainterNode = SKShapeNode(circleOfRadius: 20)
         leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -100, y: 0)
+        leftPainterNode.position = CGPoint(x: -95, y: 0)
         leftPainterNode.strokeColor = .clear
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = self.scene.gameColorPalette!.leftColor
@@ -68,15 +68,16 @@ class Wheel: GameObject {
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: 100, y: 0)
+        rightPainterNode.position = CGPoint(x: 95, y: 0)
         rightPainterNode.fillColor = self.scene.gameColorPalette!.rightColor
         self.configurePhysics(on: rightPainterNode)
         
         self.node.addChild(leftPainterNode)
         self.node.addChild(rightPainterNode)
     }
+    
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: 100)
+        let circleNode = SKShapeNode(circleOfRadius: 95)
         
         circleNode.position = .zero
         circleNode.strokeColor = .black
@@ -129,5 +130,17 @@ class Wheel: GameObject {
     override func update(_ deltaTime: TimeInterval) {
         let rotation = CGFloat(deltaTime) * 2 * CGFloat.pi * self.getRotationDirection().multiplier
         self.node.zRotation += rotation
+    }
+    
+    //MARK: - TriggeredByGameState PROTOCOL
+    
+    override func onGameStart() {
+        self.node.run(.move(to: CGPoint(x: 0, y: 140), duration: 0.4))
+        self.node.run(.rotate(byAngle: 2*CGFloat.pi, duration: 0.4))
+    }
+    
+    override func onGameOver() {
+        self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
+        self.node.run(.rotate(toAngle: 0, duration: 0.4))
     }
 }

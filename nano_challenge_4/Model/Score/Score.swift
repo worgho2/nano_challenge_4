@@ -20,40 +20,54 @@ class Score: GameObject {
     
     init(scene: GameScene?, manager: GameScoreManager) {
         let node = scene?.childNode(withName: "scoreNode")!
-        node?.position = CGPoint(x: 0, y: 400)
+        node?.position = CGPoint(x: 0, y: 310)
+        node?.alpha = 0
         super.init(node: node, scene: scene)
         
-        self.currentTimeHighScore = 0.0
-        self.currentObstacleHighScore = 0
-        
         self.gameScoreManager = manager
-        self.setupScores()
+        
+        self.setupHighScoreNodes()
+        self.setupCurrentHighScores()
     }
     
     //MARK: - Class Methods
     
-    private func setupScores() {
-        self.timeHighScoreNode = SKLabelNode(text: String(format: "%.02f", self.gameScoreManager.getHighScore().time))
+    private func setupHighScoreNodes() {
+        self.timeHighScoreNode = SKLabelNode(text: "Time: 0.00s")
         
         timeHighScoreNode.name = "timeHighScore"
-        timeHighScoreNode.position = CGPoint(x: -120, y: 0)
         timeHighScoreNode.fontColor = .black
+        timeHighScoreNode.fontName = "SF-mono-regular"
+        timeHighScoreNode.fontSize = 20
+        timeHighScoreNode.horizontalAlignmentMode = .left
+        timeHighScoreNode.verticalAlignmentMode = .center
+        timeHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2, y: 0)
         timeHighScoreNode.zPosition = 1
         
-        self.obstacleHighScoreNode = SKLabelNode(text: self.gameScoreManager.getHighScore().obstacle.asString())
+        self.obstacleHighScoreNode = SKLabelNode(text: "Blocks: 0s")
         
         obstacleHighScoreNode.name = "timeHighScore"
-        obstacleHighScoreNode.position = CGPoint(x: 120, y: 0)
         obstacleHighScoreNode.fontColor = .black
+        obstacleHighScoreNode.fontName = "SF-Mono-Regular"
+        obstacleHighScoreNode.fontSize = 20
+        obstacleHighScoreNode.horizontalAlignmentMode = .left
+        obstacleHighScoreNode.verticalAlignmentMode = .center
+        obstacleHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2, y: -30)
         obstacleHighScoreNode.zPosition = 1
         
         self.node.addChild(timeHighScoreNode)
         self.node.addChild(obstacleHighScoreNode)
     }
     
+    private func setupCurrentHighScores() {
+        self.currentTimeHighScore = 0
+        self.currentObstacleHighScore = 0
+    }
+    
     func incrementTimeHighScore(by: TimeInterval = 1) {
         self.currentTimeHighScore += by
     }
+    
     func incrementObstacleHighScore(by: Int = 1) {
         self.currentObstacleHighScore += by
     }
@@ -63,19 +77,19 @@ class Score: GameObject {
     override func update(_ deltaTime: TimeInterval) {
         self.incrementTimeHighScore(by: deltaTime)
         
-        self.timeHighScoreNode.text = String(format: "%.02f", self.currentTimeHighScore)
-        self.obstacleHighScoreNode.text = self.currentObstacleHighScore.asString()
+        self.timeHighScoreNode.text = "Time: \(self.currentTimeHighScore.asString())s"
+        self.obstacleHighScoreNode.text = "Blocks: \(self.currentObstacleHighScore.asString())"
     }
     
     //MARK: - TriggeredByGameState PROTOCOL
     
     override func onGameStart() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 310), duration: 0.2))
-        self.currentTimeHighScore = 0
-        self.currentObstacleHighScore = 0
+        self.node.run(.fadeIn(withDuration: 0.4))
+        self.setupCurrentHighScores()
     }
+    
     override func onGameOver() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 400), duration: 0.2))
+        self.node.run(.fadeOut(withDuration: 0.4))
         self.gameScoreManager.setHighScore(newTimeHighScore: self.currentTimeHighScore, newObstacleHighScore: self.currentObstacleHighScore)
     }
 }

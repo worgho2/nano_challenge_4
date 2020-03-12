@@ -20,7 +20,6 @@ class Obstacle: GameObject {
     func onCollision(paintWith color: UIColor) {
         guard let node = self.node as? SKSpriteNode else { fatalError() }
         
-        node.color = color
         node.physicsBody = nil
         node.run(.sequence(
             [
@@ -34,6 +33,11 @@ class Obstacle: GameObject {
                 .fadeAlpha(to: 1.0, duration: 0.05)
             ]
         ))
+        
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { t in
+            node.color = .clear//color
+            t.invalidate()
+        }
         
         self.scene?.impactFeedback.impactOccurred()
     }

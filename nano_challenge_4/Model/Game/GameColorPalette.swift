@@ -13,6 +13,7 @@ class GameColorPalette {
     var leftColor: UIColor!
     var rightColor: UIColor!
     var backgroundColor: UIColor!
+    var pattern: UIColor!
     
     init(generator: PaletteGenerator) {
         let basePalette: [UIColor] = generator.getTriad().map({$0.getUIColor()})
@@ -20,5 +21,6 @@ class GameColorPalette {
         self.leftColor = basePalette[1]
         self.rightColor = basePalette[3]
         self.backgroundColor = basePalette[2]
+        self.pattern = basePalette[0]
     }
 }

@@ -29,8 +29,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsR-DI-VVE">
-                                <rect key="frame" x="314" y="84" width="80" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <rect key="frame" x="302" y="59" width="92" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="PAUSE">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
@@ -38,20 +38,19 @@
                                     <action selector="onPauseButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="xKZ-bH-FFB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best OBS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oci-1I-GvG">
-                                <rect key="frame" x="168" y="512.5" width="78" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best OBS:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oci-1I-GvG">
+                                <rect key="frame" x="159.5" y="641" width="95" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best TIme:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL3-Mn-vqT">
-                                <rect key="frame" x="166" y="553.5" width="82" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best TIme:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL3-Mn-vqT">
+                                <rect key="frame" x="157" y="685" width="100.5" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="4po-H2-ZjC" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="6sY-s7-87K"/>
                             <constraint firstItem="kqP-Wn-Bn9" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="7OK-gT-bg0"/>
@@ -62,10 +61,10 @@
                             <constraint firstItem="oci-1I-GvG" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="Hmy-Af-6Ch"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="YsR-DI-VVE" secondAttribute="trailing" constant="20" id="LlV-L3-Gis"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="top" secondItem="oci-1I-GvG" secondAttribute="bottom" constant="20" id="MLh-Vk-2wx"/>
-                            <constraint firstItem="oci-1I-GvG" firstAttribute="centerY" secondItem="4qk-I5-YsI" secondAttribute="centerY" constant="70" id="Mmf-GU-t33"/>
+                            <constraint firstItem="oci-1I-GvG" firstAttribute="centerY" secondItem="4qk-I5-YsI" secondAttribute="centerY" constant="200" id="Mmf-GU-t33"/>
                             <constraint firstItem="kqP-Wn-Bn9" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" id="Tes-Iu-fzk"/>
                             <constraint firstAttribute="top" secondItem="4po-H2-ZjC" secondAttribute="top" id="ZnB-9l-T7u"/>
-                            <constraint firstItem="YsR-DI-VVE" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="40" id="dcF-Kg-jh9"/>
+                            <constraint firstItem="YsR-DI-VVE" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="15" id="dcF-Kg-jh9"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="centerX" secondItem="oci-1I-GvG" secondAttribute="centerX" id="zTA-8B-rNO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>

@@ -37,7 +37,7 @@ class GameSpeedManager: Updateable {
         if self.currentSpeed >= self.maxVelocity { return }
         
         self.currentSpeed += self.acceleration * CGFloat(deltaTime)
-        print("[progress] - \(self.getProgress()) - \(self.getCurrentSpeed())")
+//        print("[progress] - \(self.getProgress()) - \(self.getCurrentSpeed())")
 
     }
 }

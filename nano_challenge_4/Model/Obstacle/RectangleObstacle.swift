@@ -24,7 +24,6 @@ class RectangleObstacle: Obstacle {
     
     override func shouldDespawn() -> Bool {
         return self.node.position.y > self.scene.getBounds().height + 200
-        // ajustar para o tamanho do retangulo
     }
     
     //MARK: - PhysicsObject PROTOCOL

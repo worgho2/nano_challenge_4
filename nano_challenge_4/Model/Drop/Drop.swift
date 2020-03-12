@@ -11,17 +11,25 @@ import SpriteKit
 class Drop: GameObject {
     
     init(scene: GameScene?) {
-        let node = scene?.childNode(withName: "drop")!
+        let node = scene?.childNode(withName: "drop")! as! SKSpriteNode
         super.init(node: node, scene: scene)
         
         self.configurePhysics(on: self.node)
+        node.position = CGPoint(x: 0, y: 500)
     }
     
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let texture = SKTexture(imageNamed: "drop")
-        let body = SKPhysicsBody(texture: texture, size: CGSize(width: 40, height: 40))
+        guard let node = self.node as? SKSpriteNode else { return }
+        
+        let image = UIImage(named: "drop")!.tint(tintColor: .black)
+        let texture = SKTexture(image: image)
+        
+        node.texture = texture
+        node.scale(to: CGSize(width: 35, height: 65))
+        
+        let body = SKPhysicsBody(texture: texture, size: node.size)
         
         body.affectedByGravity = false
         body.allowsRotation = false
@@ -32,5 +40,15 @@ class Drop: GameObject {
         body.contactTestBitMask = ContactMask.obstacle.bitMask
         
         self.node.physicsBody = body
+    }
+    
+    //MARK: - TriggeredByGameState PROTOCOL
+    
+    override func onGameStart() {
+        self.node.run(.move(to: CGPoint(x: 0, y: 300), duration: 0.4))
+    }
+    
+    override func onGameOver() {
+        self.node.run(.move(to: CGPoint(x: 0, y: 500), duration: 0.4))
     }
 }

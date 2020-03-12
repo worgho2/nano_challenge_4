@@ -40,7 +40,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
-        
         self.score = Score(scene: self, manager: GameScoreManager())
         self.wheel = Wheel(scene: self)
         self.drop = Drop(scene: self)
@@ -48,11 +47,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameSpeedManager = GameSpeedManager()
     }
     
+    func backgroundMove(_ deltaTime: TimeInterval) {
+        let dY = CGFloat(deltaTime) * self.gameSpeedManager.getCurrentSpeed()
+        vc?.viewPattern.center.y -= dY
+        
+        guard let frame = view?.frame, let centerY = vc?.viewPattern.center.y else { return }
+        
+        if centerY <= 0 {
+            vc?.viewPattern.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height * 10)
+        }
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         guard let deltaTime = self.updateDeltaTime(currentTime) else { return }
         
+        backgroundMove(deltaTime)
+        
         self.getUpdatables().forEach { $0.update(deltaTime) }
     }
+    
     private func updateDeltaTime(_ currentTime: TimeInterval) -> TimeInterval? {
         
         if lastUpdate == 0 {
@@ -70,7 +83,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func getTriggeredsByGameState() -> [TriggeredByGameState] {
         return [
-            self.score
+            self.score,
+            self.drop,
+            self.wheel
         ]
     }
     private func getTouchSensitives() -> [TouchSensitive] {
@@ -89,7 +104,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func onGameStart() {
         self.realPaused = false
-        self.getTriggeredsByGameState().forEach { $0.onGameStart() }
+        if vc?.playButton.titleLabel?.text != "Continue" {
+            self.getTriggeredsByGameState().forEach { $0.onGameStart() }
+        }
+        
     }
     func onGamePause() {
         self.realPaused = true

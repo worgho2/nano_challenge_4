@@ -24,7 +24,6 @@ class SquareObstacle: Obstacle {
     
     override func shouldDespawn() -> Bool {
         return self.node.position.y > self.scene.getBounds().height + 50
-        // ajustar para o tamanho do quadrado
     }
     
     //MARK: - PhysicsObject PROTOCOL

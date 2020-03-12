@@ -50,7 +50,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
         
         for (i, obstacle) in self.obstacles.enumerated() {
             
-            if obstacle.shouldDespawn(){
+            if obstacle.shouldDespawn() {
                 self.obstacles.remove(at: i)
                 obstacle.node.removeFromParent()
             }
