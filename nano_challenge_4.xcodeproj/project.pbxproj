@@ -72,7 +72,7 @@
 		7AB85A932418054600A7FB68 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		7AB85A952418055D00A7FB68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredByGameState.swift; sourceTree = "<group>"; };
-		7AC3C35D240FF8300011F586 /* Dont Drop It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dont Drop It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC3C35D240FF8300011F586 /* Splash It - Color Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Splash It - Color Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC3C360240FF8300011F586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC3C368240FF8300011F586 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7AC3C36B240FF8300011F586 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		7AC3C35E240FF8300011F586 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7AC3C35D240FF8300011F586 /* Dont Drop It.app */,
+				7AC3C35D240FF8300011F586 /* Splash It - Color Game.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,7 +303,7 @@
 			);
 			name = nano_challenge_4;
 			productName = nano_challenge_4;
-			productReference = 7AC3C35D240FF8300011F586 /* Dont Drop It.app */;
+			productReference = 7AC3C35D240FF8300011F586 /* Splash It - Color Game.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -544,11 +544,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = raieiros.studio.nc4dontdropit;
-				PRODUCT_NAME = "Dont Drop It";
+				PRODUCT_BUNDLE_IDENTIFIER = br.pucpr.raieiros.studio.splash.it;
+				PRODUCT_NAME = "Splash It - Color Game";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -564,11 +564,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = raieiros.studio.nc4dontdropit;
-				PRODUCT_NAME = "Dont Drop It";
+				PRODUCT_BUNDLE_IDENTIFIER = br.pucpr.raieiros.studio.splash.it;
+				PRODUCT_NAME = "Splash It - Color Game";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
