@@ -10,6 +10,8 @@
 		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
 		7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64122324128934005ABD82 /* SquareObstacle.swift */; };
 		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
+		7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC823241C0F610047FB3F /* GameScene.swift */; };
+		7A9DC827241C10430047FB3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A9DC825241C0FEF0047FB3F /* GameScene.sks */; };
 		7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */; };
 		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */; };
 		7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */; };
@@ -29,8 +31,6 @@
 		7AB85A962418055D00A7FB68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A952418055D00A7FB68 /* Int.swift */; };
 		7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */; };
 		7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C360240FF8300011F586 /* AppDelegate.swift */; };
-		7AC3C363240FF8300011F586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AC3C362240FF8300011F586 /* GameScene.sks */; };
-		7AC3C367240FF8300011F586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C366240FF8300011F586 /* GameScene.swift */; };
 		7AC3C369240FF8300011F586 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C368240FF8300011F586 /* GameViewController.swift */; };
 		7AC3C36C240FF8300011F586 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC3C36A240FF8300011F586 /* Main.storyboard */; };
 		7AC3C36E240FF8310011F586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC3C36D240FF8310011F586 /* Assets.xcassets */; };
@@ -52,6 +52,8 @@
 		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
 		7A64122324128934005ABD82 /* SquareObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareObstacle.swift; sourceTree = "<group>"; };
 		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
+		7A9DC823241C0F610047FB3F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7A9DC825241C0FEF0047FB3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPattern.swift; sourceTree = "<group>"; };
 		7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternFactory.swift; sourceTree = "<group>"; };
 		7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternSpawner.swift; sourceTree = "<group>"; };
@@ -70,10 +72,8 @@
 		7AB85A932418054600A7FB68 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		7AB85A952418055D00A7FB68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredByGameState.swift; sourceTree = "<group>"; };
-		7AC3C35D240FF8300011F586 /* nano_challenge_4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nano_challenge_4.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC3C35D240FF8300011F586 /* Dont Drop It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dont Drop It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC3C360240FF8300011F586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7AC3C362240FF8300011F586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		7AC3C366240FF8300011F586 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7AC3C368240FF8300011F586 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7AC3C36B240FF8300011F586 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AC3C36D240FF8310011F586 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,14 +125,21 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
-		7AA0D256241A58C300B8C200 /* BackgroundPattern */ = {
+		7A9DC817241C063B0047FB3F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */ = {
 			isa = PBXGroup;
 			children = (
 				7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */,
 				7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */,
 				7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */,
 			);
-			path = BackgroundPattern;
+			path = "BackgroundPattern(OFF)";
 			sourceTree = "<group>";
 		};
 		7AB85A782416C54100A7FB68 /* Extensions */ = {
@@ -178,7 +185,7 @@
 		7AC3C35E240FF8300011F586 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7AC3C35D240FF8300011F586 /* nano_challenge_4.app */,
+				7AC3C35D240FF8300011F586 /* Dont Drop It.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,8 +211,8 @@
 				7AC3C38D241158480011F586 /* Drop */,
 				7AC3C38C2411583B0011F586 /* Wheel */,
 				7AB85A902417FC8F00A7FB68 /* Score */,
-				7AA0D256241A58C300B8C200 /* BackgroundPattern */,
 				7AC3C38B2411575F0011F586 /* Obstacle */,
+				7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,11 +248,11 @@
 		7AC3C39024116EDC0011F586 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7A9DC825241C0FEF0047FB3F /* GameScene.sks */,
+				7A9DC823241C0F610047FB3F /* GameScene.swift */,
 				7AC3C36F240FF8310011F586 /* LaunchScreen.storyboard */,
 				7AC3C36A240FF8300011F586 /* Main.storyboard */,
 				7AC3C368240FF8300011F586 /* GameViewController.swift */,
-				7AC3C366240FF8300011F586 /* GameScene.swift */,
-				7AC3C362240FF8300011F586 /* GameScene.sks */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +280,7 @@
 		7AE988BA24192510002AD679 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7A9DC817241C063B0047FB3F /* Fonts */,
 				7AB85A7B2416D1ED00A7FB68 /* ColorCore */,
 			);
 			path = Modules;
@@ -295,7 +303,7 @@
 			);
 			name = nano_challenge_4;
 			productName = nano_challenge_4;
-			productReference = 7AC3C35D240FF8300011F586 /* nano_challenge_4.app */;
+			productReference = 7AC3C35D240FF8300011F586 /* Dont Drop It.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -336,8 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A9DC827241C10430047FB3F /* GameScene.sks in Resources */,
 				7AC3C36C240FF8300011F586 /* Main.storyboard in Resources */,
-				7AC3C363240FF8300011F586 /* GameScene.sks in Resources */,
 				7AC3C36E240FF8310011F586 /* Assets.xcassets in Resources */,
 				7AC3C371240FF8310011F586 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -350,12 +358,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AC3C367240FF8300011F586 /* GameScene.swift in Sources */,
 				7AB85A812416D38D00A7FB68 /* RGBA.swift in Sources */,
 				7AC3C379240FFC370011F586 /* GameObject.swift in Sources */,
 				7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */,
 				7AC3C369240FF8300011F586 /* GameViewController.swift in Sources */,
 				7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */,
+				7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */,
 				7AC3C37B24101A260011F586 /* ContactMask.swift in Sources */,
 				7AE988B724191F67002AD679 /* SKScene.swift in Sources */,
 				7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */,
@@ -528,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
@@ -535,8 +544,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pucpr.nano-challenge-4";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = raieiros.studio.nc4dontdropit;
+				PRODUCT_NAME = "Dont Drop It";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -546,6 +556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
@@ -553,8 +564,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pucpr.nano-challenge-4";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = raieiros.studio.nc4dontdropit;
+				PRODUCT_NAME = "Dont Drop It";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

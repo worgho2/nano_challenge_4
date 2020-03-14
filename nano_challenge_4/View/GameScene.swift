@@ -30,6 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    private var isGameEnded: Bool = false
+    
     var score: Score!
     var wheel: Wheel!
     var drop: Drop!
@@ -47,23 +49,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameSpeedManager = GameSpeedManager()
     }
     
-    func backgroundMove(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.gameSpeedManager.getCurrentSpeed()
-        vc?.viewPattern.center.y -= dY
-        
-        guard let frame = view?.frame, let centerY = vc?.viewPattern.center.y else { return }
-        
-        if centerY <= 0 {
-            vc?.viewPattern.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height * 10)
-        }
-    }
-    
     override func update(_ currentTime: TimeInterval) {
-        guard let deltaTime = self.updateDeltaTime(currentTime) else { return }
-        
-        backgroundMove(deltaTime)
-        
-        self.getUpdatables().forEach { $0.update(deltaTime) }
+        if !isGameEnded {
+            guard let deltaTime = self.updateDeltaTime(currentTime) else { return }
+            
+            self.getUpdatables().forEach { $0.update(deltaTime) }
+        }
     }
     
     private func updateDeltaTime(_ currentTime: TimeInterval) -> TimeInterval? {
@@ -85,7 +76,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return [
             self.score,
             self.drop,
-            self.wheel
+            self.wheel,
+            self.vc!,
+            self.gameSpeedManager,
+            self.obstacleSpawner
         ]
     }
     private func getTouchSensitives() -> [TouchSensitive] {
@@ -98,23 +92,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.score,
             self.wheel,
             self.obstacleSpawner,
-            self.gameSpeedManager
+            self.gameSpeedManager,
+            self.vc!
         ]
     }
     
-    func onGameStart() {
+    func play(isGamePaused: Bool) {
         self.realPaused = false
-        if vc?.playButton.titleLabel?.text != "Continue" {
-            self.getTriggeredsByGameState().forEach { $0.onGameStart() }
-        }
         
+        if isGamePaused {
+            self.onGameContinue()
+        } else {
+            self.onGameStart()
+        }
     }
-    func onGamePause() {
+    
+    func pause() {
         self.realPaused = true
+        self.onGamePause()
+    }
+    
+    private func onGameStart() {
+        self.isGameEnded = false
+        self.getTriggeredsByGameState().forEach { $0.onGameStart() }
+    }
+    
+    private func onGamePause() {
         self.getTriggeredsByGameState().forEach { $0.onGamePause() }
     }
-    func onGameOver() {
-        self.realPaused = true
+    
+    private func onGameContinue() {
+        self.getTriggeredsByGameState().forEach { $0.onGameContinue() }
+    }
+    
+    private func onGameOver() {
+        self.isGameEnded = true
         self.getTriggeredsByGameState().forEach { $0.onGameOver() }
     }
     
@@ -125,31 +137,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let nodeB = contact.bodyB.node else { return }
         
         if [nodeA.name, nodeB.name].contains("drop") {
-            self.vc?.onGameOver()
-            return
-        }
-        
-        if nodeA.name!.contains("Painter") {
+            self.onGameOver()
+        } else if nodeA.name!.contains("Painter") {
             self.onCollision(nodeA, nodeB)
         } else {
             self.onCollision(nodeB, nodeA)
         }
     }
+    
     func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
-        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
-        
         guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
         guard let obstacleNode = obstacleNode as? SKSpriteNode else { fatalError() }
+        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
         
         if painterNode.fillColor == obstacleNode.color {
-            self.vc?.onGameOver()
-            return
+            obstacle.onCollision(onCorrectPainter: false)
+            self.onGameOver()
+        } else {
+            obstacle.onCollision(onCorrectPainter: true)
+            self.score.incrementObstacleHighScore()
         }
-        
-        print("[COLLISION] \(painterNode.name!) -> \(obstacleNode.name!)")
-        
-        obstacle.onCollision(paintWith: self.gameColorPalette!.backgroundColor)
-        self.score.incrementObstacleHighScore()
     }
     
     // MARK: - Touch Callbacks

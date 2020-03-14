@@ -42,8 +42,8 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     func configurePhysics(on node: SKNode) { return }
     
     //MARK: - TriggeredByGameState PROTOCOL
-    
     func onGameStart() { return }
     func onGamePause() { return }
+    func onGameContinue() { return }
     func onGameOver() { return }
 }

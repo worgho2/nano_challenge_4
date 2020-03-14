@@ -23,7 +23,7 @@ class BackgroundPatternFactory: SceneSupplicant {
     
     private func getNode() -> SKNode {
         let node = self.backgroundPatternBaseNode.copy() as! SKShapeNode
-        let bounds = self.scene.getBounds()
+        let _ = self.scene.getBounds()
         
         node.setScale(20.0)
         node.position = CGPoint(x: 0, y: 0) //bounds.minY - node.frame.size.height/2

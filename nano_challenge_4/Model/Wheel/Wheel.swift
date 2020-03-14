@@ -58,9 +58,9 @@ class Wheel: GameObject {
     }
     
     private func setupPainters() {
-        let leftPainterNode = SKShapeNode(circleOfRadius: 20)
+        let leftPainterNode = SKShapeNode(circleOfRadius: 18)
         leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -95, y: 0)
+        leftPainterNode.position = CGPoint(x: -100, y: 0)
         leftPainterNode.strokeColor = .clear
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = self.scene.gameColorPalette!.leftColor
@@ -68,7 +68,7 @@ class Wheel: GameObject {
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: 95, y: 0)
+        rightPainterNode.position = CGPoint(x: 100, y: 0)
         rightPainterNode.fillColor = self.scene.gameColorPalette!.rightColor
         self.configurePhysics(on: rightPainterNode)
         
@@ -77,16 +77,27 @@ class Wheel: GameObject {
     }
     
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: 95)
+        let circleNode = SKShapeNode(circleOfRadius: 100)
         
         circleNode.position = .zero
-        circleNode.strokeColor = .black
-        circleNode.lineWidth = 0.1
-        circleNode.glowWidth = 1.0
+        circleNode.strokeColor = .white
+        circleNode.lineWidth = 2
+        circleNode.glowWidth = 0
         circleNode.zPosition = -1
         circleNode.fillColor = .clear
-        circleNode.alpha = 0.7
+        circleNode.alpha = 1
         
+        let shadowNode = circleNode.copy() as! SKShapeNode
+        
+        shadowNode.position = .zero
+        shadowNode.strokeColor = .white
+        shadowNode.lineWidth = 0.1
+        shadowNode.glowWidth = 5
+        shadowNode.zPosition = -2
+        shadowNode.fillColor = .clear
+        shadowNode.alpha = 0.3
+        
+        self.node.addChild(shadowNode)
         self.node.addChild(circleNode)
     }
     
@@ -136,7 +147,7 @@ class Wheel: GameObject {
     
     override func onGameStart() {
         self.node.run(.move(to: CGPoint(x: 0, y: 140), duration: 0.4))
-        self.node.run(.rotate(byAngle: 2*CGFloat.pi, duration: 0.4))
+        self.node.run(.rotate(byAngle: .pi, duration: 0.4))
     }
     
     override func onGameOver() {

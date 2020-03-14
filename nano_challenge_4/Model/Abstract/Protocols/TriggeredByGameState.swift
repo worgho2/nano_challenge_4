@@ -11,5 +11,6 @@ import Foundation
 protocol TriggeredByGameState {
     func onGameStart()
     func onGamePause()
+    func onGameContinue()
     func onGameOver()
 }

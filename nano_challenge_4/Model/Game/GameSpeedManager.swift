@@ -8,22 +8,20 @@
 
 import SpriteKit
 
-class GameSpeedManager: Updateable {
+class GameSpeedManager: Updateable, TriggeredByGameState {
     
     private var currentSpeed: CGFloat!
-    let acceleration: CGFloat = 5
+    
+    let acceleration: CGFloat = 6
     let maxVelocity: CGFloat = 600
     let minVelocity: CGFloat = 200
     
     init() {
-        self.configure()
+        self.currentSpeed = self.minVelocity
     }
     
     //MARK: - Class Methods
     
-    private func configure() {
-        self.currentSpeed = minVelocity
-    }
     func getCurrentSpeed() -> CGFloat {
         return self.currentSpeed
     }
@@ -35,9 +33,18 @@ class GameSpeedManager: Updateable {
     
     func update(_ deltaTime: TimeInterval) {
         if self.currentSpeed >= self.maxVelocity { return }
-        
-        self.currentSpeed += self.acceleration * CGFloat(deltaTime)
-//        print("[progress] - \(self.getProgress()) - \(self.getCurrentSpeed())")
-
+        self.currentSpeed += sqrt(self.acceleration) * CGFloat(deltaTime)
     }
+    
+    //MARK: - TriggeredByGameState PROTOCOL
+    
+    func onGameOver() {
+        self.currentSpeed = self.minVelocity
+    }
+    
+    func onGameStart() { return }
+    
+    func onGamePause() { return }
+    
+    func onGameContinue() { return }
 }

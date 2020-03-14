@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:nano_challenge_4.xcodeproj">
+      location = "group:../nano_challenge_4/View/GameScene.sks">
+   </FileRef>
+   <FileRef
+      location = "group:../nano_challenge_4/View/GameScene.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../nano_challenge_4/View/GameViewController.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

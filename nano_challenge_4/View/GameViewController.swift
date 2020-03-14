@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     @IBOutlet weak var skView: SKView!
     
@@ -19,116 +19,105 @@ class GameViewController: UIViewController {
     @IBOutlet weak var highScoreObstacleLabel: UILabel!
     @IBOutlet weak var highScoreTimeLabel: UILabel!
     
+    @IBOutlet weak var highScoreDefaultLabel: UILabel!
+    @IBOutlet weak var bestTimeDefaultLabel: UILabel!
+    
+    
     weak var scene: GameScene?
     
     var backgroundView: UIView!
     var viewPattern: UIView!
     
+    private var isGamePaused: Bool = false
+    
     //MARK: - Class Methods
     
+    @IBAction func onPlayButton(_ sender: Any) {
+        self.scene?.play(isGamePaused: self.isGamePaused)
+    }
+    
+    @IBAction func onPauseButton(_ sender: Any) {
+        self.scene?.pause()
+    }
+    
+    private func loadGame() {
+        self.setupBackground()
+        self.loadScene()
+        self.setupView()
+    }
+    
     private func loadScene() {
-
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
+            let randomHue = CGFloat.random(in: 0...360)
+            let randomSaturation = CGFloat.random(in: 0.5...1)
+            let randomValue = CGFloat.random(in: 0.5...1)
+            print("[COLOR GENERATION]: (HUE: \(randomHue) - SATURATION: \(randomSaturation) - VALUE: \(randomValue)")
+            
             scene.realPaused = true
             scene.scaleMode = .aspectFill
-            
             scene.vc = self
-            scene.gameColorPalette = GameColorPalette(generator: PaletteGenerator(baseHSV: HSV(hue: CGFloat.random(in: 0...360), saturation: CGFloat.random(in: 0.5...1), value: 1)))
+            scene.gameColorPalette = GameColorPalette(generator: PaletteGenerator(baseHSV: HSV(hue: randomHue, saturation: randomSaturation, value: randomValue)))
             scene.backgroundColor = .clear
             
             backgroundView.backgroundColor = scene.gameColorPalette!.backgroundColor
             viewPattern.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 10)
-            let image = UIImage(named: "background")!.tint(tintColor: scene.gameColorPalette!.pattern).resizeImage(size: CGSize(width: view.frame.height/8, height: view.frame.height/8))!
+            let image = UIImage(named: "background")!.tint(tintColor: scene.gameColorPalette!.pattern).resizeImage(size: CGSize(width: view.frame.width/2, height: view.frame.width/2))!
             viewPattern.backgroundColor = UIColor(patternImage: image)
             
             self.scene = scene
+            
+            let colorTop =  UIColor.clear.cgColor
+            let colorBottom = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35).cgColor
 
-            skView.showsNodeCount = true
-            skView.showsFPS = true
-            skView.isMultipleTouchEnabled = true
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [colorTop, colorBottom]
+            gradientLayer.locations = [0.0, 1.0]
+            gradientLayer.frame = skView.bounds
+
+            skView.layer.insertSublayer(gradientLayer, at: 0)
             skView.backgroundColor = .clear
+//            skView.showsPhysics = true
+            skView.isMultipleTouchEnabled = true
             skView.presentScene(scene)
         }
     }
     
-    @IBAction func onPlayButton(_ sender: Any) {
-        onGameStart()
-    }
-    @IBAction func onPauseButton(_ sender: Any) {
-        onGamePause()
-        
-        playButton.isHidden = false
-        playButton.setTitle("Continue", for: .normal)
-        pauseButton.isHidden = true
-    }
-    
-    func onGameStart() {
-        self.scene?.onGameStart()
-        
-        playButton.isHidden = true
-        pauseButton.isHidden = false
-        
-        highScoreObstacleLabel.isHidden = true
-        highScoreTimeLabel.isHidden = true
-    }
-    
-    func onGamePause() {
-        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
-        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
-        highScoreObstacleLabel.isHidden = false
-        highScoreTimeLabel.isHidden = false
-        self.scene?.onGamePause()
-    }
-    
-    func onGameOver() {
-        self.scene?.onGameOver()
-        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
-        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
-        highScoreObstacleLabel.isHidden = false
-        highScoreTimeLabel.isHidden = false
-        loadScene()
-        playButton.isHidden = false
-        playButton.setTitle("Play", for: .normal)
-        pauseButton.isHidden = true
-    }
-    
-    //MARK: - View Setup
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        highScoreTimeLabel.text = "HighScore time: " + String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time)
-        highScoreObstacleLabel.text = "HighScore obstacles:  \(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-         
-        playButton.setTitle("Play", for: .normal)
-        pauseButton.isHidden = true
-        
-        setupBackground()
-        
-        loadScene()
-        
-        scene?.isPaused = true
-        
-        skView.ignoresSiblingOrder = true
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = false
-    }
-    
-    fileprivate func setupBackground() {
+    private func setupBackground() {
         backgroundView = UIView(frame: view.frame)
         view.addSubview(backgroundView)
         
         viewPattern = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 10))
-        viewPattern.alpha = 0.159984
+        viewPattern.alpha = 0.4
         view.addSubview(viewPattern)
         
         view.sendSubviewToBack(viewPattern)
         view.sendSubviewToBack(backgroundView)
+    }
+    
+    private func setupView() {
+        self.playButton.isHidden = false
+        self.highScoreTimeLabel.isHidden = false
+        self.highScoreObstacleLabel.isHidden = false
+        self.pauseButton.isHidden = true
+        self.highScoreDefaultLabel.isHidden = false
+        self.bestTimeDefaultLabel.isHidden = false
+        
+        self.playButton.titleLabel?.textColor = .white
+        self.playButton.tintColor = .white
+        self.highScoreTimeLabel.textColor = .white
+        self.highScoreObstacleLabel.textColor = .white
+        self.pauseButton.titleLabel?.textColor = .white
+        
+        self.playButton.setTitle("Play", for: .normal)
+        self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
+        self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.loadGame()
     }
     
     override var shouldAutorotate: Bool {
@@ -143,6 +132,67 @@ class GameViewController: UIViewController {
     }
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    //MARK: - Updateable PROTOCOL
+    
+    func update(_ deltaTime: TimeInterval) {
+        let dY = CGFloat(deltaTime) * self.scene!.gameSpeedManager.getCurrentSpeed()
+        self.viewPattern.center.y -= dY
+        
+        guard let frame = view?.frame else { return }
+        
+        if self.viewPattern.center.y <= 0 {
+            self.viewPattern.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height * 10)
+        }
+    }
+    
+    //MARK: - TriggeredByGameState PROTOCOL (AJUSTAR PARA NOVA LÓGICA)
+    
+    func onGameStart() {
+        self.playButton.isHidden = true
+        self.pauseButton.isHidden = false
+        self.highScoreObstacleLabel.isHidden = true
+        self.highScoreTimeLabel.isHidden = true
+        self.highScoreDefaultLabel.isHidden = true
+        self.bestTimeDefaultLabel.isHidden = true
+        
+        self.playButton.setTitle("Continue", for: .normal)
+    }
+    
+    func onGamePause() {
+        self.isGamePaused = true
+        
+        self.playButton.isHidden = false
+        self.pauseButton.isHidden = true
+        self.highScoreObstacleLabel.isHidden = true
+        self.highScoreTimeLabel.isHidden = true
+        self.highScoreDefaultLabel.isHidden = true
+        self.bestTimeDefaultLabel.isHidden = true
+    }
+    
+    func onGameContinue() {
+        self.isGamePaused = false
+        
+        self.playButton.isHidden = true
+        self.pauseButton.isHidden = false
+        self.highScoreObstacleLabel.isHidden = true
+        self.highScoreTimeLabel.isHidden = true
+        self.highScoreDefaultLabel.isHidden = true
+        self.bestTimeDefaultLabel.isHidden = true
+    }
+    
+    func onGameOver() {
+        self.playButton.setTitle("Play", for: .normal)
+        self.highScoreTimeLabel.text = "\(String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time))s"
+        self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+        
+        self.playButton.isHidden = false
+        self.pauseButton.isHidden = true
+        self.highScoreObstacleLabel.isHidden = false
+        self.highScoreTimeLabel.isHidden = false
+        self.highScoreDefaultLabel.isHidden = false
+        self.bestTimeDefaultLabel.isHidden = false
     }
 }
 

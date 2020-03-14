@@ -49,6 +49,12 @@ class Drop: GameObject {
     }
     
     override func onGameOver() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 500), duration: 0.4))
+        self.node.run(.sequence(
+            [
+                .repeat(.sequence([.moveTo(x: 10, duration: 0.1), .moveTo(x: -10, duration: 0.1)]), count: 2),
+                .moveTo(x: 0, duration: 0.1),
+                .move(to: CGPoint(x: 0, y: 500), duration: 0.4)
+            ]
+        ))
     }
 }

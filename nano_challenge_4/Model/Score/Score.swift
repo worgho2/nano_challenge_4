@@ -18,6 +18,9 @@ class Score: GameObject {
     private var timeHighScoreNode: SKLabelNode!
     private var obstacleHighScoreNode: SKLabelNode!
     
+    private var timeHighScoreDefaultNode: SKLabelNode!
+    private var obstacleHighScoreDefaultNode: SKLabelNode!
+    
     init(scene: GameScene?, manager: GameScoreManager) {
         let node = scene?.childNode(withName: "scoreNode")!
         node?.position = CGPoint(x: 0, y: 310)
@@ -33,28 +36,48 @@ class Score: GameObject {
     //MARK: - Class Methods
     
     private func setupHighScoreNodes() {
-        self.timeHighScoreNode = SKLabelNode(text: "Time: 0.00s")
+        self.timeHighScoreDefaultNode = SKLabelNode(text: "Best Time")
+        timeHighScoreDefaultNode.name = "timeHighScoreDefault"
+        timeHighScoreDefaultNode.fontColor = .white
+        timeHighScoreDefaultNode.fontSize = 17
+        timeHighScoreDefaultNode.fontName = "SF-Pro-Rounded-Light"
+        timeHighScoreDefaultNode.horizontalAlignmentMode = .left
+        timeHighScoreDefaultNode.verticalAlignmentMode = .center
+        timeHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreDefaultNode.frame.width/2 + 10, y: 0)
+        timeHighScoreDefaultNode.zPosition = 1
         
+        self.timeHighScoreNode = SKLabelNode(text: "0.00s")
         timeHighScoreNode.name = "timeHighScore"
-        timeHighScoreNode.fontColor = .black
-        timeHighScoreNode.fontName = "SF-mono-regular"
+        timeHighScoreNode.fontColor = .white
         timeHighScoreNode.fontSize = 20
+        timeHighScoreNode.fontName = "SF-Pro-Rounded-Medium"
         timeHighScoreNode.horizontalAlignmentMode = .left
         timeHighScoreNode.verticalAlignmentMode = .center
-        timeHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2, y: 0)
+        timeHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2 + 20, y: -25)
         timeHighScoreNode.zPosition = 1
         
-        self.obstacleHighScoreNode = SKLabelNode(text: "Blocks: 0s")
+        self.obstacleHighScoreDefaultNode = SKLabelNode(text: "HighScore")
+        obstacleHighScoreDefaultNode.name = "ObstacleScoreDefault"
+        obstacleHighScoreDefaultNode.fontColor = .white
+        obstacleHighScoreDefaultNode.fontSize = 17
+        obstacleHighScoreDefaultNode.fontName = "SF-Pro-Rounded-Light"
+        obstacleHighScoreDefaultNode.horizontalAlignmentMode = .left
+        obstacleHighScoreDefaultNode.verticalAlignmentMode = .center
+        obstacleHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + obstacleHighScoreDefaultNode.frame.width/2 + 10, y: -55)
+        obstacleHighScoreDefaultNode.zPosition = 1
         
-        obstacleHighScoreNode.name = "timeHighScore"
-        obstacleHighScoreNode.fontColor = .black
-        obstacleHighScoreNode.fontName = "SF-Mono-Regular"
+        self.obstacleHighScoreNode = SKLabelNode(text: "00")
+        obstacleHighScoreNode.name = "ObstacleScore"
+        obstacleHighScoreNode.fontColor = .white
         obstacleHighScoreNode.fontSize = 20
+        obstacleHighScoreNode.fontName = "SF-Pro-Rounded-Medium"
         obstacleHighScoreNode.horizontalAlignmentMode = .left
         obstacleHighScoreNode.verticalAlignmentMode = .center
-        obstacleHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2, y: -30)
+        obstacleHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2 + 20, y: -75)
         obstacleHighScoreNode.zPosition = 1
         
+        self.node.addChild(timeHighScoreDefaultNode)
+        self.node.addChild(obstacleHighScoreDefaultNode)
         self.node.addChild(timeHighScoreNode)
         self.node.addChild(obstacleHighScoreNode)
     }
@@ -77,8 +100,8 @@ class Score: GameObject {
     override func update(_ deltaTime: TimeInterval) {
         self.incrementTimeHighScore(by: deltaTime)
         
-        self.timeHighScoreNode.text = "Time: \(self.currentTimeHighScore.asString())s"
-        self.obstacleHighScoreNode.text = "Blocks: \(self.currentObstacleHighScore.asString())"
+        self.timeHighScoreNode.text = "\(self.currentTimeHighScore.asString())s"
+        self.obstacleHighScoreNode.text = "\(self.currentObstacleHighScore.asString())"
     }
     
     //MARK: - TriggeredByGameState PROTOCOL

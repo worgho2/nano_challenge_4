@@ -8,11 +8,11 @@
 
 import SpriteKit
 
-class ObstacleSpawner: SceneSupplicant, Updateable {
+class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     var scene: GameScene!
     var obstacleFactory: ObstacleFactory!
-    var obstacles: [Obstacle]!
+    var obstacles: [Obstacle]
     
     private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
@@ -20,7 +20,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
     init(scene: GameScene?) {
         self.scene = scene
         self.obstacleFactory = ObstacleFactory(scene: self.scene)
-        self.obstacles = [Obstacle]()
+        obstacles = [Obstacle]()
     }
     
     //MARK: - Class Methods
@@ -31,6 +31,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
         self.obstacles.append(newObstacle)
         self.scene.addChild(newObstacle.node)
     }
+    
     func getObstacleBy(node: SKNode) -> Obstacle {
         return obstacles.first(where: {$0.node == node})!
     }
@@ -55,6 +56,27 @@ class ObstacleSpawner: SceneSupplicant, Updateable {
                 obstacle.node.removeFromParent()
             }
         }
+    }
+    
+    //MARK: - TriggeredByGameState PROTOCOL
+    
+    func onGameStart() {
+        obstacles.forEach{ $0.node.removeFromParent() }
+        obstacles = []
+        
+        self.currentSpawnTimer = TimeInterval(0)
+    }
+    
+    func onGameOver() {
+        obstacles.forEach{ $0.onGameOver() }
+    }
+    
+    func onGamePause() {
+        return
+    }
+    
+    func onGameContinue() {
+        return
     }
 }
 
