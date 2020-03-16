@@ -33,6 +33,7 @@ class Obstacle: GameObject {
             
             node.run(.colorize(with: .clear, colorBlendFactor: 1.0, duration: 0.15))
             
+            self.scene?.gameAudioManager.play(soundEffect: .waterDrop1)
             self.scene?.impactFeedback.impactOccurred()
         } else {
             node.run(.colorize(with: .clear, colorBlendFactor: 1.0, duration: 1))
@@ -51,7 +52,8 @@ class Obstacle: GameObject {
                 ]
             ))
             
-            AudioServicesPlaySystemSound(SystemSoundID(1050))
+            self.scene?.gameAudioManager.play(soundEffect: .waterDrop4)
+            self.scene?.impactFeedback.impactOccurred()
         }
         
     }

@@ -37,16 +37,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var drop: Drop!
     var obstacleSpawner: ObstacleSpawner!
     var gameSpeedManager: GameSpeedManager!
+    var gameAudioManager: GameAudioManager!
     
     //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
+        
         self.score = Score(scene: self, manager: GameScoreManager())
         self.wheel = Wheel(scene: self)
         self.drop = Drop(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self)
+        
         self.gameSpeedManager = GameSpeedManager()
+        self.gameAudioManager = GameAudioManager()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -114,6 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func onGameStart() {
         self.isGameEnded = false
+        self.gameAudioManager.play(soundEffect: .play1)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     

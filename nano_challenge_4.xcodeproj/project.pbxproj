@@ -12,6 +12,22 @@
 		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
 		7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC823241C0F610047FB3F /* GameScene.swift */; };
 		7A9DC827241C10430047FB3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A9DC825241C0FEF0047FB3F /* GameScene.sks */; };
+		7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */; };
+		7AA04BA3241FA862008D1147 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BA0241FA862008D1147 /* SF-Pro-Rounded-Medium.otf */; };
+		7AA04BA4241FA862008D1147 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BA1241FA862008D1147 /* SF-Pro-Rounded-Regular.otf */; };
+		7AA04BA6241FA8A0008D1147 /* GameAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BA5241FA8A0008D1147 /* GameAudioManager.swift */; };
+		7AA04BB9241FAB4A008D1147 /* IntroWithLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BB4241FAB4A008D1147 /* IntroWithLoop.swift */; };
+		7AA04BBA241FAB4A008D1147 /* AudioLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BB5241FAB4A008D1147 /* AudioLibrary.swift */; };
+		7AA04BBB241FAB4A008D1147 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BB6241FAB4A008D1147 /* Song.swift */; };
+		7AA04BBC241FAB4A008D1147 /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BB7241FAB4A008D1147 /* SoundEffects.swift */; };
+		7AA04BC8241FAE64008D1147 /* Water drop 4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC0241FAE64008D1147 /* Water drop 4.wav */; };
+		7AA04BC9241FAE64008D1147 /* Water drop 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC1241FAE64008D1147 /* Water drop 1.wav */; };
+		7AA04BCA241FAE64008D1147 /* Water drop 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC2241FAE64008D1147 /* Water drop 2.wav */; };
+		7AA04BCB241FAE64008D1147 /* Play 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC3241FAE64008D1147 /* Play 1.wav */; };
+		7AA04BCC241FAE64008D1147 /* Splash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC4241FAE64008D1147 /* Splash.wav */; };
+		7AA04BCD241FAE64008D1147 /* Play 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC5241FAE64008D1147 /* Play 2.wav */; };
+		7AA04BCE241FAE64008D1147 /* Water drop 3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC6241FAE64008D1147 /* Water drop 3.wav */; };
+		7AA04BCF241FAE64008D1147 /* Play.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC7241FAE64008D1147 /* Play.wav */; };
 		7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */; };
 		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */; };
 		7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */; };
@@ -54,6 +70,22 @@
 		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
 		7A9DC823241C0F610047FB3F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7A9DC825241C0FEF0047FB3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
+		7AA04BA0241FA862008D1147 /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; };
+		7AA04BA1241FA862008D1147 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		7AA04BA5241FA8A0008D1147 /* GameAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAudioManager.swift; sourceTree = "<group>"; };
+		7AA04BB4241FAB4A008D1147 /* IntroWithLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroWithLoop.swift; sourceTree = "<group>"; };
+		7AA04BB5241FAB4A008D1147 /* AudioLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLibrary.swift; sourceTree = "<group>"; };
+		7AA04BB6241FAB4A008D1147 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		7AA04BB7241FAB4A008D1147 /* SoundEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
+		7AA04BC0241FAE64008D1147 /* Water drop 4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Water drop 4.wav"; sourceTree = "<group>"; };
+		7AA04BC1241FAE64008D1147 /* Water drop 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Water drop 1.wav"; sourceTree = "<group>"; };
+		7AA04BC2241FAE64008D1147 /* Water drop 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Water drop 2.wav"; sourceTree = "<group>"; };
+		7AA04BC3241FAE64008D1147 /* Play 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Play 1.wav"; sourceTree = "<group>"; };
+		7AA04BC4241FAE64008D1147 /* Splash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Splash.wav; sourceTree = "<group>"; };
+		7AA04BC5241FAE64008D1147 /* Play 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Play 2.wav"; sourceTree = "<group>"; };
+		7AA04BC6241FAE64008D1147 /* Water drop 3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Water drop 3.wav"; sourceTree = "<group>"; };
+		7AA04BC7241FAE64008D1147 /* Play.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Play.wav; sourceTree = "<group>"; };
 		7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPattern.swift; sourceTree = "<group>"; };
 		7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternFactory.swift; sourceTree = "<group>"; };
 		7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternSpawner.swift; sourceTree = "<group>"; };
@@ -121,6 +153,7 @@
 				7AB85A862417C55D00A7FB68 /* GameColorPalette.swift */,
 				7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */,
 				7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */,
+				7AA04BA5241FA8A0008D1147 /* GameAudioManager.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -128,8 +161,38 @@
 		7A9DC817241C063B0047FB3F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */,
+				7AA04BA0241FA862008D1147 /* SF-Pro-Rounded-Medium.otf */,
+				7AA04BA1241FA862008D1147 /* SF-Pro-Rounded-Regular.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7AA04BBE241FAB4E008D1147 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				7AA04BBF241FAB5D008D1147 /* Sound Tracks */,
+				7AA04BB5241FAB4A008D1147 /* AudioLibrary.swift */,
+				7AA04BB4241FAB4A008D1147 /* IntroWithLoop.swift */,
+				7AA04BB6241FAB4A008D1147 /* Song.swift */,
+				7AA04BB7241FAB4A008D1147 /* SoundEffects.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		7AA04BBF241FAB5D008D1147 /* Sound Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				7AA04BC3241FAE64008D1147 /* Play 1.wav */,
+				7AA04BC5241FAE64008D1147 /* Play 2.wav */,
+				7AA04BC7241FAE64008D1147 /* Play.wav */,
+				7AA04BC4241FAE64008D1147 /* Splash.wav */,
+				7AA04BC1241FAE64008D1147 /* Water drop 1.wav */,
+				7AA04BC2241FAE64008D1147 /* Water drop 2.wav */,
+				7AA04BC6241FAE64008D1147 /* Water drop 3.wav */,
+				7AA04BC0241FAE64008D1147 /* Water drop 4.wav */,
+			);
+			path = "Sound Tracks";
 			sourceTree = "<group>";
 		};
 		7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */ = {
@@ -280,6 +343,7 @@
 		7AE988BA24192510002AD679 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7AA04BBE241FAB4E008D1147 /* Audio */,
 				7A9DC817241C063B0047FB3F /* Fonts */,
 				7AB85A7B2416D1ED00A7FB68 /* ColorCore */,
 			);
@@ -344,9 +408,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA04BCA241FAE64008D1147 /* Water drop 2.wav in Resources */,
+				7AA04BCF241FAE64008D1147 /* Play.wav in Resources */,
+				7AA04BCD241FAE64008D1147 /* Play 2.wav in Resources */,
+				7AA04BC8241FAE64008D1147 /* Water drop 4.wav in Resources */,
 				7A9DC827241C10430047FB3F /* GameScene.sks in Resources */,
+				7AA04BA4241FA862008D1147 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */,
+				7AA04BCC241FAE64008D1147 /* Splash.wav in Resources */,
+				7AA04BC9241FAE64008D1147 /* Water drop 1.wav in Resources */,
 				7AC3C36C240FF8300011F586 /* Main.storyboard in Resources */,
+				7AA04BA3241FA862008D1147 /* SF-Pro-Rounded-Medium.otf in Resources */,
 				7AC3C36E240FF8310011F586 /* Assets.xcassets in Resources */,
+				7AA04BCE241FAE64008D1147 /* Water drop 3.wav in Resources */,
+				7AA04BCB241FAE64008D1147 /* Play 1.wav in Resources */,
 				7AC3C371240FF8310011F586 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,11 +451,14 @@
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
 				7AB85A8F2417F74200A7FB68 /* Storage.swift in Sources */,
 				7AB85A922417FC9B00A7FB68 /* Score.swift in Sources */,
+				7AA04BBA241FAB4A008D1147 /* AudioLibrary.swift in Sources */,
 				7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */,
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
 				7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */,
+				7AA04BBB241FAB4A008D1147 /* Song.swift in Sources */,
+				7AA04BB9241FAB4A008D1147 /* IntroWithLoop.swift in Sources */,
 				7AB85A942418054600A7FB68 /* TimeInterval.swift in Sources */,
 				7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */,
 				7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */,
@@ -393,6 +471,8 @@
 				7AB85A962418055D00A7FB68 /* Int.swift in Sources */,
 				7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */,
 				7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */,
+				7AA04BBC241FAB4A008D1147 /* SoundEffects.swift in Sources */,
+				7AA04BA6241FA8A0008D1147 /* GameAudioManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

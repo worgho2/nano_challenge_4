@@ -17,7 +17,7 @@ class GameColorPalette {
     var auxiliar: UIColor!
     
     init(generator: PaletteGenerator) {
-        let basePalette: [UIColor] = generator.getTriad().map({$0.getUIColor()})
+//        let basePalette: [UIColor] = generator.getTriad().map({$0.getUIColor()})
         
         self.pattern = #colorLiteral(red: 0.1411764706, green: 0.1490196078, blue: 0.4431372549, alpha: 1) //basePalette[0]
         self.leftColor = #colorLiteral(red: 0, green: 0.7529411765, blue: 0.8980392157, alpha: 1) //basePalette[1]
