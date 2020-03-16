@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+//import UIKit
 
 class SquareObstacle: Obstacle {
     
@@ -15,7 +16,8 @@ class SquareObstacle: Obstacle {
     }
     
     init(scene: GameScene?) {
-        let node = scene?.childNode(withName: "squareObstacle")!
+        let node = SKShapeNode(rectOf: CGSize(width: 100, height: 100), cornerRadius: 25)
+        node.name = "squareObstacle"
         super.init(node: node, scene: scene)
         self.configurePhysics(on: self.node)
     }

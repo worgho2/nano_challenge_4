@@ -152,10 +152,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
         guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
-        guard let obstacleNode = obstacleNode as? SKSpriteNode else { fatalError() }
+        guard let obstacleNode = obstacleNode as? SKShapeNode else { fatalError() }
         let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
         
-        if painterNode.fillColor == obstacleNode.color {
+        if painterNode.fillColor == obstacleNode.fillColor {
             obstacle.onCollision(onCorrectPainter: false)
             self.onGameOver()
         } else {

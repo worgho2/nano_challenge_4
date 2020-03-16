@@ -15,7 +15,8 @@ class RectangleObstacle: Obstacle {
     }
     
     init(scene: GameScene?) {
-        let node = scene?.childNode(withName: "rectangleObstacle")!
+        let node = SKShapeNode(rectOf: CGSize(width: 250, height: 50), cornerRadius: 25)
+        node.name = "ractangleObstacle"
         super.init(node: node, scene: scene)
         self.configurePhysics(on: self.node)
     }
@@ -29,7 +30,7 @@ class RectangleObstacle: Obstacle {
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(rectangleOf: .init(width: 250, height: 70))
+        let body = SKPhysicsBody(rectangleOf: .init(width: 250, height: 50))
         
         body.affectedByGravity = false
         body.allowsRotation = false

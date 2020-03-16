@@ -61,15 +61,18 @@ class Wheel: GameObject {
         let leftPainterNode = SKShapeNode(circleOfRadius: 18)
         leftPainterNode.name = "leftPainter"
         leftPainterNode.position = CGPoint(x: -100, y: 0)
-        leftPainterNode.strokeColor = .clear
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = self.scene.gameColorPalette!.leftColor
+        leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
+        leftPainterNode.isAntialiased = true
+        leftPainterNode.glowWidth = 3
         self.configurePhysics(on: leftPainterNode)
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
         rightPainterNode.position = CGPoint(x: 100, y: 0)
         rightPainterNode.fillColor = self.scene.gameColorPalette!.rightColor
+        rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
         self.node.addChild(leftPainterNode)

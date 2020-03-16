@@ -62,7 +62,7 @@ class ObstacleFactory: SceneSupplicant {
     //MARK: - Class Methods
 
     private func getNode(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> SKNode {
-        let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKSpriteNode
+        let node = (type == .rectangle ? self.rectangleBaseNode : self.squareBaseNode).copy() as! SKShapeNode
         let nodeRotation: CGFloat = (orientation == .horizontal ? 0 : CGFloat.pi/2)
         var nodePosition: CGPoint = CGPoint(x: 0, y: 0)
         let bounds = self.scene.getBounds()
@@ -89,7 +89,7 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
-        node.color = (color == .leftColor ? self.scene.gameColorPalette?.leftColor : self.scene.gameColorPalette?.rightColor)!
+        node.fillColor = (color == .leftColor ? self.scene.gameColorPalette?.leftColor : self.scene.gameColorPalette?.rightColor)!
         
         return node
     }
@@ -97,7 +97,14 @@ class ObstacleFactory: SceneSupplicant {
     func getNewObstacle(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
         print("[SPAWN OBSTACLE] \(type) - \(orientation) - \(position)")
         
-        let node = self.getNode(type: type, color: color, orientation: orientation, position: position)
+//        let node = self.getNode(type: type, color: color, orientation: orientation, position: position)
+        
+        guard let node = self.getNode(type: type, color: color, orientation: orientation, position: position) as? SKShapeNode else { fatalError() }
+        
+        node.strokeColor = node.fillColor.withAlphaComponent(0.3)
+        node.glowWidth = 5
+        node.isAntialiased = true
+        
         return type == .rectangle ? RectangleObstacle(node: node, scene: self.scene) : SquareObstacle(node: node, scene: self.scene)
     }
 

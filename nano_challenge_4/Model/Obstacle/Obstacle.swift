@@ -19,7 +19,7 @@ class Obstacle: GameObject {
     //MARK: - Class Methods
     
     func onCollision(onCorrectPainter: Bool) {
-        guard let node = self.node as? SKSpriteNode else { return }
+        guard let node = self.node as? SKShapeNode else { return }
         node.physicsBody = nil
         node.zPosition = 1000
         
@@ -31,12 +31,12 @@ class Obstacle: GameObject {
                 ]
             ))
             
-            node.run(.colorize(with: .clear, colorBlendFactor: 1.0, duration: 0.15))
+            node.run(.fadeOut(withDuration: 0.15))
             
             self.scene?.gameAudioManager.play(soundEffect: .waterDrop1)
             self.scene?.impactFeedback.impactOccurred()
         } else {
-            node.run(.colorize(with: .clear, colorBlendFactor: 1.0, duration: 1))
+            node.run(.fadeOut(withDuration: 1))
             node.run(.sequence(
                 [
                     .move(by: CGVector(dx: 10, dy: 0), duration: 0.08),
