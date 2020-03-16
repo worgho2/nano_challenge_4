@@ -27,12 +27,16 @@ class Wheel: GameObject {
         }
     }
     
+    var gameColorManager: GameColorManager!
+    
     private var isTouching: (left: Bool, right: Bool) = (false, false)
     
-    init(scene: GameScene?) {
+    init(scene: SKScene?, gameColorManager: GameColorManager) {
         let node = scene?.childNode(withName: "wheelNode")!
         node?.position = CGPoint(x: 0, y: 0)
         super.init(node: node, scene: scene)
+        
+        self.gameColorManager = gameColorManager
         
         self.setupPainters()
         self.setupWheelBackground()
@@ -62,7 +66,7 @@ class Wheel: GameObject {
         leftPainterNode.name = "leftPainter"
         leftPainterNode.position = CGPoint(x: -100, y: 0)
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = self.scene.gameColorPalette!.leftColor
+        leftPainterNode.fillColor = self.gameColorManager.leftColor
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
         leftPainterNode.isAntialiased = true
         leftPainterNode.glowWidth = 3
@@ -71,7 +75,7 @@ class Wheel: GameObject {
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
         rightPainterNode.position = CGPoint(x: 100, y: 0)
-        rightPainterNode.fillColor = self.scene.gameColorPalette!.rightColor
+        rightPainterNode.fillColor = self.gameColorManager.rightColor
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
@@ -144,6 +148,7 @@ class Wheel: GameObject {
     override func update(_ deltaTime: TimeInterval) {
         let rotation = CGFloat(deltaTime) * 2 * CGFloat.pi * self.getRotationDirection().multiplier
         self.node.zRotation += rotation
+        print(self.node.zRotation)
     }
     
     //MARK: - TriggeredByGameState PROTOCOL

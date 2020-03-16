@@ -56,12 +56,11 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
             scene.realPaused = true
             scene.scaleMode = .aspectFill
             scene.vc = self
-            scene.gameColorPalette = GameColorPalette(generator: PaletteGenerator(baseHSV: HSV(hue: randomHue, saturation: randomSaturation, value: randomValue)))
             scene.backgroundColor = .clear
             
-            backgroundView.backgroundColor = scene.gameColorPalette!.backgroundColor
+            backgroundView.backgroundColor = scene.gameColorManager.backgroundColor
             viewPattern.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 10)
-            let image = UIImage(named: "background")!.tint(tintColor: scene.gameColorPalette!.pattern).resizeImage(size: CGSize(width: view.frame.width/2, height: view.frame.width/2))!
+            let image = UIImage(named: "background")!.tint(tintColor: scene.gameColorManager.pattern).resizeImage(size: CGSize(width: view.frame.width/2, height: view.frame.width/2))!
             viewPattern.backgroundColor = UIColor(patternImage: image)
             
             self.scene = scene

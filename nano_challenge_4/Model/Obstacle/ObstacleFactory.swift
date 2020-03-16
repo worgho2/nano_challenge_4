@@ -48,15 +48,26 @@ enum ObstacleColor: CaseIterable {
 
 class ObstacleFactory: SceneSupplicant {
     
-    var scene: GameScene!
+    var gameAudioManager: GameAudioManager!
+    var gameHapticManager: GameHapticManager!
+    var gameSpeedManager: GameSpeedManager!
+    var gameColorManager: GameColorManager!
+    
+    var scene: SKScene!
     
     private var rectangleBaseNode: SKNode!
     private var squareBaseNode: SKNode!
     
-    init(scene: GameScene?) {
+    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
-        self.rectangleBaseNode = RectangleObstacle(scene: self.scene).node
-        self.squareBaseNode = SquareObstacle(scene: self.scene).node
+        
+        self.gameAudioManager = gameAudioManager
+        self.gameHapticManager = gameHapticManager
+        self.gameSpeedManager = gameSpeedManager
+        self.gameColorManager = gameColorManager
+        
+        self.rectangleBaseNode = RectangleObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager).node
+        self.squareBaseNode = SquareObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager).node
     }
     
     //MARK: - Class Methods
@@ -89,23 +100,26 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
-        node.fillColor = (color == .leftColor ? self.scene.gameColorPalette?.leftColor : self.scene.gameColorPalette?.rightColor)!
+        node.fillColor = (color == .leftColor ? self.gameColorManager.leftColor : self.gameColorManager.rightColor)!
         
         return node
     }
     
     func getNewObstacle(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
         print("[SPAWN OBSTACLE] \(type) - \(orientation) - \(position)")
-        
-//        let node = self.getNode(type: type, color: color, orientation: orientation, position: position)
-        
+
         guard let node = self.getNode(type: type, color: color, orientation: orientation, position: position) as? SKShapeNode else { fatalError() }
         
         node.strokeColor = node.fillColor.withAlphaComponent(0.3)
         node.glowWidth = 5
         node.isAntialiased = true
         
-        return type == .rectangle ? RectangleObstacle(node: node, scene: self.scene) : SquareObstacle(node: node, scene: self.scene)
+        if type == .rectangle {
+            return RectangleObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager)
+        } else {
+            return SquareObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager)
+        }
+        
     }
 
 }

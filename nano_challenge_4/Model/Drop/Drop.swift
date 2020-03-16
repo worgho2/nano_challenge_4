@@ -10,18 +10,9 @@ import SpriteKit
 
 class Drop: GameObject {
     
-    init(scene: GameScene?) {
+    init(scene: SKScene?) {
         let node = scene?.childNode(withName: "drop")! as! SKSpriteNode
-        super.init(node: node, scene: scene)
-        
-        self.configurePhysics(on: self.node)
         node.position = CGPoint(x: 0, y: 500)
-    }
-    
-    //MARK: - PhysicsObject PROTOCOL
-    
-    override func configurePhysics(on node: SKNode) {
-        guard let node = self.node as? SKSpriteNode else { return }
         
         let image = UIImage(named: "drop")!.tint(tintColor: .black)
         let texture = SKTexture(image: image)
@@ -29,7 +20,18 @@ class Drop: GameObject {
         node.texture = texture
         node.scale(to: CGSize(width: 35, height: 65))
         
-        let body = SKPhysicsBody(texture: texture, size: node.size)
+        super.init(node: node, scene: scene)
+        
+        self.configurePhysics(on: self.node)
+        
+    }
+    
+    //MARK: - PhysicsObject PROTOCOL
+    
+    override func configurePhysics(on node: SKNode) {
+        guard let node = self.node as? SKSpriteNode else { return }
+        
+        let body = SKPhysicsBody(texture: node.texture!, size: node.size)
         
         body.affectedByGravity = false
         body.allowsRotation = false

@@ -11,14 +11,16 @@ import SpriteKit
 
 class SquareObstacle: Obstacle {
     
-    override init(node: SKNode?, scene: GameScene?) {
-        super.init(node: node, scene: scene)
+    override init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager) {
+        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager)
     }
     
-    init(scene: GameScene?) {
-        let node = SKShapeNode(rectOf: CGSize(width: 100, height: 100), cornerRadius: 25)
+    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager) {
+        let node = SKShapeNode(rectOf: CGSize(width: 100, height: 100), cornerRadius: 15)
         node.name = "squareObstacle"
-        super.init(node: node, scene: scene)
+        
+        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager)
+        
         self.configurePhysics(on: self.node)
     }
     

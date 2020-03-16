@@ -11,9 +11,17 @@ import AudioToolbox
 
 class Obstacle: GameObject {
     
-    override init(node: SKNode?, scene: GameScene?) {
+    var gameAudioManager: GameAudioManager!
+    var gameHapticManager: GameHapticManager!
+    var gameSpeedManager: GameSpeedManager!
+    
+    init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager) {
         super.init(node: node, scene: scene)
-        self.node.zPosition = -1
+        
+        self.gameAudioManager = gameAudioManager
+        self.gameHapticManager = gameHapticManager
+        self.gameSpeedManager = gameSpeedManager
+        self.node!.zPosition = -1
     }
     
     //MARK: - Class Methods
@@ -33,8 +41,8 @@ class Obstacle: GameObject {
             
             node.run(.fadeOut(withDuration: 0.15))
             
-            self.scene?.gameAudioManager.play(soundEffect: .waterDrop1)
-            self.scene?.impactFeedback.impactOccurred()
+            self.gameAudioManager.play(soundEffect: .waterDrop1)
+            self.gameHapticManager.impact.impactOccurred()
         } else {
             node.run(.fadeOut(withDuration: 1))
             node.run(.sequence(
@@ -52,8 +60,8 @@ class Obstacle: GameObject {
                 ]
             ))
             
-            self.scene?.gameAudioManager.play(soundEffect: .waterDrop4)
-            self.scene?.impactFeedback.impactOccurred()
+            self.gameAudioManager.play(soundEffect: .waterDrop4)
+            self.gameHapticManager.impact.impactOccurred()
         }
         
     }
@@ -61,7 +69,7 @@ class Obstacle: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.scene.gameSpeedManager.getCurrentSpeed()
+        let dY = CGFloat(deltaTime) * self.gameSpeedManager.getCurrentSpeed()
         self.node.position.y += dY
     }
     

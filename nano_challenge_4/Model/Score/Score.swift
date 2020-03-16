@@ -21,13 +21,13 @@ class Score: GameObject {
     private var timeHighScoreDefaultNode: SKLabelNode!
     private var obstacleHighScoreDefaultNode: SKLabelNode!
     
-    init(scene: GameScene?, manager: GameScoreManager) {
+    init(scene: SKScene?, gameScoreManager: GameScoreManager) {
         let node = scene?.childNode(withName: "scoreNode")!
         node?.position = CGPoint(x: 0, y: 310)
         node?.alpha = 0
         super.init(node: node, scene: scene)
         
-        self.gameScoreManager = manager
+        self.gameScoreManager = gameScoreManager
         
         self.setupHighScoreNodes()
         self.setupCurrentHighScores()

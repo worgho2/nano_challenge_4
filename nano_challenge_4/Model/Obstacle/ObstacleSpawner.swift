@@ -10,17 +10,22 @@ import SpriteKit
 
 class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
-    var scene: GameScene!
+    var gameSpeedManager: GameSpeedManager!
+    
+    var scene: SKScene!
     var obstacleFactory: ObstacleFactory!
     var obstacles: [Obstacle]
     
     private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
     
-    init(scene: GameScene?) {
+    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
-        self.obstacleFactory = ObstacleFactory(scene: self.scene)
-        obstacles = [Obstacle]()
+        self.obstacles = [Obstacle]()
+        
+        self.gameSpeedManager = gameSpeedManager
+        
+        self.obstacleFactory = ObstacleFactory(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
     }
     
     //MARK: - Class Methods
@@ -40,7 +45,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     func update(_ deltaTime: TimeInterval) {
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.scene.gameSpeedManager.getProgress())
+        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.gameSpeedManager.getProgress())
         
         self.obstacles.forEach { $0.update(deltaTime) }
         

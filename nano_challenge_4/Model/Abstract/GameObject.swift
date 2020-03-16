@@ -14,9 +14,9 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     
     var id: Int
     var node: SKNode!
-    var scene: GameScene!
+    var scene: SKScene!
     
-    init(node: SKNode?, scene: GameScene?) {
+    init(node: SKNode?, scene: SKScene?) {
         self.id = GameObject.next_id
         GameObject.next_id += 1
         

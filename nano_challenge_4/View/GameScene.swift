@@ -11,11 +11,8 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var vc: GameViewController?
-    var gameColorPalette: GameColorPalette?
     
     private var lastUpdate = TimeInterval(0)
-
-    let impactFeedback = UIImpactFeedbackGenerator()
     
     var realPaused: Bool = false {
         didSet {
@@ -29,28 +26,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
     private var isGameEnded: Bool = false
     
     var score: Score!
     var wheel: Wheel!
     var drop: Drop!
     var obstacleSpawner: ObstacleSpawner!
-    var gameSpeedManager: GameSpeedManager!
-    var gameAudioManager: GameAudioManager!
+    
+    var gameColorManager =  GameColorManager()
+    var gameSpeedManager =  GameSpeedManager()
+    var gameScoreManager =  GameScoreManager()
+    var gameAudioManager =  GameAudioManager()
+    var gameHapticManager =  GameHapticManager()
     
     //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         
-        self.score = Score(scene: self, manager: GameScoreManager())
-        self.wheel = Wheel(scene: self)
+        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager)
+        self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
         self.drop = Drop(scene: self)
-        self.obstacleSpawner = ObstacleSpawner(scene: self)
-        
-        self.gameSpeedManager = GameSpeedManager()
-        self.gameAudioManager = GameAudioManager()
+        self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
     }
     
     override func update(_ currentTime: TimeInterval) {

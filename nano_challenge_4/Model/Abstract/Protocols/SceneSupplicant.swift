@@ -6,8 +6,8 @@
 //  Copyright © 2020 Raieiros Studio. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 protocol SceneSupplicant {
-    var scene: GameScene! { get set }
+    var scene: SKScene! { get set }
 }
