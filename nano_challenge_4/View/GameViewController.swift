@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import GoogleMobileAds
 
 class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
@@ -22,6 +23,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     @IBOutlet weak var highScoreDefaultLabel: UILabel!
     @IBOutlet weak var bestTimeDefaultLabel: UILabel!
     
+    var ad: GADInterstitial!
+    var rewardedAd: GADRewardedAd!
     
     weak var scene: GameScene?
     
@@ -32,8 +35,10 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     //MARK: - Class Methods
     
+    
     @IBAction func onPlayButton(_ sender: Any) {
         self.scene?.play(isGamePaused: self.isGamePaused)
+        
     }
     
     @IBAction func onPauseButton(_ sender: Any) {
@@ -44,14 +49,11 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.setupBackground()
         self.loadScene()
         self.setupView()
+//        self.loadAD()
     }
     
     private func loadScene() {
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
-            let randomHue = CGFloat.random(in: 0...360)
-            let randomSaturation = CGFloat.random(in: 0.5...1)
-            let randomValue = CGFloat.random(in: 0.5...1)
-            print("[COLOR GENERATION]: (HUE: \(randomHue) - SATURATION: \(randomSaturation) - VALUE: \(randomValue)")
             
             scene.realPaused = true
             scene.scaleMode = .aspectFill
@@ -75,7 +77,6 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
 
             skView.layer.insertSublayer(gradientLayer, at: 0)
             skView.backgroundColor = .clear
-//            skView.showsPhysics = true
             skView.isMultipleTouchEnabled = true
             skView.presentScene(scene)
         }
@@ -195,3 +196,63 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     }
 }
 
+extension GameViewController: GADRewardedAdDelegate {
+    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+        print("o usuário ganhou:", reward.amount, reward.type)
+    }
+    
+    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
+        self.loadAD()
+    }
+    
+    func loadAD() {
+//        let id = "ca-app-pub-3805796666758486/3142948489"
+        let id = "ca-app-pub-3940256099942544/1712485313"
+        let newAd = GADRewardedAd(adUnitID: id)
+        
+        newAd.load(GADRequest()) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        self.rewardedAd = newAd
+    }
+    
+    func showAD() {
+        self.rewardedAd.present(fromRootViewController: self, delegate: self)
+    }
+}
+
+extension GameViewController: GADInterstitialDelegate {
+    
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("cebolinha do condor", error)
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        self.loadAD()
+    }
+    
+    
+    func loadInterAD() {
+        //let id = "ca-app-pub-3805796666758486/8999632594" //meuad
+        let id = "ca-app-pub-3940256099942544/4411468910"
+        let newAdd = GADInterstitial(adUnitID: id)
+        
+        newAdd.delegate = self
+        newAdd.load(GADRequest())
+        
+        self.ad = newAdd
+    }
+    
+    func showInterAD() {
+        guard self.ad.isReady else {
+            print("deu cagada")
+            return
+            
+        }
+        
+        self.ad.present(fromRootViewController: self)
+    }
+}

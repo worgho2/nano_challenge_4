@@ -32,6 +32,13 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
 
     func spawn() {
         let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), color: ObstacleColor.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
+                       
+       self.obstacles.append(newObstacle)
+       self.scene.addChild(newObstacle.node)
+    }
+    
+    func spawnByParameters(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) {
+         let newObstacle = self.obstacleFactory.getNewObstacle(type: type, color: color, orientation: orientation, position: position)
         
         self.obstacles.append(newObstacle)
         self.scene.addChild(newObstacle.node)
@@ -50,7 +57,11 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         self.obstacles.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
-            self.spawn()
+            if let scene = self.scene as? GameScene {
+                if !scene.gameOnboardingManager.onboardingIsNeeded() {
+                   self.spawn()
+                }
+            }
             self.currentSpawnTimer -= spawnThreshold
         }
         
@@ -83,5 +94,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     func onGameContinue() {
         return
     }
+    
+    
 }
 

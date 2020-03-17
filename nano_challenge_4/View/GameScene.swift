@@ -28,6 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private var isGameEnded: Bool = false
     
+    
+    var onboarding: Onboarding!
     var score: Score!
     var wheel: Wheel!
     var drop: Drop!
@@ -39,12 +41,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameAudioManager =  GameAudioManager()
     var gameHapticManager =  GameHapticManager()
     
+    var gameOnboardingManager = GameOnboardingManager()
+    
     //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         
-        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager)
+        self.onboarding = Onboarding(scene: self, gameOnboardingManager: self.gameOnboardingManager, gameColorManager: self.gameColorManager)
+        
+        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager, gameOnboardingManager: self.gameOnboardingManager)
         self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
         self.drop = Drop(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
@@ -85,7 +91,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func getTouchSensitives() -> [TouchSensitive] {
         return [
-            self.wheel
+            self.wheel,
+            self.onboarding
         ]
     }
     private func getUpdatables() -> [Updateable] {
@@ -94,7 +101,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.wheel,
             self.obstacleSpawner,
             self.gameSpeedManager,
-            self.vc!
+            self.vc!,
+            self.onboarding
         ]
     }
     
@@ -113,9 +121,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.onGamePause()
     }
     
-    private func onGameStart() {
+    func onGameStart() {
         self.isGameEnded = false
-        self.gameAudioManager.play(soundEffect: .play1)
+        self.gameAudioManager.play(soundEffect: .playNew)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     
@@ -127,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.getTriggeredsByGameState().forEach { $0.onGameContinue() }
     }
     
-    private func onGameOver() {
+    func onGameOver() {
         self.isGameEnded = true
         self.getTriggeredsByGameState().forEach { $0.onGameOver() }
     }

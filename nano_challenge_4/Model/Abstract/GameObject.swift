@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState {
+class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState, OnboardingDisplayable {
     
     static var next_id = 0
     
@@ -46,4 +46,11 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     func onGamePause() { return }
     func onGameContinue() { return }
     func onGameOver() { return }
+    
+    //MARK: - OnboardingDisplayable PROTOCOL
+    
+    func onFirstStep() { return }
+    func onSecondStep() { return }
+    func onThirdStep() { return }
+    func onFourthStep() { return }
 }

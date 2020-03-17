@@ -128,11 +128,24 @@ class Wheel: GameObject {
     
     override func touchDown(atPoint pos: CGPoint) {
         if pos.x > 0 {
-            self.isTouching.right = true
-            self.isTouching.left = false
+            if let scene = self.scene as? GameScene {
+                if !scene.gameOnboardingManager.isStageDone(.second) && scene.gameOnboardingManager.isStageDone(.first) {
+                    return
+                }
+                scene.gameOnboardingManager.wheelRotationRight = true
+                self.isTouching.right = true
+                self.isTouching.left = false
+            }
         } else {
-            self.isTouching.left = true
-            self.isTouching.right = false
+            if let scene = self.scene as? GameScene {
+                if !scene.gameOnboardingManager.isStageDone(.first) && !scene.gameOnboardingManager.isStageDone(.first) {
+                    return
+                }
+                scene.gameOnboardingManager.wheelRotationLeft = true
+                self.isTouching.left = true
+                self.isTouching.right = false
+            }
+            
         }
     }
     override func touchUp(atPoint pos: CGPoint) {
@@ -148,7 +161,6 @@ class Wheel: GameObject {
     override func update(_ deltaTime: TimeInterval) {
         let rotation = CGFloat(deltaTime) * 2 * CGFloat.pi * self.getRotationDirection().multiplier
         self.node.zRotation += rotation
-        print(self.node.zRotation)
     }
     
     //MARK: - TriggeredByGameState PROTOCOL
@@ -161,5 +173,14 @@ class Wheel: GameObject {
     override func onGameOver() {
         self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
         self.node.run(.rotate(toAngle: 0, duration: 0.4))
+    }
+    
+    //MARK: - OnboardingDisplayable PROTOCOL
+    
+    override func onFirstStep() {
+        self.onGameStart()
+    }
+    override func onSecondStep() {
+        self.onGameStart()
     }
 }

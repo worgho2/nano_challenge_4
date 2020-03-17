@@ -3,13 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
 		7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64122324128934005ABD82 /* SquareObstacle.swift */; };
 		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
+		7A81038B2421060800AFA19C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A81038A2421060800AFA19C /* GoogleService-Info.plist */; };
+		7A81038E2421416300AFA19C /* Splash New.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A81038C2421416300AFA19C /* Splash New.wav */; };
+		7A81038F2421416300AFA19C /* Play New.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A81038D2421416300AFA19C /* Play New.wav */; };
 		7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC823241C0F610047FB3F /* GameScene.swift */; };
 		7A9DC827241C10430047FB3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A9DC825241C0FEF0047FB3F /* GameScene.sks */; };
 		7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */; };
@@ -29,7 +32,8 @@
 		7AA04BCE241FAE64008D1147 /* Water drop 3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC6241FAE64008D1147 /* Water drop 3.wav */; };
 		7AA04BCF241FAE64008D1147 /* Play.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04BC7241FAE64008D1147 /* Play.wav */; };
 		7AA04BD3241FE810008D1147 /* GameHapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD2241FE810008D1147 /* GameHapticManager.swift */; };
-		7AA04BD5241FF9C7008D1147 /* OnboardingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD4241FF9C7008D1147 /* OnboardingGameScene.swift */; };
+		7AA04BD7242006FF008D1147 /* gameOnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD6242006FF008D1147 /* gameOnboardingManager.swift */; };
+		7AA04BD924200C2B008D1147 /* OnboardingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD824200C2B008D1147 /* OnboardingDisplayable.swift */; };
 		7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */; };
 		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */; };
 		7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */; };
@@ -63,13 +67,19 @@
 		7AC3C388241130700011F586 /* Wheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C387241130700011F586 /* Wheel.swift */; };
 		7AC3C38A241144CE0011F586 /* TouchSensitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C389241144CE0011F586 /* TouchSensitive.swift */; };
 		7AC3C38F241166080011F586 /* Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3C38E241166080011F586 /* Drop.swift */; };
+		7ACD68702420F35900DB9089 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD686F2420F35900DB9089 /* Onboarding.swift */; };
 		7AE988B724191F67002AD679 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE988B624191F67002AD679 /* SKScene.swift */; };
+		E7922EC0F5C89B47020DAD59 /* Pods_nano_challenge_4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB945114E9F7498A61C4366 /* Pods_nano_challenge_4.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51AC68251C361E765C20BA4D /* Pods-nano_challenge_4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nano_challenge_4.debug.xcconfig"; path = "Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
 		7A64122324128934005ABD82 /* SquareObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareObstacle.swift; sourceTree = "<group>"; };
 		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
+		7A81038A2421060800AFA19C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7A81038C2421416300AFA19C /* Splash New.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Splash New.wav"; sourceTree = "<group>"; };
+		7A81038D2421416300AFA19C /* Play New.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Play New.wav"; sourceTree = "<group>"; };
 		7A9DC823241C0F610047FB3F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7A9DC825241C0FEF0047FB3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -89,7 +99,8 @@
 		7AA04BC6241FAE64008D1147 /* Water drop 3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Water drop 3.wav"; sourceTree = "<group>"; };
 		7AA04BC7241FAE64008D1147 /* Play.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Play.wav; sourceTree = "<group>"; };
 		7AA04BD2241FE810008D1147 /* GameHapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHapticManager.swift; sourceTree = "<group>"; };
-		7AA04BD4241FF9C7008D1147 /* OnboardingGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGameScene.swift; sourceTree = "<group>"; };
+		7AA04BD6242006FF008D1147 /* gameOnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameOnboardingManager.swift; sourceTree = "<group>"; };
+		7AA04BD824200C2B008D1147 /* OnboardingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDisplayable.swift; sourceTree = "<group>"; };
 		7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPattern.swift; sourceTree = "<group>"; };
 		7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternFactory.swift; sourceTree = "<group>"; };
 		7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternSpawner.swift; sourceTree = "<group>"; };
@@ -125,7 +136,10 @@
 		7AC3C387241130700011F586 /* Wheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wheel.swift; sourceTree = "<group>"; };
 		7AC3C389241144CE0011F586 /* TouchSensitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchSensitive.swift; sourceTree = "<group>"; };
 		7AC3C38E241166080011F586 /* Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drop.swift; sourceTree = "<group>"; };
+		7ACD686F2420F35900DB9089 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		7AE988B624191F67002AD679 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		F14153EA65CD42BF2FDF24C3 /* Pods-nano_challenge_4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nano_challenge_4.release.xcconfig"; path = "Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4.release.xcconfig"; sourceTree = "<group>"; };
+		FAB945114E9F7498A61C4366 /* Pods_nano_challenge_4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nano_challenge_4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7922EC0F5C89B47020DAD59 /* Pods_nano_challenge_4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +174,7 @@
 				7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */,
 				7AA04BA5241FA8A0008D1147 /* GameAudioManager.swift */,
 				7AA04BD2241FE810008D1147 /* GameHapticManager.swift */,
+				7AA04BD6242006FF008D1147 /* gameOnboardingManager.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -188,6 +204,8 @@
 		7AA04BBF241FAB5D008D1147 /* Sound Tracks */ = {
 			isa = PBXGroup;
 			children = (
+				7A81038D2421416300AFA19C /* Play New.wav */,
+				7A81038C2421416300AFA19C /* Splash New.wav */,
 				7AA04BC3241FAE64008D1147 /* Play 1.wav */,
 				7AA04BC5241FAE64008D1147 /* Play 2.wav */,
 				7AA04BC7241FAE64008D1147 /* Play.wav */,
@@ -247,6 +265,8 @@
 			children = (
 				7AC3C35F240FF8300011F586 /* nano_challenge_4 */,
 				7AC3C35E240FF8300011F586 /* Products */,
+				F4B856B6825CE3BA5202608D /* Pods */,
+				CBC8486B289C7DE40701A399 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,6 +284,7 @@
 				7AC3C360240FF8300011F586 /* AppDelegate.swift */,
 				7AC3C36D240FF8310011F586 /* Assets.xcassets */,
 				7AC3C372240FF8310011F586 /* Info.plist */,
+				7A81038A2421060800AFA19C /* GoogleService-Info.plist */,
 				7AC3C37C24112EEB0011F586 /* Model */,
 				7AC3C39024116EDC0011F586 /* View */,
 				7AE988BA24192510002AD679 /* Modules */,
@@ -280,6 +301,7 @@
 				7AC3C38C2411583B0011F586 /* Wheel */,
 				7AB85A902417FC8F00A7FB68 /* Score */,
 				7AC3C38B2411575F0011F586 /* Obstacle */,
+				7ACD686E2420F33600DB9089 /* Onboarding */,
 				7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */,
 			);
 			path = Model;
@@ -321,9 +343,16 @@
 				7A9DC825241C0FEF0047FB3F /* GameScene.sks */,
 				7A9DC823241C0F610047FB3F /* GameScene.swift */,
 				7AC3C36F240FF8310011F586 /* LaunchScreen.storyboard */,
-				7AA04BD4241FF9C7008D1147 /* OnboardingGameScene.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7ACD686E2420F33600DB9089 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7ACD686F2420F35900DB9089 /* Onboarding.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		7AE988B8241923E4002AD679 /* PropertyWrappers */ = {
@@ -342,6 +371,7 @@
 				7AC3C37F24112F860011F586 /* SceneSupplicant.swift */,
 				7AC3C389241144CE0011F586 /* TouchSensitive.swift */,
 				7AC3C37D24112F650011F586 /* Updateable.swift */,
+				7AA04BD824200C2B008D1147 /* OnboardingDisplayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -356,6 +386,23 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		CBC8486B289C7DE40701A399 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAB945114E9F7498A61C4366 /* Pods_nano_challenge_4.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4B856B6825CE3BA5202608D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51AC68251C361E765C20BA4D /* Pods-nano_challenge_4.debug.xcconfig */,
+				F14153EA65CD42BF2FDF24C3 /* Pods-nano_challenge_4.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -363,9 +410,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AC3C375240FF8310011F586 /* Build configuration list for PBXNativeTarget "nano_challenge_4" */;
 			buildPhases = (
+				AC2F1AAB561E3070403FC1A4 /* [CP] Check Pods Manifest.lock */,
 				7AC3C359240FF8300011F586 /* Sources */,
 				7AC3C35A240FF8300011F586 /* Frameworks */,
 				7AC3C35B240FF8300011F586 /* Resources */,
+				4B5964EA15C9BAC66EDD836C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,9 +471,12 @@
 				7AA04BA4241FA862008D1147 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */,
 				7AA04BCC241FAE64008D1147 /* Splash.wav in Resources */,
+				7A81038F2421416300AFA19C /* Play New.wav in Resources */,
 				7AA04BC9241FAE64008D1147 /* Water drop 1.wav in Resources */,
+				7A81038B2421060800AFA19C /* GoogleService-Info.plist in Resources */,
 				7AC3C36C240FF8300011F586 /* Main.storyboard in Resources */,
 				7AA04BA3241FA862008D1147 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				7A81038E2421416300AFA19C /* Splash New.wav in Resources */,
 				7AC3C36E240FF8310011F586 /* Assets.xcassets in Resources */,
 				7AA04BCE241FAE64008D1147 /* Water drop 3.wav in Resources */,
 				7AA04BCB241FAE64008D1147 /* Play 1.wav in Resources */,
@@ -433,6 +485,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B5964EA15C9BAC66EDD836C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC2F1AAB561E3070403FC1A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-nano_challenge_4-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7AC3C359240FF8300011F586 /* Sources */ = {
@@ -446,7 +540,6 @@
 				7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */,
 				7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */,
 				7AC3C37B24101A260011F586 /* ContactMask.swift in Sources */,
-				7AA04BD5241FF9C7008D1147 /* OnboardingGameScene.swift in Sources */,
 				7AE988B724191F67002AD679 /* SKScene.swift in Sources */,
 				7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */,
 				7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */,
@@ -454,6 +547,7 @@
 				7AB85A872417C55D00A7FB68 /* GameColorManager.swift in Sources */,
 				7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */,
 				7AC3C38224112FFB0011F586 /* Obstacle.swift in Sources */,
+				7AA04BD7242006FF008D1147 /* gameOnboardingManager.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
 				7AB85A8F2417F74200A7FB68 /* Storage.swift in Sources */,
@@ -464,6 +558,7 @@
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
+				7AA04BD924200C2B008D1147 /* OnboardingDisplayable.swift in Sources */,
 				7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */,
 				7AA04BBB241FAB4A008D1147 /* Song.swift in Sources */,
 				7AA04BB9241FAB4A008D1147 /* IntroWithLoop.swift in Sources */,
@@ -476,6 +571,7 @@
 				7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */,
 				7AC3C37E24112F650011F586 /* Updateable.swift in Sources */,
 				7AA0D25F241A7BC600B8C200 /* BrunoRoubodeCodigo.swift in Sources */,
+				7ACD68702420F35900DB9089 /* Onboarding.swift in Sources */,
 				7AB85A962418055D00A7FB68 /* Int.swift in Sources */,
 				7AC3C361240FF8300011F586 /* AppDelegate.swift in Sources */,
 				7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */,
@@ -622,6 +718,7 @@
 		};
 		7AC3C376240FF8310011F586 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51AC68251C361E765C20BA4D /* Pods-nano_challenge_4.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -642,6 +739,7 @@
 		};
 		7AC3C377240FF8310011F586 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F14153EA65CD42BF2FDF24C3 /* Pods-nano_challenge_4.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";

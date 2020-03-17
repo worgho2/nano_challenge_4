@@ -41,7 +41,7 @@ class Obstacle: GameObject {
             
             node.run(.fadeOut(withDuration: 0.15))
             
-            self.gameAudioManager.play(soundEffect: .waterDrop1)
+            self.gameAudioManager.play(soundEffect: .splashNew)
             self.gameHapticManager.impact.impactOccurred()
         } else {
             node.run(.fadeOut(withDuration: 1))
