@@ -41,12 +41,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
                                 <rect key="frame" x="155" y="658" width="104" height="104"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="1:1" id="z9I-Ow-rYw"/>
                                 </constraints>
-                                <state key="normal" title="GAME CENTER">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="gamecenter">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onGameCenterButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="7Ws-Xv-Ktd"/>
@@ -138,6 +138,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gamecenter" width="500" height="500"/>
         <image name="pause.fill" catalog="system" width="58" height="64"/>
     </resources>
 </document>
