@@ -26,7 +26,6 @@ class Onboarding: GameObject {
         self.node.children.forEach{ $0.removeFromParent() }
     }
     
-    
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
@@ -50,22 +49,27 @@ class Onboarding: GameObject {
         }
     }
     
-    
     //MARK: - OnboardingDisplayable PROTOCOL
     
     override func onFirstStep() {
         self.setupToNextStage()
         
-        let descriptionNode = SKLabelNode(text: "Use one thumb at a time to rotate the colors")
+        let descriptionNode = SKLabelNode()
         
+        let text = "Use one thumb at a time to rotate the colors"
+        let attrString = NSMutableAttributedString(string: text)
+        let range = NSRange(location: 0, length: text.count)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
+        attrString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 25), range: range)
+        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+        descriptionNode.attributedText = attrString
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "firstStageDescription"
         descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
         descriptionNode.numberOfLines = 3
-        descriptionNode.fontColor = .white
-        descriptionNode.fontSize = 25
-        descriptionNode.fontName = "SF-Pro-Rounded-Light"
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
         descriptionNode.alpha = 0
@@ -101,16 +105,22 @@ class Onboarding: GameObject {
     override func onSecondStep() {
         self.setupToNextStage()
         
-        let descriptionNode = SKLabelNode(text: "Use one thumb at a time to rotate the colors")
+        let descriptionNode = SKLabelNode()
         
+        let text = "Use one thumb at a time to rotate the colors"
+        let attrString = NSMutableAttributedString(string: text)
+        let range = NSRange(location: 0, length: text.count)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
+        attrString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 25), range: range)
+        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+        descriptionNode.attributedText = attrString
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "secondStageDescription"
         descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
         descriptionNode.numberOfLines = 3
-        descriptionNode.fontColor = .white
-        descriptionNode.fontSize = 25
-        descriptionNode.fontName = "SF-Pro-Rounded-Light"
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
         descriptionNode.alpha = 0
@@ -158,16 +168,22 @@ class Onboarding: GameObject {
         startNode.zPosition = 999
         startNode.alpha = 0
         
-        let descriptionNode = SKLabelNode(text: "Mix the colors to get the background color and prevent the black ink drop from touching the obstacles")
+        let descriptionNode = SKLabelNode()
         
+        let text = "Mix the colors to get the background color and prevent the black ink drop from touching the obstacles"
+        let attrString = NSMutableAttributedString(string: text)
+        let range = NSRange(location: 0, length: text.count)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
+        attrString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 25), range: range)
+        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+        descriptionNode.attributedText = attrString
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "thirdStageDescription"
         descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
         descriptionNode.numberOfLines = 5
-        descriptionNode.fontColor = .white
-        descriptionNode.fontSize = 25
-        descriptionNode.fontName = "SF-Pro-Rounded-Light"
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
         descriptionNode.alpha = 0
@@ -246,7 +262,6 @@ class Onboarding: GameObject {
             gameOnboardingManager.setStageDone(.third)
             self.setupToNextStage()
             if let scene = self.scene as? GameScene {
-                scene.onGameOver()
                 scene.onGameStart()
             }
             
