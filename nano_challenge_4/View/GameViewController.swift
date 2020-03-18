@@ -137,9 +137,15 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     @objc func onPlayerAuthentication() {
         self.gameCenterButton.isUserInteractionEnabled = true
         
-        self.playButton.setTitle("Play", for: .normal)
-        self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
-        self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { t in
+            self.playButton.setTitle("Play", for: .normal)
+            self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
+            self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+            
+            t.invalidate()
+        }
+        
+        
     }
     
     override var shouldAutorotate: Bool {
