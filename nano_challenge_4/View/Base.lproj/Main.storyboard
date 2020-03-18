@@ -21,7 +21,7 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Dont_Drop_It" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Splash_It___Color_Game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,14 +29,27 @@
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4po-H2-ZjC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="916"/>
                             </skView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqP-Wn-Bn9">
-                                <rect key="frame" x="0.0" y="5" width="414" height="896"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqP-Wn-Bn9">
+                                <rect key="frame" x="0.0" y="44" width="414" height="448"/>
                                 <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="49"/>
                                 <state key="normal" title="PLAY">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onPlayButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2gy-31-5nb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
+                                <rect key="frame" x="155" y="658" width="104" height="104"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="1:1" id="z9I-Ow-rYw"/>
+                                </constraints>
+                                <state key="normal" title="GAME CENTER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onGameCenterButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="7Ws-Xv-Ktd"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sd-fc-xAc">
@@ -83,30 +96,34 @@
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="VQN-br-dsM" secondAttribute="bottom" constant="100" id="1wJ-xA-1Eg"/>
                             <constraint firstItem="9Sd-fc-xAc" firstAttribute="centerX" secondItem="oci-1I-GvG" secondAttribute="centerX" id="41A-5r-K6C"/>
                             <constraint firstItem="oci-1I-GvG" firstAttribute="top" secondItem="9hy-i7-IWB" secondAttribute="bottom" id="5ex-7g-vdX"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="kqP-Wn-Bn9" secondAttribute="trailing" id="6p9-CO-21p"/>
                             <constraint firstItem="4po-H2-ZjC" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="6sY-s7-87K"/>
-                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="7OK-gT-bg0"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="4po-H2-ZjC" secondAttribute="trailing" id="BNq-iJ-Qu9"/>
                             <constraint firstItem="4po-H2-ZjC" firstAttribute="bottom" secondItem="3se-qz-xqx" secondAttribute="bottom" constant="20" symbolic="YES" id="DSH-MJ-s6B"/>
-                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="centerY" secondItem="4qk-I5-YsI" secondAttribute="centerY" id="FS6-Je-XW2"/>
-                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="width" id="HN6-Jp-Las"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="YsR-DI-VVE" secondAttribute="trailing" constant="25" id="LlV-L3-Gis"/>
                             <constraint firstItem="oci-1I-GvG" firstAttribute="centerX" secondItem="9hy-i7-IWB" secondAttribute="centerX" id="TRh-za-VGI"/>
-                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" id="Tes-Iu-fzk"/>
+                            <constraint firstItem="VQN-br-dsM" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="Wia-vv-NAj"/>
                             <constraint firstItem="9Sd-fc-xAc" firstAttribute="top" secondItem="oci-1I-GvG" secondAttribute="bottom" constant="15" id="Wkj-oy-PJy"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="centerX" secondItem="9Sd-fc-xAc" secondAttribute="centerX" id="Yza-Dm-Kco"/>
                             <constraint firstAttribute="top" secondItem="4po-H2-ZjC" secondAttribute="top" id="ZnB-9l-T7u"/>
+                            <constraint firstItem="VQN-br-dsM" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="width" multiplier="0.251208" id="aqM-4m-Elm"/>
                             <constraint firstItem="oci-1I-GvG" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="arN-CR-qhj"/>
                             <constraint firstItem="YsR-DI-VVE" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="15" id="dcF-Kg-jh9"/>
+                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" id="dvQ-0X-APO"/>
                             <constraint firstItem="9hy-i7-IWB" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="100" id="gcD-FB-AMV"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="top" secondItem="9Sd-fc-xAc" secondAttribute="bottom" id="ghO-5D-3Tj"/>
+                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="jf0-kt-dlZ"/>
+                            <constraint firstItem="kqP-Wn-Bn9" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.5" id="koA-jp-5Q8"/>
                             <constraint firstItem="9hy-i7-IWB" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="ox1-kV-H7l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
                         <outlet property="bestTimeDefaultLabel" destination="9Sd-fc-xAc" id="BxU-Ew-yMo"/>
+                        <outlet property="gameCenterButton" destination="VQN-br-dsM" id="P2S-68-OBO"/>
                         <outlet property="highScoreDefaultLabel" destination="9hy-i7-IWB" id="N7h-VW-u8v"/>
                         <outlet property="highScoreObstacleLabel" destination="oci-1I-GvG" id="o1V-xH-L2z"/>
                         <outlet property="highScoreTimeLabel" destination="eL3-Mn-vqT" id="2MF-9l-5Kv"/>

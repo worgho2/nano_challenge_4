@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import GameKit
 import SpriteKit
 import GoogleMobileAds
 
 class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     @IBOutlet weak var skView: SKView!
+    
+    @IBOutlet weak var gameCenterButton: UIButton!
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
@@ -35,6 +38,13 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     //MARK: - Class Methods
     
+    @IBAction func onGameCenterButton(_ sender: Any) {
+        guard let vc = GameCenterSingleton.instance.getGameCenterViewController() else { return }
+        
+        vc.gameCenterDelegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     
     @IBAction func onPlayButton(_ sender: Any) {
         self.scene?.play(isGamePaused: self.isGamePaused)
@@ -49,7 +59,6 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.setupBackground()
         self.loadScene()
         self.setupView()
-//        self.loadAD()
     }
     
     private func loadScene() {
@@ -69,12 +78,12 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
             
             let colorTop =  UIColor.clear.cgColor
             let colorBottom = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35).cgColor
-
+            
             let gradientLayer = CAGradientLayer()
             gradientLayer.colors = [colorTop, colorBottom]
             gradientLayer.locations = [0.0, 1.0]
             gradientLayer.frame = skView.bounds
-
+            
             skView.layer.insertSublayer(gradientLayer, at: 0)
             skView.backgroundColor = .clear
             skView.isMultipleTouchEnabled = true
@@ -95,6 +104,9 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     }
     
     private func setupView() {
+        self.gameCenterButton.isHidden = false
+        self.gameCenterButton.isUserInteractionEnabled = false
+        
         self.playButton.isHidden = false
         self.highScoreTimeLabel.isHidden = false
         self.highScoreObstacleLabel.isHidden = false
@@ -111,13 +123,23 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.playButton.setTitle("Play", for: .normal)
         self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
         self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPlayerAuthentication), name: GameCenterSingleton.instance.kAuthSuccess, object: nil)
+        
         self.loadGame()
+    }
+    
+    @objc func onPlayerAuthentication() {
+        self.gameCenterButton.isUserInteractionEnabled = true
+        
+        self.playButton.setTitle("Play", for: .normal)
+        self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
+        self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
     }
     
     override var shouldAutorotate: Bool {
@@ -150,6 +172,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     //MARK: - TriggeredByGameState PROTOCOL (AJUSTAR PARA NOVA LÓGICA)
     
     func onGameStart() {
+        self.gameCenterButton.isHidden = true
+        
         self.playButton.isHidden = true
         self.pauseButton.isHidden = false
         self.highScoreObstacleLabel.isHidden = true
@@ -163,6 +187,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     func onGamePause() {
         self.isGamePaused = true
         
+        self.gameCenterButton.isHidden = true
+        
         self.playButton.isHidden = false
         self.pauseButton.isHidden = true
         self.highScoreObstacleLabel.isHidden = true
@@ -173,6 +199,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     func onGameContinue() {
         self.isGamePaused = false
+        
+        self.gameCenterButton.isHidden = true
         
         self.playButton.isHidden = true
         self.pauseButton.isHidden = false
@@ -187,6 +215,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.highScoreTimeLabel.text = "\(String(format: "%0.2f", self.scene!.score.gameScoreManager.getHighScore().time))s"
         self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
         
+        self.gameCenterButton.isHidden = false
+        
         self.playButton.isHidden = false
         self.pauseButton.isHidden = true
         self.highScoreObstacleLabel.isHidden = false
@@ -194,6 +224,14 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.highScoreDefaultLabel.isHidden = false
         self.bestTimeDefaultLabel.isHidden = false
     }
+}
+
+extension GameViewController: GKGameCenterControllerDelegate {
+    
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension GameViewController: GADRewardedAdDelegate {
@@ -206,7 +244,7 @@ extension GameViewController: GADRewardedAdDelegate {
     }
     
     func loadAD() {
-//        let id = "ca-app-pub-3805796666758486/3142948489"
+        //        let id = "ca-app-pub-3805796666758486/3142948489"
         let id = "ca-app-pub-3940256099942544/1712485313"
         let newAd = GADRewardedAd(adUnitID: id)
         
