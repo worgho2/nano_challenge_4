@@ -35,7 +35,6 @@ class GameOnboardingManager {
             if self.wheelRotationRight == true && !self.isStageDone(.first){
                 Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { t in
                     self.setStageDone(.first)
-                    print("[ONBOARDING] - RIGHT TRUE")
                 }
             }
         }
@@ -46,7 +45,6 @@ class GameOnboardingManager {
             if self.wheelRotationLeft == true && !self.isStageDone(.second) {
                 Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { t in
                     self.setStageDone(.second)
-                    print("[ONBOARDING] - LEFT TRUE")
                 }
             }
         }
@@ -65,8 +63,6 @@ class GameOnboardingManager {
         case .third:
             GameOnboardingManager.third = true
         }
-        print("[Onboarding] showed: - 1:\(GameOnboardingManager.first) - 2:\(GameOnboardingManager.second) - 3:\(GameOnboardingManager.third)")
-        print("[Onboarding] cansShow: - 1:\(self.canShowFirst) - 2:\(self.canShowSecond) - 3:\(self.canShowThird)")
     }
     
     func isStageDone(_ stage: OnboardingStage) -> Bool {

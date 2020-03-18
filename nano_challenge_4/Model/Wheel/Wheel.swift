@@ -167,7 +167,7 @@ class Wheel: GameObject {
     
     override func onGameStart() {
         self.node.run(.move(to: CGPoint(x: 0, y: 140), duration: 0.4))
-        self.node.run(.rotate(byAngle: .pi, duration: 0.4))
+        self.node.run(.rotate(toAngle: .pi, duration: 0.4))
     }
     
     override func onGameOver() {

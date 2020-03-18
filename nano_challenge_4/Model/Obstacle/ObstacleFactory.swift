@@ -106,7 +106,6 @@ class ObstacleFactory: SceneSupplicant {
     }
     
     func getNewObstacle(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) -> Obstacle {
-        print("[SPAWN OBSTACLE] \(type) - \(orientation) - \(position)")
 
         guard let node = self.getNode(type: type, color: color, orientation: orientation, position: position) as? SKShapeNode else { fatalError() }
         

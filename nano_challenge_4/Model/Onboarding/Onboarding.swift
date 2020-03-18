@@ -30,22 +30,14 @@ class Onboarding: GameObject {
     
     override func update(_ deltaTime: TimeInterval) {
         if !gameOnboardingManager.isStageDone(.first) && gameOnboardingManager.canShowFirst {
-            
             gameOnboardingManager.canShowFirst = false
             onFirstStep()
-            print("[ONBOARDING] - SHOWING FIRST STAGE")
-            
         } else if !gameOnboardingManager.isStageDone(.second) && gameOnboardingManager.canShowSecond {
-            
             gameOnboardingManager.canShowSecond = false
             onSecondStep()
-            print("[ONBOARDING] - SHOWING SECOND STAGE")
-            
         } else if !gameOnboardingManager.isStageDone(.third) && gameOnboardingManager.canShowThird {
-            
             gameOnboardingManager.canShowThird = false
             onThirdStep()
-            print("[ONBOARDING] - SHOWING THIRD STAGE")
         }
     }
     
@@ -257,14 +249,12 @@ class Onboarding: GameObject {
     //MARK: - TouchSensitive PROTOCOL
     
     override func touchDown(atPoint pos: CGPoint) {
-        
         if pos.y > 0  && self.gameOnboardingManager.isStageDone(.first) && self.gameOnboardingManager.isStageDone(.second) && !self.gameOnboardingManager.isStageDone(.third) {
             gameOnboardingManager.setStageDone(.third)
             self.setupToNextStage()
             if let scene = self.scene as? GameScene {
                 scene.onGameStart()
             }
-            
         }
     }
     
