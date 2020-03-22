@@ -35,20 +35,31 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     var viewPattern: UIView!
     
     private var isGamePaused: Bool = false
+
+    
+    //MARK: - Notification Center Methods
+    
+    @objc func onHighScoreNotification(_ notification: NSNotification) {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
+            self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
+            t.invalidate()
+        }
+    }
+
+    @objc func onBestTimeNotification(_ notification: NSNotification) {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
+            self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
+        }
+    }
     
     //MARK: - Class Methods
     
     @IBAction func onGameCenterButton(_ sender: Any) {
-        guard let vc = GameCenterSingleton.instance.getGameCenterViewController() else { return }
-        
-        vc.gameCenterDelegate = self
-        self.present(vc, animated: true, completion: nil)
+        GameCenterSingleton.instance.presentGameCenterView(self)
     }
-    
     
     @IBAction func onPlayButton(_ sender: Any) {
         self.scene?.play(isGamePaused: self.isGamePaused)
-        
     }
     
     @IBAction func onPauseButton(_ sender: Any) {
@@ -105,7 +116,6 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
     private func setupView() {
         self.gameCenterButton.isHidden = false
-        self.gameCenterButton.isUserInteractionEnabled = false
         
         self.playButton.isHidden = false
         self.highScoreTimeLabel.isHidden = false
@@ -129,23 +139,11 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPlayerAuthentication), name: GameCenterSingleton.instance.kAuthSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onBestTimeNotification(_:)), name: Leaderboard.bestTime.notificationName, object: nil)
         
         self.loadGame()
-    }
-    
-    @objc func onPlayerAuthentication() {
-        self.gameCenterButton.isUserInteractionEnabled = true
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { t in
-            self.playButton.setTitle("Play", for: .normal)
-            self.highScoreTimeLabel.text = "\(String(format: "%0.2f", (self.scene?.score.gameScoreManager.getHighScore().time)!))s"
-            self.highScoreObstacleLabel.text = "\(self.scene!.score.gameScoreManager.getHighScore().obstacle)"
-            
-            t.invalidate()
-        }
-        
-        
     }
     
     override var shouldAutorotate: Bool {
@@ -230,14 +228,6 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.highScoreDefaultLabel.isHidden = false
         self.bestTimeDefaultLabel.isHidden = false
     }
-}
-
-extension GameViewController: GKGameCenterControllerDelegate {
-    
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 extension GameViewController: GADRewardedAdDelegate {

@@ -15,107 +15,58 @@ class GameScoreManager {
     @Storage(key: "TotalObstaclesScore", defaultValue: 0) private static var totalObstaclesScore: Int
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.verifyGameCenterScore), name: GameCenterSingleton.instance.kAuthSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onTotalObstaclesNotification(_:)), name: Leaderboard.totalObstacles.notificationName, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onBestTimeNotification(_:)), name: Leaderboard.bestTime.notificationName, object: nil)
+    }
+    
+    //MARK: - Notification Center Methods
+    
+    @objc func onTotalObstaclesNotification(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary? {
+            if let score = dict[0] as? Int {
+                
+                if score > GameScoreManager.totalObstaclesScore {
+                    GameScoreManager.totalObstaclesScore = score
+                } else if score < GameScoreManager.totalObstaclesScore {
+                    GameCenterSingleton.instance.setScore(leaderboard: .totalObstacles, value: Int64(GameScoreManager.totalObstaclesScore))
+                }
+                
+            }
+        }
+    }
+    
+    @objc func onHighScoreNotification(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary? {
+            if let score = dict[0] as? Int {
+                
+                if score > GameScoreManager.obstaclehighScore {
+                    GameScoreManager.obstaclehighScore = score
+                } else if score < GameScoreManager.obstaclehighScore {
+                    GameCenterSingleton.instance.setScore(leaderboard: .highScore, value: Int64(GameScoreManager.obstaclehighScore))
+                }
+                
+            }
+        }
+    }
+    
+    @objc func onBestTimeNotification(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary? {
+            if let score = dict[0] as? TimeInterval {
+                
+                if score > GameScoreManager.timeHighScore {
+                    GameScoreManager.timeHighScore = score
+                } else if score < GameScoreManager.timeHighScore {
+                    GameCenterSingleton.instance.setScore(leaderboard: .bestTime, value: Int64(GameScoreManager.timeHighScore))
+                }
+                
+            }
+        }
     }
     
     //MARK: - Class Mehtods
-
-    @objc func verifyGameCenterScore() {
-        
-        guard GameCenterSingleton.instance.isPlayerAuthenticated() else {
-            return
-        }
-        print("atualizou os scores com game center")
-        
-        let BestTimeleaderboard = GameCenterSingleton.instance.getLeaderboard(leaderboard: .bestTime)
-        BestTimeleaderboard.loadScores { (scores, error) in
-            
-            if let error = error {
-                print("[GameCenterSingleton] -", error.localizedDescription)
-                return
-            }
-            
-            if let score = scores?.first {
-                let value = TimeInterval(score.value)
-                
-                if value >= self.getHighScore().time {
-                    self.setTimeHighScore(newScore: value)
-                } else {
-                    let score = GKScore(leaderboardIdentifier: Leaderboard.bestTime.identifier)
-                    score.value = Int64(value)
-
-                    GKScore.report([score]) { (error) in
-                        if let error = error {
-                            print("Erro ao reportar o record!", error.localizedDescription)
-                            return
-                        }
-                        print("[GameCenter] Reported new best time record")
-                    }
-                }
-                
-            }
-        }
-        
-        let Obstacleleaderboard = GameCenterSingleton.instance.getLeaderboard(leaderboard: .highScore)
-        Obstacleleaderboard.loadScores { (scores, error) in
-            
-            if let error = error {
-                print("[GameCenterSingleton] -", error.localizedDescription)
-                return
-            }
-            
-            if let score = scores?.first {
-                let value = Int(score.value)
-                
-                if value >= self.getHighScore().obstacle {
-                    self.setObstacleHighScore(newScore: value)
-                } else {
-                    let score = GKScore(leaderboardIdentifier: Leaderboard.highScore.identifier)
-                    score.value = Int64(value)
-
-                    GKScore.report([score]) { (error) in
-                        if let error = error {
-                            print("Erro ao reportar o record!", error.localizedDescription)
-                            return
-                        }
-                        print("[GameCenter] Reported new best time record")
-                    }
-                }
-                
-            }
-        }
-        
-        let TotalObstacleleaderboard = GameCenterSingleton.instance.getLeaderboard(leaderboard: .totalObstacles)
-        TotalObstacleleaderboard.loadScores { (scores, error) in
-            
-            if let error = error {
-                print("[GameCenterSingleton] -", error.localizedDescription)
-                return
-            }
-            
-            if let score = scores?.first {
-                let value = Int(score.value)
-                
-                if value >= self.getHighScore().obstacle {
-                    self.setTotalObstaclesHighScore(newScore: value)
-                } else {
-                    let score = GKScore(leaderboardIdentifier: Leaderboard.totalObstacles.identifier)
-                    score.value = Int64(value)
-
-                    GKScore.report([score]) { (error) in
-                        if let error = error {
-                            print("Erro ao reportar o record!", error.localizedDescription)
-                            return
-                        }
-                        print("[GameCenter] Reported new best time record")
-                    }
-                }
-                
-            }
-
-        }
-        
-    }
     
     func getHighScore() -> (time: TimeInterval, obstacle: Int, totalObstacles: Int) {
         return (GameScoreManager.timeHighScore, GameScoreManager.obstaclehighScore, GameScoreManager.totalObstaclesScore)
@@ -135,57 +86,21 @@ class GameScoreManager {
     private func setTimeHighScore(newScore: TimeInterval) {
         if newScore > self.getHighScore().time {
             GameScoreManager.timeHighScore = newScore
-            
-            if GameCenterSingleton.instance.isPlayerAuthenticated() {
-                let score = GKScore(leaderboardIdentifier: Leaderboard.bestTime.identifier)
-                score.value = Int64(newScore)
-
-                GKScore.report([score]) { (error) in
-                    if let error = error {
-                        print("Erro ao reportar o record!", error.localizedDescription)
-                        return
-                    }
-                    print("[GameCenter] Reported new time record")
-                }
-            }
+            GameCenterSingleton.instance.setScore(leaderboard: .bestTime, value: Int64(newScore))
         }
     }
     
     private func setObstacleHighScore(newScore: Int) {
         if newScore > self.getHighScore().obstacle {
             GameScoreManager.obstaclehighScore = newScore
-            
-            if GameCenterSingleton.instance.isPlayerAuthenticated() {
-                let score = GKScore(leaderboardIdentifier: Leaderboard.highScore.identifier)
-                score.value = Int64(newScore)
-
-                GKScore.report([score]) { (error) in
-                    if let error = error {
-                        print("Erro ao reportar o record!", error.localizedDescription)
-                        return
-                    }
-                    print("[GameCenter] Reported new  obstacle record")
-                }
-            }
+            GameCenterSingleton.instance.setScore(leaderboard: .highScore, value: Int64(newScore))
         }
     }
     
     private func setTotalObstaclesHighScore(newScore: Int) {
         if newScore > self.getHighScore().totalObstacles {
             GameScoreManager.totalObstaclesScore = newScore
-            
-            if GameCenterSingleton.instance.isPlayerAuthenticated() {
-                let score = GKScore(leaderboardIdentifier: Leaderboard.totalObstacles.identifier)
-                score.value = Int64(newScore)
-
-                GKScore.report([score]) { (error) in
-                    if let error = error {
-                        print("Erro ao reportar o record!", error.localizedDescription)
-                        return
-                    }
-                    print("[GameCenter] Reported new total obstacle record")
-                }
-            }
+            GameCenterSingleton.instance.setScore(leaderboard: .totalObstacles, value: Int64(newScore))
         }
     }
     

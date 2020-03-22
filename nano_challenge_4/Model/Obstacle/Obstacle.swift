@@ -41,8 +41,8 @@ class Obstacle: GameObject {
             
             node.run(.fadeOut(withDuration: 0.15))
             
-            self.gameAudioManager.play(soundEffect: .splashNew)
-            self.gameHapticManager.impact.impactOccurred()
+            gameAudioManager.play(soundEffect: .correct_01)
+            gameHapticManager.impact.impactOccurred()
         } else {
             node.run(.fadeOut(withDuration: 1))
             node.run(.sequence(
@@ -60,8 +60,8 @@ class Obstacle: GameObject {
                 ]
             ))
             
-            self.gameAudioManager.play(soundEffect: .waterDrop4)
-            self.gameHapticManager.impact.impactOccurred()
+            gameAudioManager.play(soundEffect: .incorrect)
+            gameHapticManager.impact.impactOccurred()
         }
         
     }

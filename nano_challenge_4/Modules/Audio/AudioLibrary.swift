@@ -1,29 +1,12 @@
-import AVFoundation
+import Foundation
 
 enum SongLibrary : String, CaseIterable {
-    case test = "Play 1.wav"
-}
-
-enum IntroWithLoopLibrary: CaseIterable {
-    case test
-    
-    var info : (intro: String, loop: String) {
-        switch self {
-        case .test:
-            return ("Play 1.wav", "Play 1.wav")
-        }
-    }
+    case main = "main_song.wav"
 }
 
 enum SoundEffectLibrary : String, CaseIterable {
-    case play = "Play.wav"
-    case play1 = "Play 1.wav"
-    case play2 = "Play 2.wav"
-    case playNew = "Play New.wav"
-    case splash = "Splash.wav"
-    case splashNew = "Splash New.wav"
-    case waterDrop1 = "Water drop 1.wav"
-    case waterDrop2 = "Water drop 2.wav"
-    case waterDrop3 = "Water drop 3.wav"
-    case waterDrop4 = "Water drop 4.wav"
+    case correct_01 = "correct_01.wav"
+    case correct_02 = "correct_02.wav"
+    case incorrect = "incorrect.wav"
+    case play = "play.wav"
 }

@@ -3,20 +3,21 @@ import AVFoundation
 class SoundEffect {
     
     private var players = [AVAudioPlayer]()
-    private var url: URL
+    private var url: URL!
     
     init(fileName: String) {
         let path = Bundle.main.path(forResource: fileName, ofType : nil)!
         url = URL(fileURLWithPath: path)
 
-        load()
+        self.loadNewPlayer()
     }
     
-    private func load() {
+    private func loadNewPlayer() {
         do {
-            let player = try AVAudioPlayer(contentsOf: url)
-            player.prepareToPlay()
-            players.append(player)
+            let Newplayer = try AVAudioPlayer(contentsOf: url)
+            Newplayer.prepareToPlay()
+            
+            self.players.append(Newplayer)
         } catch {
             fatalError("Fatal Error - Sound Effects Player")
         }
@@ -24,13 +25,19 @@ class SoundEffect {
     
     func play() {
         for player in players {
-            if player.isPlaying == false {
-                player.play()
+            if !player.isPlaying {
+                DispatchQueue.global().async {
+                    player.play()
+                }
                 return
             }
         }
         
-        load()
-        players.last?.play()
+        self.loadNewPlayer()
+        
+        DispatchQueue.global().async {
+            self.players.last?.play()
+        }
+        
     }
 }

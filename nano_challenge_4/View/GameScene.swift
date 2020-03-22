@@ -123,20 +123,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func onGameStart() {
         self.isGameEnded = false
-        self.gameAudioManager.play(soundEffect: .playNew)
+        self.gameAudioManager.play(soundEffect: .play)
+        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     
     private func onGamePause() {
+        self.gameAudioManager.pause()
         self.getTriggeredsByGameState().forEach { $0.onGamePause() }
     }
     
     private func onGameContinue() {
+        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameContinue() }
     }
     
     func onGameOver() {
         self.isGameEnded = true
+        self.gameAudioManager.stopCurrentSongs()
         self.getTriggeredsByGameState().forEach { $0.onGameOver() }
     }
     

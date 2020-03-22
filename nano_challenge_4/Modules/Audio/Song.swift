@@ -2,22 +2,27 @@ import AVFoundation
 
 class Song : NSObject {
     
-    private var player : AVAudioPlayer!
+    private var player: AVAudioPlayer!
+    private var url: URL!
     
     init(fileName: String) {
         super.init()
-        self.player = load(fileName: fileName)
+        
+        let path = Bundle.main.path(forResource: fileName, ofType: nil)!
+        
+        self.url = URL(fileURLWithPath: path)
+        
+        self.loadPlayer()
     }
     
-    internal func load(fileName: String) -> AVAudioPlayer{
-        let path = Bundle.main.path(forResource: fileName, ofType:nil)!
-        let url = URL(fileURLWithPath: path)
-        
+    private func loadPlayer() {
         do {
-            let player = try AVAudioPlayer(contentsOf: url)
-            player.numberOfLoops = -1
-            player.prepareToPlay()
-            return player
+            let Newplayer = try AVAudioPlayer(contentsOf: url)
+            Newplayer.numberOfLoops = -1
+            Newplayer.prepareToPlay()
+            Newplayer.volume = 0.05
+            
+            self.player = Newplayer
         } catch {
             fatalError("Fatal Error - Song/Intro-Loop Player")
         }
@@ -25,14 +30,20 @@ class Song : NSObject {
     
     func play() {
         if player.isPlaying {
-            return
+            player.stop()
         }
-        player.play()
         
+        DispatchQueue.global().async {
+            self.player.play()
+        }
     }
     
     func stop() {
         player.stop()
         player.currentTime = 0
+    }
+    
+    func pause() {
+        player.stop()
     }
 }

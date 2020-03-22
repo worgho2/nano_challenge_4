@@ -39,13 +39,13 @@
                                     <action selector="onPlayButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2gy-31-5nb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
-                                <rect key="frame" x="155" y="658" width="104" height="104"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
+                                <rect key="frame" x="103.5" y="695.5" width="207" height="66.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="1:1" id="z9I-Ow-rYw"/>
+                                    <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="312:100" id="SaI-Aq-DuP"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="gamecenter">
+                                <state key="normal" image="gamecenter">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -109,7 +109,7 @@
                             <constraint firstItem="9Sd-fc-xAc" firstAttribute="top" secondItem="oci-1I-GvG" secondAttribute="bottom" constant="15" id="Wkj-oy-PJy"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="centerX" secondItem="9Sd-fc-xAc" secondAttribute="centerX" id="Yza-Dm-Kco"/>
                             <constraint firstAttribute="top" secondItem="4po-H2-ZjC" secondAttribute="top" id="ZnB-9l-T7u"/>
-                            <constraint firstItem="VQN-br-dsM" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="width" multiplier="0.251208" id="aqM-4m-Elm"/>
+                            <constraint firstItem="VQN-br-dsM" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="width" multiplier="0.5" id="aqM-4m-Elm"/>
                             <constraint firstItem="oci-1I-GvG" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="arN-CR-qhj"/>
                             <constraint firstItem="YsR-DI-VVE" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="15" id="dcF-Kg-jh9"/>
                             <constraint firstItem="kqP-Wn-Bn9" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" id="dvQ-0X-APO"/>
@@ -138,7 +138,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gamecenter" width="500" height="500"/>
+        <image name="gamecenter" width="312" height="100"/>
         <image name="pause.fill" catalog="system" width="58" height="64"/>
     </resources>
 </document>
