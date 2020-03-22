@@ -143,6 +143,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onBestTimeNotification(_:)), name: Leaderboard.bestTime.notificationName, object: nil)
         
+        self.loadInterAD()
+        
         self.loadGame()
     }
     
@@ -227,6 +229,13 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.highScoreTimeLabel.isHidden = false
         self.highScoreDefaultLabel.isHidden = false
         self.bestTimeDefaultLabel.isHidden = false
+        
+        let random = Int.random(in: 0...100)
+        print(random)
+        
+        if random > 60 {
+            self.showInterAD()
+        }
     }
 }
 
@@ -265,9 +274,8 @@ extension GameViewController: GADInterstitialDelegate {
     }
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        self.loadAD()
+        self.loadInterAD()
     }
-    
     
     func loadInterAD() {
         //let id = "ca-app-pub-3805796666758486/8999632594" //meuad
@@ -282,9 +290,7 @@ extension GameViewController: GADInterstitialDelegate {
     
     func showInterAD() {
         guard self.ad.isReady else {
-            print("deu cagada")
             return
-            
         }
         
         self.ad.present(fromRootViewController: self)

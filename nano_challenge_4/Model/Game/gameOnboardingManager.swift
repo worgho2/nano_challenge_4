@@ -14,7 +14,6 @@ enum OnboardingStage {
     case third
 }
 
-
 class GameOnboardingManager {
     
     //debug

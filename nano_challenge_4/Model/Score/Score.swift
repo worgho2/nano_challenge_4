@@ -38,14 +38,14 @@ class Score: GameObject {
     //MARK: - Class Methods
     
     private func setupHighScoreNodes() {
-        self.timeHighScoreDefaultNode = SKLabelNode(text: "Best Time")
+        self.timeHighScoreDefaultNode = SKLabelNode(text: "Time")
         timeHighScoreDefaultNode.name = "timeHighScoreDefault"
         timeHighScoreDefaultNode.fontColor = .white
         timeHighScoreDefaultNode.fontSize = 17
         timeHighScoreDefaultNode.fontName = "SF-Pro-Rounded-Light"
         timeHighScoreDefaultNode.horizontalAlignmentMode = .left
         timeHighScoreDefaultNode.verticalAlignmentMode = .center
-        timeHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreDefaultNode.frame.width/2 + 10, y: 0)
+        timeHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreDefaultNode.frame.width/2 + 30, y: 0)
         timeHighScoreDefaultNode.zPosition = 2
         
         self.timeHighScoreNode = SKLabelNode(text: "0.00s")
@@ -58,14 +58,14 @@ class Score: GameObject {
         timeHighScoreNode.position = CGPoint(x: self.scene.getBounds().minX + timeHighScoreNode.frame.width/2 + 20, y: -25)
         timeHighScoreNode.zPosition = 2
         
-        self.obstacleHighScoreDefaultNode = SKLabelNode(text: "HighScore")
+        self.obstacleHighScoreDefaultNode = SKLabelNode(text: "Score")
         obstacleHighScoreDefaultNode.name = "ObstacleScoreDefault"
         obstacleHighScoreDefaultNode.fontColor = .white
         obstacleHighScoreDefaultNode.fontSize = 17
         obstacleHighScoreDefaultNode.fontName = "SF-Pro-Rounded-Light"
         obstacleHighScoreDefaultNode.horizontalAlignmentMode = .left
         obstacleHighScoreDefaultNode.verticalAlignmentMode = .center
-        obstacleHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + obstacleHighScoreDefaultNode.frame.width/2 + 10, y: -55)
+        obstacleHighScoreDefaultNode.position = CGPoint(x: self.scene.getBounds().minX + obstacleHighScoreDefaultNode.frame.width/2 + 30, y: -55)
         obstacleHighScoreDefaultNode.zPosition = 2
         
         self.obstacleHighScoreNode = SKLabelNode(text: "00")
