@@ -28,7 +28,7 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     @IBOutlet weak var bestTimeDefaultLabel: UILabel!
     
     var ad: GADInterstitial!
-    var rewardedAd: GADRewardedAd!
+//    var rewardedAd: GADRewardedAd!
     
     weak var scene: GameScene?
     
@@ -234,46 +234,45 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.bestTimeDefaultLabel.isHidden = false
         
         let random = Int.random(in: 0...100)
-        print(random)
         
         if random > 60 {
             self.showInterAD()
         }
     }
 }
-
-extension GameViewController: GADRewardedAdDelegate {
-    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
-        print("o usuário ganhou:", reward.amount, reward.type)
-    }
-    
-    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
-        self.loadAD()
-    }
-    
-    func loadAD() {
-        //        let id = "ca-app-pub-3805796666758486/3142948489"
-        let id = "ca-app-pub-3940256099942544/1712485313"
-        let newAd = GADRewardedAd(adUnitID: id)
-        
-        newAd.load(GADRequest()) { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        
-        self.rewardedAd = newAd
-    }
-    
-    func showAD() {
-        self.rewardedAd.present(fromRootViewController: self, delegate: self)
-    }
-}
+//
+//extension GameViewController: GADRewardedAdDelegate {
+//    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+//        print("o usuário ganhou:", reward.amount, reward.type)
+//    }
+//
+//    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
+//        self.loadAD()
+//    }
+//
+//    func loadAD() {
+//        //        let id = "ca-app-pub-3805796666758486/3142948489"
+//        let id = "ca-app-pub-3940256099942544/1712485313"
+//        let newAd = GADRewardedAd(adUnitID: id)
+//
+//        newAd.load(GADRequest()) { (error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//        }
+//
+//        self.rewardedAd = newAd
+//    }
+//
+//    func showAD() {
+//        self.rewardedAd.present(fromRootViewController: self, delegate: self)
+//    }
+//}
 
 extension GameViewController: GADInterstitialDelegate {
     
     func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
-        print("cebolinha do condor", error)
+        print("[INTERSTITIAL-AD] - Error\(error)", error.localizedDescription)
     }
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
@@ -281,21 +280,25 @@ extension GameViewController: GADInterstitialDelegate {
     }
     
     func loadInterAD() {
-        //let id = "ca-app-pub-3805796666758486/8999632594" //meuad
-        let id = "ca-app-pub-3940256099942544/4411468910"
+//        let id = "ca-app-pub-3940256099942544/4411468910" //debug
+        let id = "ca-app-pub-3805796666758486/8999632594"
         let newAdd = GADInterstitial(adUnitID: id)
         
         newAdd.delegate = self
         newAdd.load(GADRequest())
         
         self.ad = newAdd
+        
+        print("[INTERSTITIAL-AD] - Loading ad (id: \(id))")
     }
     
     func showInterAD() {
         guard self.ad.isReady else {
+            print("[INTERSTITIAL-AD] - Fail to present, ad is not ready")
             return
         }
         
+        print("[INTERSTITIAL-AD] - Presenting ad (id: \(ad.adUnitID!))")
         self.ad.present(fromRootViewController: self)
     }
 }
