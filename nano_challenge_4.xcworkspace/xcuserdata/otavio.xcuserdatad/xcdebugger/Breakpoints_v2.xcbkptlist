@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54A138BA-2F32-4617-B573-CE1F55365A54"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nano_challenge_4/Model/Game/GameCenterSingleton.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "getScore(leaderboard:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "54A138BA-2F32-4617-B573-CE1F55365A54 - 16973c3eef64b2bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Splash_It___Color_Game.GameCenterSingleton.(getScore in _2E1B60FDBA1A35623938E8400FED62D6)(leaderboard: Splash_It___Color_Game.Leaderboard) -&gt; ()"
+                  moduleName = "Splash It - Color Game"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/otavio/Documents/nano_challenge_4/nano_challenge_4/Model/Game/GameCenterSingleton.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "54A138BA-2F32-4617-B573-CE1F55365A54 - 37843842d41ccd41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;__C.GKScore&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Splash_It___Color_Game.GameCenterSingleton.(getScore in _2E1B60FDBA1A35623938E8400FED62D6)(leaderboard: Splash_It___Color_Game.Leaderboard) -&gt; ()"
+                  moduleName = "Splash It - Color Game"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/otavio/Documents/nano_challenge_4/nano_challenge_4/Model/Game/GameCenterSingleton.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

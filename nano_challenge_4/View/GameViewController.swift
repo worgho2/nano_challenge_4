@@ -10,6 +10,7 @@ import UIKit
 import GameKit
 import SpriteKit
 import GoogleMobileAds
+import FirebaseAnalytics
 
 class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     
@@ -147,6 +148,8 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         
         self.loadGame()
     }
+    
+
     
     override var shouldAutorotate: Bool {
         return false

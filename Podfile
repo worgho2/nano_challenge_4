@@ -6,7 +6,9 @@ target 'nano_challenge_4' do
   use_frameworks!
 
   # Pods for nano_challenge_4
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
+  
   pod 'Google-Mobile-Ads-SDK'
 
 end

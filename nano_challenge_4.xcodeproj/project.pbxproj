@@ -404,6 +404,7 @@
 				7AC3C35A240FF8300011F586 /* Frameworks */,
 				7AC3C35B240FF8300011F586 /* Resources */,
 				4B5964EA15C9BAC66EDD836C /* [CP] Embed Pods Frameworks */,
+				7AF8180F24292EB800069408 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -487,6 +488,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nano_challenge_4/Pods-nano_challenge_4-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7AF8180F24292EB800069408 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		AC2F1AAB561E3070403FC1A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -707,7 +726,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -729,7 +749,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
