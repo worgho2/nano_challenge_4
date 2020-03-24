@@ -24,8 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
-        GameCenterSingleton.instance.authenticate()
-        
         return true
     }
 
