@@ -71,6 +71,7 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
         self.setupBackground()
         self.loadScene()
         self.setupView()
+        self.loadInterAD()
     }
     
     private func loadScene() {
@@ -140,11 +141,11 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        GameCenterSingleton.instance.authenticate(origin: self)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onBestTimeNotification(_:)), name: Leaderboard.bestTime.notificationName, object: nil)
-        
-        self.loadInterAD()
         
         self.loadGame()
     }

@@ -42,56 +42,59 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
     
     private let player = GKLocalPlayer.local
     
+    private(set) var isGameCenterEnabled = false
+    
     let kAuthSuccess = Notification.Name("Player authenticated")
     
     private override init() { super.init() }
     
     //MARK: - Authentication Methods
     
-    func authenticate() {
+    func authenticate(origin: UIViewController) {
         print("[GAME-CENTER] - Authentication started")
-        self.player.authenticateHandler = { (_ , error) in
+        
+        self.player.authenticateHandler = { [weak self] (vc, error) -> Void in
+            
             if let error = error {
-                print("[GAME-CENTER] - Error(\(error))", error.localizedDescription)
+                print("[GAME-CENTER] - Error ->", error.localizedDescription)
                 return
             }
             
-            NotificationCenter.default.post(name: self.kAuthSuccess, object: nil)
+            if let vc = vc {
+                origin.present(vc, animated: true, completion: nil)
+                return
+            }
             
-            print("[GAME-CENTER] - User authenticated (Name: \(self.player.displayName), IsUnderage: \(self.player.isUnderage))")
+            if self?.player.isAuthenticated ?? false {
+                print("[GAME-CENTER] - User authenticated (Name: \(self!.player.displayName), IsUnderage: \(self!.player.isUnderage))")
+                self?.isGameCenterEnabled = true
+                NotificationCenter.default.post(name: self!.kAuthSuccess, object: nil)
+                Leaderboard.allCases.forEach { self!.getScore(leaderboard: $0) }
+                return
+            }
             
-            Leaderboard.allCases.forEach { self.getScore(leaderboard: $0) }
+            self?.isGameCenterEnabled = false
+            print("[GAME-CENTER] - Player cannot be authenticated!")
         }
     }
     
-    func isPlayerAuthenticated() -> Bool {
-        return self.player.isAuthenticated
+    func canUseGameCenter() -> Bool {
+        return self.player.isAuthenticated && self.isGameCenterEnabled
     }
     
     //MARK: - Get Leaderboard ViewController
-    
-    func getLeaderboard(leaderboard l: Leaderboard) -> GKLeaderboard {
-        let leaderboard = GKLeaderboard(players: [self.player])
-        leaderboard.timeScope = .allTime
-        leaderboard.identifier = l.identifier
-        return leaderboard
-    }
+
     
     func presentGameCenterView(_ origin: UIViewController){
-        if GameCenterSingleton.instance.isPlayerAuthenticated() {
+        if self.canUseGameCenter() {
             let viewController = GKGameCenterViewController()
             viewController.gameCenterDelegate = self
+            
             origin.present(viewController, animated: true, completion: nil)
         } else {
-            let viewController = UIAlertController(title: "Game center is not available", message: "Check your internet connection", preferredStyle: .alert)
-            
-            viewController.addAction(.init(title: "Retry", style: .default, handler: { (action) in
-                self.authenticate()
-                viewController.dismiss(animated: true, completion: nil)
-            }))
-            
+            let viewController = UIAlertController(title: "Game center is not available", message: nil, preferredStyle: .alert)
             viewController.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            
+
             origin.present(viewController, animated: true, completion: nil)
         }
     }
@@ -99,7 +102,7 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
     //MARK: - Score Manager Methods
 
     func setScore(leaderboard: Leaderboard, value: Int64) {
-        if self.isPlayerAuthenticated() {
+        if self.canUseGameCenter() {
             let score = GKScore(leaderboardIdentifier: leaderboard.identifier)
             score.value = value
             
@@ -135,6 +138,8 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
                 NotificationCenter.default.post(name: leaderboard.notificationName, object: nil, userInfo: notificationInfo)
                 
                 print("[GAME-CENTER] - Get Score: (LeaderboardID: \(leaderboard.identifier), Value: \(myBestScore!.value))")
+            } else {
+                print("[GAME-CENTER] - Get Score: (Without report on: \(leaderboard.identifier))")
             }
             
         }
