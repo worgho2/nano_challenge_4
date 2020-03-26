@@ -66,8 +66,8 @@ class ObstacleFactory: SceneSupplicant {
         self.gameSpeedManager = gameSpeedManager
         self.gameColorManager = gameColorManager
         
-        self.rectangleBaseNode = RectangleObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager).node
-        self.squareBaseNode = SquareObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager).node
+        self.rectangleBaseNode = RectangleObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
+        self.squareBaseNode = SquareObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
     }
     
     //MARK: - Class Methods
@@ -114,9 +114,9 @@ class ObstacleFactory: SceneSupplicant {
         node.isAntialiased = true
         
         if type == .rectangle {
-            return RectangleObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager)
+            return RectangleObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
         } else {
-            return SquareObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager)
+            return SquareObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
         }
         
     }
