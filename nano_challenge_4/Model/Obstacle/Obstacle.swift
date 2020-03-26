@@ -14,32 +14,70 @@ class Obstacle: GameObject {
     var gameAudioManager: GameAudioManager!
     var gameHapticManager: GameHapticManager!
     var gameSpeedManager: GameSpeedManager!
+    var gameColorManager: GameColorManager!
     
-    init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager) {
+    init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         super.init(node: node, scene: scene)
         
         self.gameAudioManager = gameAudioManager
         self.gameHapticManager = gameHapticManager
         self.gameSpeedManager = gameSpeedManager
+        self.gameColorManager = gameColorManager
+        
         self.node!.zPosition = -1
     }
     
     //MARK: - Class Methods
     
-    func onCollision(onCorrectPainter: Bool) {
+    func onCollision(onCorrectPainter: Bool, at: CGPoint) {
         guard let node = self.node as? SKShapeNode else { return }
         node.physicsBody = nil
-        node.zPosition = 1000
+        node.zPosition = -10
+        
+        
         
         if onCorrectPainter {
+            
+            let gradientNode = SKShapeNode(circleOfRadius: 2)
+            gradientNode.position = at
+            gradientNode.fillColor = gameColorManager.backgroundColor
+            
+            if node.fillColor == gameColorManager.leftColor {
+                gradientNode.strokeColor = gameColorManager.rightColor
+            } else {
+                 gradientNode.strokeColor = gameColorManager.leftColor
+            }
+
+            let maskNode = SKShapeNode()
+            maskNode.position = .zero
+            maskNode.path = node.path
+            maskNode.fillColor = .white
+            maskNode.strokeColor = .white
+        
+            let cropNode = SKCropNode()
+            cropNode.position = .zero
+            cropNode.maskNode = maskNode
+            cropNode.addChild(gradientNode)
+            
+            node.addChild(cropNode)
+            
+            gradientNode.run(.scale(to: 400, duration: 2))
+
             node.run(.sequence(
                 [
                     .scale(to: 1.2, duration: 0.05),
-                    .scale(to: 0.2, duration: 0.1)
+                    .scale(to: 0.8, duration: 0.1),
+                    .scale(to: 1.1, duration: 0.05),
+                    .scale(to: 0.9, duration: 0.1),
+                    .scale(to: 1.0, duration: 0.05),
                 ]
             ))
             
-            node.run(.fadeOut(withDuration: 0.15))
+            Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { (t) in
+                node.strokeColor = self.gameColorManager.pattern
+            }
+            
+            node.run(.fadeAlpha(to: 0.5, duration: 1))
             
             gameAudioManager.play(soundEffect: .correct_01)
             gameHapticManager.impact.impactOccurred()

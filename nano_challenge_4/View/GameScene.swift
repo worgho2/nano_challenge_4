@@ -150,25 +150,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
         
+        
         if [nodeA.name, nodeB.name].contains("drop") {
             self.onGameOver()
         } else if nodeA.name!.contains("Painter") {
-            self.onCollision(nodeA, nodeB)
+            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeB)
+            self.onCollision(nodeA, nodeB, at: obstacleContactPoint!)
         } else {
-            self.onCollision(nodeB, nodeA)
+            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeA)
+            self.onCollision(nodeB, nodeA, at: obstacleContactPoint!)
         }
     }
     
-    func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode) {
+    func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode, at: CGPoint) {
         guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
         guard let obstacleNode = obstacleNode as? SKShapeNode else { fatalError() }
         let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
         
         if painterNode.fillColor == obstacleNode.fillColor {
-            obstacle.onCollision(onCorrectPainter: false)
+            obstacle.onCollision(onCorrectPainter: false, at: at)
             self.onGameOver()
         } else {
-            obstacle.onCollision(onCorrectPainter: true)
+            obstacle.onCollision(onCorrectPainter: true, at: at)
             self.score.incrementObstacleHighScore()
         }
     }
