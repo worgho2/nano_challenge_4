@@ -141,7 +141,7 @@ class GameViewController: UIViewController, TriggeredByGameState, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GameCenterSingleton.instance.authenticate(origin: self)
+//        GameCenterSingleton.instance.authenticate(origin: self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
         

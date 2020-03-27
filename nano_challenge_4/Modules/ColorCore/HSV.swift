@@ -28,7 +28,7 @@ class HSV: NSObject, NSCoding, Serializable {
         
         if saturation < 0 {
             self.saturation = 0
-        }else if saturation > 1{
+        }else if saturation > 1 {
             self.saturation = 1
         }else{
             self.saturation = saturation

@@ -11,6 +11,8 @@
 		7A0043592427E87D0092AA8D /* play.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A0043562427E87C0092AA8D /* play.wav */; };
 		7A00435A2427E87D0092AA8D /* correct_02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A0043572427E87D0092AA8D /* correct_02.wav */; };
 		7A00435C2427EA540092AA8D /* correct_01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A00435B2427EA540092AA8D /* correct_01.wav */; };
+		7A004405242E25E4005AA745 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A004404242E25E4005AA745 /* LoadingViewController.swift */; };
+		7A00440A242E2691005AA745 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A004409242E2691005AA745 /* Loading.storyboard */; };
 		7A0DEBA7242264F8009088D9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DEBA6242264F8009088D9 /* GameKit.framework */; };
 		7A0DEBA924226B21009088D9 /* GameCenterSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DEBA824226B21009088D9 /* GameCenterSingleton.swift */; };
 		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
@@ -74,6 +76,8 @@
 		7A0043562427E87C0092AA8D /* play.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = play.wav; sourceTree = "<group>"; };
 		7A0043572427E87D0092AA8D /* correct_02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct_02.wav; sourceTree = "<group>"; };
 		7A00435B2427EA540092AA8D /* correct_01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct_01.wav; sourceTree = "<group>"; };
+		7A004404242E25E4005AA745 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		7A004409242E2691005AA745 /* Loading.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
 		7A0DEBA6242264F8009088D9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7A0DEBA824226B21009088D9 /* GameCenterSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterSingleton.swift; sourceTree = "<group>"; };
 		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
@@ -147,6 +151,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A004406242E25FA005AA745 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				7AC3C368240FF8300011F586 /* GameViewController.swift */,
+				7AC3C36A240FF8300011F586 /* Main.storyboard */,
+				7A9DC825241C0FEF0047FB3F /* GameScene.sks */,
+				7A9DC823241C0F610047FB3F /* GameScene.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		7A004407242E2616005AA745 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7AC3C36F240FF8310011F586 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		7A004408242E2624005AA745 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				7A004409242E2691005AA745 /* Loading.storyboard */,
+				7A004404242E25E4005AA745 /* LoadingViewController.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		7A60FA1A24157AF1009D9361 /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,11 +358,9 @@
 		7AC3C39024116EDC0011F586 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7AC3C36A240FF8300011F586 /* Main.storyboard */,
-				7AC3C368240FF8300011F586 /* GameViewController.swift */,
-				7A9DC825241C0FEF0047FB3F /* GameScene.sks */,
-				7A9DC823241C0F610047FB3F /* GameScene.swift */,
-				7AC3C36F240FF8310011F586 /* LaunchScreen.storyboard */,
+				7A004406242E25FA005AA745 /* Game */,
+				7A004407242E2616005AA745 /* LaunchScreen */,
+				7A004408242E2624005AA745 /* Loading */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -456,6 +486,7 @@
 				7AA04BC8241FAE64008D1147 /* incorrect.wav in Resources */,
 				7A0043592427E87D0092AA8D /* play.wav in Resources */,
 				7A0043582427E87D0092AA8D /* main_song.wav in Resources */,
+				7A00440A242E2691005AA745 /* Loading.storyboard in Resources */,
 				7A9DC827241C10430047FB3F /* GameScene.sks in Resources */,
 				7AA04BA4241FA862008D1147 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */,
@@ -568,6 +599,7 @@
 				7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */,
 				7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */,
 				7AC3C38A241144CE0011F586 /* TouchSensitive.swift in Sources */,
+				7A004405242E25E4005AA745 /* LoadingViewController.swift in Sources */,
 				7AC3C386241130520011F586 /* ObstacleSpawner.swift in Sources */,
 				7AC3C38F241166080011F586 /* Drop.swift in Sources */,
 				7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */,
