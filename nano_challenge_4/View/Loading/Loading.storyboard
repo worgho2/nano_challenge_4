@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uhg-uI-8G8">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Loading View Controller-->
+        <scene sceneID="K2o-lS-VDv">
+            <objects>
+                <viewController id="Uhg-uI-8G8" customClass="LoadingViewController" customModule="Splash_It___Color_Game" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b4g-yP-vrf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="BKl-H7-xbp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="PIh-Sb-ELE">
+                                <rect key="frame" x="87" y="44" width="240" height="66"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PIh-Sb-ELE" secondAttribute="height" multiplier="990:272" id="Cgq-0i-3YB"/>
+                                    <constraint firstAttribute="width" constant="240" id="iMd-wn-Da0"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PIh-Sb-ELE" firstAttribute="top" secondItem="EeX-OY-6yE" secondAttribute="top" id="2Qg-gL-anI"/>
+                            <constraint firstItem="BKl-H7-xbp" firstAttribute="top" secondItem="b4g-yP-vrf" secondAttribute="top" id="5lB-Ts-7h2"/>
+                            <constraint firstItem="BKl-H7-xbp" firstAttribute="leading" secondItem="EeX-OY-6yE" secondAttribute="leading" id="NnX-Gi-Ydq"/>
+                            <constraint firstItem="PIh-Sb-ELE" firstAttribute="centerX" secondItem="EeX-OY-6yE" secondAttribute="centerX" id="SrM-sT-fef"/>
+                            <constraint firstItem="EeX-OY-6yE" firstAttribute="trailing" secondItem="BKl-H7-xbp" secondAttribute="trailing" id="W6I-Mw-B45"/>
+                            <constraint firstAttribute="bottom" secondItem="BKl-H7-xbp" secondAttribute="bottom" id="t2D-bo-r2D"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EeX-OY-6yE"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="BKl-H7-xbp" id="6UR-yF-yTr"/>
+                        <outlet property="logoImage" destination="PIh-Sb-ELE" id="QVK-wN-jec"/>
+                        <segue destination="DOP-gs-sLM" kind="presentation" identifier="segueGame" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="RV1-TY-pwx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xl8-Hv-yM6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="103" y="116"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="KlZ-Wf-xf1">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="DOP-gs-sLM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAJ-7O-4Ho" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="756" y="116"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launchscreen" width="1656" height="3584"/>
+        <image name="logo" width="990" height="272"/>
+    </resources>
+</document>
