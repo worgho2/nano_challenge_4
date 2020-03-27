@@ -50,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.onboarding = Onboarding(scene: self, gameOnboardingManager: self.gameOnboardingManager, gameColorManager: self.gameColorManager)
         
-        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager, gameOnboardingManager: self.gameOnboardingManager)
+        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager, gameOnboardingManager: self.gameOnboardingManager, interfaceDelegate: self.vc!)
         self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
         self.drop = Drop(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
@@ -106,25 +106,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ]
     }
     
-    func play(isGamePaused: Bool) {
+    func play() {
         self.realPaused = false
-        
-        if isGamePaused {
-            self.onGameContinue()
-        } else {
-            self.onGameStart()
-        }
+        self.onGameStart()
     }
     
-    func pause() {
-        self.realPaused = true
-        self.onGamePause()
+    func pause(isGamePaused: Bool) {
+        
+        if isGamePaused {
+            self.realPaused = false
+            self.onGameContinue()
+        } else {
+            self.realPaused = true
+            self.onGamePause()
+        }
+        
     }
     
     func onGameStart() {
         self.isGameEnded = false
         self.gameAudioManager.play(soundEffect: .play)
-        self.gameAudioManager.play(song: .main)
+//        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     
@@ -172,7 +174,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.onGameOver()
         } else {
             obstacle.onCollision(onCorrectPainter: true, at: at)
-            self.score.incrementObstacleHighScore()
+            self.score.incrementScore()
         }
     }
     
