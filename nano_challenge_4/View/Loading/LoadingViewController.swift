@@ -14,7 +14,6 @@ class LoadingViewController: UIViewController {
     @IBOutlet weak var logoImage: UIImageView!
     
     func readyToStart() {
-        GameCenterSingleton.instance.authenticate(origin: self)
         
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseOut], animations: {
             self.logoImage.alpha = 0
@@ -44,6 +43,8 @@ class LoadingViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        GameCenterSingleton.instance.authenticate(origin: self)
+        
         self.animateLogo()
     }
     

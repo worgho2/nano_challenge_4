@@ -11,19 +11,19 @@ import SpriteKit
 class Drop: GameObject {
     
     init(scene: SKScene?) {
-        let node = scene?.childNode(withName: "drop")! as! SKSpriteNode
-        node.position = CGPoint(x: 0, y: 500)
-        
         let image = UIImage(named: "drop")!.tint(tintColor: .black)
         let texture = SKTexture(image: image)
+        let size = CGSize(width: 35, height: 65)
         
-        node.texture = texture
-        node.scale(to: CGSize(width: 35, height: 65))
+        let node = SKSpriteNode(texture: texture, size: size)
+        node.position = CGPoint(x: 0, y: 500)
+        node.name = "drop"
         
         super.init(node: node, scene: scene)
         
-        self.configurePhysics(on: self.node)
+        self.scene.addChild(node)
         
+        self.configurePhysics(on: self.node)
     }
     
     //MARK: - PhysicsObject PROTOCOL
@@ -47,14 +47,16 @@ class Drop: GameObject {
     //MARK: - TriggeredByGameState PROTOCOL
     
     override func onGameStart() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 300), duration: 0.4))
+        self.node.removeAllActions()
+        self.node.run(.move(to: CGPoint(x: 0, y: self.scene.getBounds().height - self.node.frame.height - 20), duration: 0.4))
     }
     
     override func onGameOver() {
+        self.node.removeAllActions()
         self.node.run(.sequence(
             [
-                .repeat(.sequence([.moveTo(x: 10, duration: 0.1), .moveTo(x: -10, duration: 0.1)]), count: 2),
-                .moveTo(x: 0, duration: 0.1),
+                .repeat(.sequence([.moveTo(x: 10, duration: 0.05), .moveTo(x: -10, duration: 0.05)]), count: 2),
+                .moveTo(x: 0, duration: 0.05),
                 .move(to: CGPoint(x: 0, y: 500), duration: 0.4)
             ]
         ))
