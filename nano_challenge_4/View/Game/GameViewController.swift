@@ -20,8 +20,9 @@ class GameViewController: UIViewController {
         case waitingForStart
     }
     
-    weak var scene: GameScene?
+    @IBOutlet weak var coverView: UIView!
     
+    weak var scene: GameScene?
     @IBOutlet weak var skView: SKView!
     
     @IBOutlet weak var gameCenterButton: UIButton!
@@ -42,17 +43,12 @@ class GameViewController: UIViewController {
     var ad: GADInterstitial!
     var rewardedAd: GADRewardedAd!
     
-    //vai sumir daqui
-    var backgroundView: UIView!
-    var viewPattern: UIView!
-    
     //passar o conhecimento para dentro da scene
     private var isGamePaused: Bool = false
     
-    
     //MARK: - Notification Center Methods
     
-    private func setupNotificationObservers() {
+    private func loadNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onBestTimeNotification(_:)), name: Leaderboard.bestTime.notificationName, object: nil)
@@ -91,22 +87,15 @@ class GameViewController: UIViewController {
     
     private func loadScene() {
         if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
-            
+
             scene.realPaused = true
-            scene.scaleMode = .aspectFill
+            scene.scaleMode = .resizeFill
+//            scene.scaleMode = .aspectFill //arruma isso
             scene.vc = self
-            scene.backgroundColor = .clear
-            
-            backgroundView.backgroundColor = scene.gameColorManager.backgroundColor
-            viewPattern.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 10)
-            let image = UIImage(named: "background")!.tint(tintColor: scene.gameColorManager.pattern).resizeImage(size: CGSize(width: view.frame.width/2, height: view.frame.width/2))!
-            viewPattern.backgroundColor = UIColor(patternImage: image)
-            
             self.scene = scene
             
             let colorTop =  UIColor.clear.cgColor
             let colorBottom = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35).cgColor
-            
             let gradientLayer = CAGradientLayer()
             gradientLayer.colors = [colorTop, colorBottom]
             gradientLayer.locations = [0.0, 1.0]
@@ -119,26 +108,13 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func setupBackground() {
-        backgroundView = UIView(frame: view.frame)
-        view.addSubview(backgroundView)
-        
-        viewPattern = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 10))
-        viewPattern.alpha = 0.4
-        view.addSubview(viewPattern)
-        
-        view.sendSubviewToBack(viewPattern)
-        view.sendSubviewToBack(backgroundView)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupBackground()
         self.loadScene()
-        self.setupUI()
+        self.loadUI()
         self.loadInterAD()
-        self.setupNotificationObservers()
+        self.loadNotificationObservers()
     }
     
     //MARK: - View Setup
@@ -148,39 +124,42 @@ class GameViewController: UIViewController {
         switch state {
             
         case .playing:
+            //GameCenterButton
             self.gameCenterButton.isHidden = true
+            self.gameCenterButton.alpha = 0
             
+            //PlayButton
             self.playButton.isHidden = true
             
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
-                self.pauseButton.isHidden = false
-            } else {
-                self.pauseButton.isHidden = true
-            }
-            
+            //PauseButton
+            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
             self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
             
         case .paused:
+            //GameCenterButton
             self.gameCenterButton.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
+                self.gameCenterButton.alpha = 1
+            })
             
+            //PlayButton
             self.playButton.isHidden = true
             
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
-                self.pauseButton.isHidden = false
-            } else {
-                self.pauseButton.isHidden = true
-            }
-            
+            //PauseButton
+            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
             self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
 
         case .waitingForStart:
+            //GameCenterButton
             self.gameCenterButton.isHidden = false
+            self.gameCenterButton.alpha = 1
             
+            //PlayButton
             self.playButton.isHidden = false
             self.playButton.setTitle("Play", for: .normal)
             
+            //PlayButton
             self.pauseButton.isHidden = true
-            
         }
         
     }
@@ -245,13 +224,40 @@ class GameViewController: UIViewController {
         
     }
     
+    private func setCoverView(state: ViewGameState) {
+        
+        switch state {
+        case .playing:
+            self.coverView.isUserInteractionEnabled = false
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: {
+                self.coverView.alpha = 0
+            }) { (_) in
+                self.coverView.isHidden = true
+            }
+            
+        case .paused:
+            self.coverView.isUserInteractionEnabled = false
+            self.coverView.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
+                self.coverView.alpha = 1
+            })
+            
+        case .waitingForStart:
+            self.coverView.isUserInteractionEnabled = false
+            self.coverView.isHidden = true
+            self.coverView.alpha = 0
+        }
+        
+    }
+    
     private func setUITo(state: ViewGameState) {
         self.setButtonsTo(state: state)
         self.setHighScoresTo(state: state)
         self.setScoresTo(state: state)
+        self.setCoverView(state: state)
     }
     
-    private func setupUI() {
+    private func loadUI() {
         self.playButton.titleLabel!.textColor = .white
         self.playButton.tintColor = .white
         
@@ -297,22 +303,6 @@ extension GameViewController: InterfaceDelegate {
         self.timeLabel.text = time.asString()
     }
     
-    
-}
-
-//vai sumir com o Background pattern pelo spritekit
-extension GameViewController: Updateable {
-    
-    func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.scene!.gameSpeedManager.getCurrentSpeed()
-        self.viewPattern.center.y -= dY
-        
-        guard let frame = view?.frame else { return }
-        
-        if self.viewPattern.center.y <= 0 {
-            self.viewPattern.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height * 10)
-        }
-    }
     
 }
 

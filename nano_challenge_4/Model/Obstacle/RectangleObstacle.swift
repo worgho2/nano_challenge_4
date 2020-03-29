@@ -15,7 +15,7 @@ class RectangleObstacle: Obstacle {
     }
     
     init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        let node = SKShapeNode(rectOf: CGSize(width: 250, height: 50), cornerRadius: 25)
+        let node = SKShapeNode(rectOf: CGSize(width: 300, height: 70), cornerRadius: 35)
         node.name = "ractangleObstacle"
         
         super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
@@ -26,13 +26,13 @@ class RectangleObstacle: Obstacle {
     //MARK: - Class Methods
     
     override func shouldDespawn() -> Bool {
-        return self.node.position.y > self.scene.getBounds().height + 200
+        return self.node.position.y > self.scene.getBounds().height + 400
     }
     
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(rectangleOf: .init(width: 250, height: 50))
+        let body = SKPhysicsBody(rectangleOf: .init(width: 300, height: 70))
         
         body.affectedByGravity = false
         body.allowsRotation = false

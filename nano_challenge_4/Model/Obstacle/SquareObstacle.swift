@@ -16,7 +16,7 @@ class SquareObstacle: Obstacle {
     }
     
     init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        let node = SKShapeNode(rectOf: CGSize(width: 100, height: 100), cornerRadius: 15)
+        let node = SKShapeNode(rectOf: CGSize(width: 120, height: 120), cornerRadius: 30)
         node.name = "squareObstacle"
         
         super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
@@ -27,13 +27,13 @@ class SquareObstacle: Obstacle {
     //MARK: - Class Methods
     
     override func shouldDespawn() -> Bool {
-        return self.node.position.y > self.scene.getBounds().height + 50
+        return self.node.position.y > self.scene.getBounds().height + 100
     }
     
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(rectangleOf: .init(width: 100, height: 100))
+        let body = SKPhysicsBody(rectangleOf: .init(width: 120, height: 120))
         
         body.affectedByGravity = false
         body.allowsRotation = false

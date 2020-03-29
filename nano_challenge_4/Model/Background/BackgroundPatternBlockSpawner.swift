@@ -1,49 +1,62 @@
-////
-////  BackgroundPatternSpawner.swift
-////  nano_challenge_4
-////
-////  Created by otavio on 12/03/20.
-////  Copyright © 2020 Raieiros Studio. All rights reserved.
-////
 //
-//import SpriteKit
+//  BackgroundPatternSpawner.swift
+//  nano_challenge_4
 //
-//class BackgroundPatternSpawner: SceneSupplicant, Updateable {
+//  Created by otavio on 12/03/20.
+//  Copyright © 2020 Raieiros Studio. All rights reserved.
 //
-//    var scene: SKScene!
-//    var backgroundPatternFactory: BackgroundPatternFactory!
-//    var backgroundPatterns: [BackgroundPattern]!
-//
-//
-//    init(scene: SKScene?) {
-//        self.scene = scene
-//        self.backgroundPatternFactory = BackgroundPatternFactory(scene: self.scene)
-//        self.backgroundPatterns = [BackgroundPattern]()
-//        self.spawn()
-//    }
-//
-//    //MARK: - Class Methods
-//
-//    func spawn() {
-//        let newBackgroundPattern = self.backgroundPatternFactory.getNewBackgroundPattern()
-//
-//        self.backgroundPatterns.append(newBackgroundPattern)
-//        self.scene.addChild(newBackgroundPattern.node)
-//    }
-//
-//
-//    //MARK: - Updateable PROTOCOL
-//
-//    func update(_ deltaTime: TimeInterval) {
-//
-////        self.backgroundPatterns.forEach { $0.update(deltaTime) }
-////
-////        for (i, backgroundPattern) in self.backgroundPatterns.enumerated() {
-////            if backgroundPattern.shouldDespawn() {
-////                self.backgroundPatterns.remove(at: i)
-////                backgroundPattern.node.removeFromParent()
-////            }
-////        }
-//    }
-//
-//}
+
+import SpriteKit
+
+class BackgroundPatternBlockSpawner: SceneSupplicant, Updateable {
+
+    var scene: SKScene!
+    var backgroundPatternFactory: BackgroundPatternBlockFactory!
+    var backgroundPatternBlocks: [BackgroundPatternBlock]!
+    
+    init(scene: SKScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+        self.scene = scene
+        self.backgroundPatternFactory = BackgroundPatternBlockFactory(scene: self.scene, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.backgroundPatternBlocks = [BackgroundPatternBlock]()
+        self.initialSpawn()
+    }
+
+    //MARK: - Class Methods
+    
+    func initialSpawn() {
+        let nodes = self.backgroundPatternFactory.getInitialBackgroundPatternBlockPack()
+        
+        nodes.forEach {
+            self.backgroundPatternBlocks.append($0)
+            self.scene.addChild($0.node)
+        }
+    }
+
+    func spawn() {
+        let newBackgroundPatternBlock = self.backgroundPatternFactory.getNewBackgroundPatternBlock()
+
+        self.backgroundPatternBlocks.append(newBackgroundPatternBlock)
+        self.scene.addChild(newBackgroundPatternBlock.node)
+    }
+
+
+    //MARK: - Updateable PROTOCOL
+
+    func update(_ deltaTime: TimeInterval) {
+        self.backgroundPatternBlocks.forEach { $0.update(deltaTime) }
+        
+        if let lastBlock = self.backgroundPatternBlocks.last {
+            if lastBlock.node.position.y >= self.scene.getBounds().minY + lastBlock.node.children.first!.frame.height/2 {
+                self.spawn()
+            }
+        }
+
+        for (i, backgroundPatternBlock) in self.backgroundPatternBlocks.enumerated() {
+            if backgroundPatternBlock.shouldDespawn() {
+                self.backgroundPatternBlocks.remove(at: i)
+                backgroundPatternBlock.node.removeFromParent()
+            }
+        }
+    }
+
+}

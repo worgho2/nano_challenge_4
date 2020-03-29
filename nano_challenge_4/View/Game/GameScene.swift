@@ -13,7 +13,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var vc: GameViewController?
     
     private var lastUpdate = TimeInterval(0)
-    
     var realPaused: Bool = false {
         didSet {
             self.isPaused = realPaused
@@ -28,25 +27,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private var isGameEnded: Bool = false
     
-    
     var onboarding: Onboarding!
     var score: Score!
     var wheel: Wheel!
     var drop: Drop!
     var obstacleSpawner: ObstacleSpawner!
+    var backgroundPatternBlockSpawner: BackgroundPatternBlockSpawner!
     
     var gameColorManager =  GameColorManager()
     var gameSpeedManager =  GameSpeedManager()
     var gameScoreManager =  GameScoreManager()
     var gameAudioManager =  GameAudioManager()
     var gameHapticManager =  GameHapticManager()
-    
     var gameOnboardingManager = GameOnboardingManager()
     
     //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
+        self.backgroundColor = gameColorManager.backgroundColor
         
         self.onboarding = Onboarding(scene: self, gameOnboardingManager: self.gameOnboardingManager, gameColorManager: self.gameColorManager)
         
@@ -54,6 +53,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
         self.drop = Drop(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+        
+        self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -89,19 +90,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.obstacleSpawner
         ]
     }
+    
     private func getTouchSensitives() -> [TouchSensitive] {
         return [
             self.wheel,
             self.onboarding
         ]
     }
+    
     private func getUpdatables() -> [Updateable] {
         return [
             self.score,
             self.wheel,
             self.obstacleSpawner,
             self.gameSpeedManager,
-            self.vc!,
+            self.backgroundPatternBlockSpawner,
             self.onboarding
         ]
     }
@@ -183,6 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.getTouchSensitives().forEach { $0.touchDown(atPoint: t.location(in: self)) } }
     }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.getTouchSensitives().forEach { $0.touchUp(atPoint: t.location(in: self)) } }
     }

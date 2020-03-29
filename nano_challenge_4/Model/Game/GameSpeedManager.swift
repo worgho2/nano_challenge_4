@@ -12,9 +12,9 @@ class GameSpeedManager: Updateable, TriggeredByGameState {
     
     private var currentSpeed: CGFloat!
     
-    let acceleration: CGFloat = 6
+    let acceleration: CGFloat = 10
     let maxVelocity: CGFloat = 600
-    let minVelocity: CGFloat = 200
+    let minVelocity: CGFloat = 250
     
     init() {
         self.currentSpeed = self.minVelocity

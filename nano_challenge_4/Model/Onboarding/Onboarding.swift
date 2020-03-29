@@ -13,8 +13,12 @@ class Onboarding: GameObject {
     private var gameColorManager: GameColorManager!
 
     init(scene: SKScene?, gameOnboardingManager: GameOnboardingManager, gameColorManager: GameColorManager) {
-        let node = scene?.childNode(withName: "onboardingNode")!
+        let node = SKNode()
         super.init(node: node, scene: scene)
+        
+        self.node.position = CGPoint(x: 0, y: -160)
+        self.node.name = "onboardingNode"
+        self.scene.addChild(node)
         
         self.gameOnboardingManager = gameOnboardingManager
         self.gameColorManager = gameColorManager

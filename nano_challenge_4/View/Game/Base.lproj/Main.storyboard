@@ -29,6 +29,10 @@
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4po-H2-ZjC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="916"/>
                             </skView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OaT-ZZ-QqQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqP-Wn-Bn9">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="49"/>
@@ -135,6 +139,7 @@
                             <constraint firstItem="oci-1I-GvG" firstAttribute="centerX" secondItem="9hy-i7-IWB" secondAttribute="centerX" id="TRh-za-VGI"/>
                             <constraint firstItem="VQN-br-dsM" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="Wia-vv-NAj"/>
                             <constraint firstItem="9Sd-fc-xAc" firstAttribute="top" secondItem="oci-1I-GvG" secondAttribute="bottom" constant="15" id="Wkj-oy-PJy"/>
+                            <constraint firstItem="OaT-ZZ-QqQ" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="YJY-G2-oum"/>
                             <constraint firstItem="bXA-hO-wxt" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" id="YrS-cr-G2I"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="centerX" secondItem="9Sd-fc-xAc" secondAttribute="centerX" id="Yza-Dm-Kco"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="kqP-Wn-Bn9" secondAttribute="bottom" id="ZVU-SQ-8oH"/>
@@ -145,17 +150,21 @@
                             <constraint firstItem="YsR-DI-VVE" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="15" id="dcF-Kg-jh9"/>
                             <constraint firstItem="kqP-Wn-Bn9" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" id="dvQ-0X-APO"/>
                             <constraint firstItem="2WO-YT-QAw" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="10" id="fh2-Nl-OeG"/>
+                            <constraint firstItem="OaT-ZZ-QqQ" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="gUP-MB-Tg3"/>
                             <constraint firstItem="9hy-i7-IWB" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="100" id="gcD-FB-AMV"/>
                             <constraint firstItem="eL3-Mn-vqT" firstAttribute="top" secondItem="9Sd-fc-xAc" secondAttribute="bottom" id="ghO-5D-3Tj"/>
                             <constraint firstItem="kqP-Wn-Bn9" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="jf0-kt-dlZ"/>
                             <constraint firstItem="9hy-i7-IWB" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="ox1-kV-H7l"/>
                             <constraint firstItem="8dg-KG-2MV" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="10" id="wLX-kE-kGE"/>
+                            <constraint firstAttribute="bottom" secondItem="OaT-ZZ-QqQ" secondAttribute="bottom" id="zWZ-uK-fwe"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="OaT-ZZ-QqQ" secondAttribute="trailing" id="zmg-Wn-FTD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
                         <outlet property="bestTimeDefaultLabel" destination="9Sd-fc-xAc" id="uyw-rY-6uS"/>
                         <outlet property="bestTimeLabel" destination="eL3-Mn-vqT" id="uDj-TG-d0J"/>
+                        <outlet property="coverView" destination="OaT-ZZ-QqQ" id="6et-io-Tbx"/>
                         <outlet property="gameCenterButton" destination="VQN-br-dsM" id="P2S-68-OBO"/>
                         <outlet property="highScoreDefaultLabel" destination="9hy-i7-IWB" id="DfZ-0y-N1l"/>
                         <outlet property="highScoreLabel" destination="oci-1I-GvG" id="MQQ-TX-vst"/>

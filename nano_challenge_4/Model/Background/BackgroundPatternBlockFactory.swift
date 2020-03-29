@@ -12,34 +12,57 @@ class BackgroundPatternBlockFactory: SceneSupplicant {
     
     var scene: SKScene!
     
-    private var backgroundPatternBaseNode: SKNode!
+    private var backgroundPatternBlockBaseNode: SKNode!
     
-    init(scene: SKScene?) {
+    var gameSpeedManager: GameSpeedManager!
+    var gameColorManager: GameColorManager!
+    
+    init(scene: SKScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
-        self.backgroundPatternBaseNode = BackgroundPattern(scene: self.scene).node
+        
+        self.backgroundPatternBlockBaseNode = BackgroundPatternBlock(scene: scene, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
+        
+        self.gameSpeedManager = gameSpeedManager
+        self.gameColorManager = gameColorManager
     }
     
     //MARK: - Class Methods
     
     private func getNode() -> SKNode {
-        let node = self.backgroundPatternBaseNode.copy() as! SKShapeNode
-        let _ = self.scene.getBounds()
+        let node = self.backgroundPatternBlockBaseNode.copy() as! SKNode
         
-        node.setScale(20.0)
-        node.position = CGPoint(x: 0, y: 0) //bounds.minY - node.frame.size.height/2
-        node.zPosition = 10
-        node.alpha = 1
-//        node.texture = SKTexture(image: UIImage(named: "background_pattern")!)
-        node.fillColor = UIColor(patternImage: UIImage(named: "background_pattern")!)
-        
+        node.position = CGPoint(x: 0, y: self.scene.getBounds().minY - node.children.first!.frame.height/2)
+        node.zPosition = -100
+
         return node
     }
     
-    func getNewBackgroundPattern() -> BackgroundPattern {
-        print("[SPAWN BACKGROUND PATTERN]")
-        
+    func getNewBackgroundPatternBlock() -> BackgroundPatternBlock {
+//        print("[SPAWN BACKGROUND_BLOCK]")
+
         let node = self.getNode()
-        return BackgroundPattern(node: node, scene: self.scene)
+        
+        return BackgroundPatternBlock(node: node, scene: self.scene, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+    }
+    
+    func getInitialBackgroundPatternBlockPack() -> [BackgroundPatternBlock] {
+        var nodes = [BackgroundPatternBlock]()
+        
+        let from = self.scene.getBounds().height - self.backgroundPatternBlockBaseNode.children.first!.frame.height/2
+        
+        let to = self.scene.getBounds().minY - self.backgroundPatternBlockBaseNode.children.first!.frame.height/2
+        
+        let by = -self.backgroundPatternBlockBaseNode.children.first!.frame.height
+        
+        for posY in stride(from: from, to: to, by: by) {
+            let node = self.getNode()
+            node.position.y = posY
+            
+            nodes.append(BackgroundPatternBlock(node: node, scene: self.scene, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager))
+        }
+        
+        
+        return nodes
     }
 }
 

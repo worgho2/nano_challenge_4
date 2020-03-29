@@ -32,9 +32,12 @@ class Wheel: GameObject {
     private var isTouching: (left: Bool, right: Bool) = (false, false)
     
     init(scene: SKScene?, gameColorManager: GameColorManager) {
-        let node = scene?.childNode(withName: "wheelNode")!
-        node?.position = CGPoint(x: 0, y: 0)
+        let node = SKNode()
+        node.position = .zero
+        
         super.init(node: node, scene: scene)
+        
+        self.scene.addChild(node)
         
         self.gameColorManager = gameColorManager
         
@@ -62,9 +65,9 @@ class Wheel: GameObject {
     }
     
     private func setupPainters() {
-        let leftPainterNode = SKShapeNode(circleOfRadius: 18)
+        let leftPainterNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 0.12)
         leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -100, y: 0)
+        leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width * 3/5, y: 0)
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = self.gameColorManager.leftColor
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
@@ -74,7 +77,7 @@ class Wheel: GameObject {
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: 100, y: 0)
+        rightPainterNode.position = CGPoint(x: self.scene.getBounds().width * 3/5, y: 0)
         rightPainterNode.fillColor = self.gameColorManager.rightColor
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
@@ -84,7 +87,7 @@ class Wheel: GameObject {
     }
     
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: 100)
+        let circleNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 3/5)
         
         circleNode.position = .zero
         circleNode.strokeColor = .white
@@ -111,7 +114,7 @@ class Wheel: GameObject {
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(circleOfRadius: 20)
+        let body = SKPhysicsBody(circleOfRadius: self.scene.getBounds().width * 0.12)
         
         body.affectedByGravity = false
         body.allowsRotation = false

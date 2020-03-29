@@ -33,9 +33,9 @@
 		7AA04BD3241FE810008D1147 /* GameHapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD2241FE810008D1147 /* GameHapticManager.swift */; };
 		7AA04BD7242006FF008D1147 /* GameOnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD6242006FF008D1147 /* GameOnboardingManager.swift */; };
 		7AA04BD924200C2B008D1147 /* OnboardingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA04BD824200C2B008D1147 /* OnboardingDisplayable.swift */; };
-		7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */; };
-		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */; };
-		7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */; };
+		7AA0D258241A58EA00B8C200 /* BackgroundPatternBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D257241A58EA00B8C200 /* BackgroundPatternBlock.swift */; };
+		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift */; };
+		7AA0D25D241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift */; };
 		7AA0D25F241A7BC600B8C200 /* BrunoRoubodeCodigo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25E241A7BC600B8C200 /* BrunoRoubodeCodigo.swift */; };
 		7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A792416C55800A7FB68 /* UIColor.swift */; };
 		7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7C2416D38C00A7FB68 /* HSV.swift */; };
@@ -99,9 +99,9 @@
 		7AA04BD2241FE810008D1147 /* GameHapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHapticManager.swift; sourceTree = "<group>"; };
 		7AA04BD6242006FF008D1147 /* GameOnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOnboardingManager.swift; sourceTree = "<group>"; };
 		7AA04BD824200C2B008D1147 /* OnboardingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDisplayable.swift; sourceTree = "<group>"; };
-		7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPattern.swift; sourceTree = "<group>"; };
-		7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternFactory.swift; sourceTree = "<group>"; };
-		7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternSpawner.swift; sourceTree = "<group>"; };
+		7AA0D257241A58EA00B8C200 /* BackgroundPatternBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternBlock.swift; sourceTree = "<group>"; };
+		7AA0D259241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternBlockFactory.swift; sourceTree = "<group>"; };
+		7AA0D25C241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternBlockSpawner.swift; sourceTree = "<group>"; };
 		7AA0D25E241A7BC600B8C200 /* BrunoRoubodeCodigo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrunoRoubodeCodigo.swift; sourceTree = "<group>"; };
 		7AB85A792416C55800A7FB68 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7AB85A7C2416D38C00A7FB68 /* HSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
@@ -240,14 +240,14 @@
 			path = "Sound Tracks";
 			sourceTree = "<group>";
 		};
-		7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */ = {
+		7AA0D256241A58C300B8C200 /* Background */ = {
 			isa = PBXGroup;
 			children = (
-				7AA0D257241A58EA00B8C200 /* BackgroundPattern.swift */,
-				7AA0D259241A5C5F00B8C200 /* BackgroundPatternFactory.swift */,
-				7AA0D25C241A5EE400B8C200 /* BackgroundPatternSpawner.swift */,
+				7AA0D257241A58EA00B8C200 /* BackgroundPatternBlock.swift */,
+				7AA0D259241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift */,
+				7AA0D25C241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift */,
 			);
-			path = "BackgroundPattern(OFF)";
+			path = Background;
 			sourceTree = "<group>";
 		};
 		7AB85A782416C54100A7FB68 /* Extensions */ = {
@@ -324,7 +324,7 @@
 				7AB85A902417FC8F00A7FB68 /* Score */,
 				7AC3C38B2411575F0011F586 /* Obstacle */,
 				7ACD686E2420F33600DB9089 /* Onboarding */,
-				7AA0D256241A58C300B8C200 /* BackgroundPattern(OFF) */,
+				7AA0D256241A58C300B8C200 /* Background */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -572,7 +572,7 @@
 			files = (
 				7AB85A812416D38D00A7FB68 /* RGBA.swift in Sources */,
 				7AC3C379240FFC370011F586 /* GameObject.swift in Sources */,
-				7AA0D25D241A5EE400B8C200 /* BackgroundPatternSpawner.swift in Sources */,
+				7AA0D25D241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift in Sources */,
 				7AC3C369240FF8300011F586 /* GameViewController.swift in Sources */,
 				7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */,
 				7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */,
@@ -582,7 +582,7 @@
 				7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */,
 				7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */,
 				7AB85A872417C55D00A7FB68 /* GameColorManager.swift in Sources */,
-				7AA0D25A241A5C5F00B8C200 /* BackgroundPatternFactory.swift in Sources */,
+				7AA0D25A241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift in Sources */,
 				7AC3C38224112FFB0011F586 /* Obstacle.swift in Sources */,
 				7AA04BD7242006FF008D1147 /* GameOnboardingManager.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
@@ -592,7 +592,7 @@
 				7A6C6957242E655400FD724B /* InterfaceDelegate.swift in Sources */,
 				7AA04BBA241FAB4A008D1147 /* AudioLibrary.swift in Sources */,
 				7AA04BD3241FE810008D1147 /* GameHapticManager.swift in Sources */,
-				7AA0D258241A58EA00B8C200 /* BackgroundPattern.swift in Sources */,
+				7AA0D258241A58EA00B8C200 /* BackgroundPatternBlock.swift in Sources */,
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
@@ -762,7 +762,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
@@ -787,7 +787,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = nano_challenge_4/Info.plist;
