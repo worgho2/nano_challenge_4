@@ -53,12 +53,12 @@ class ObstacleFactory: SceneSupplicant {
     var gameSpeedManager: GameSpeedManager!
     var gameColorManager: GameColorManager!
     
-    var scene: SKScene!
+    var scene: GameScene!
     
     private var rectangleBaseNode: SKNode!
     private var squareBaseNode: SKNode!
     
-    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
         
         self.gameAudioManager = gameAudioManager
@@ -100,7 +100,7 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
-        node.fillColor = (color == .leftColor ? self.gameColorManager.leftColor : self.gameColorManager.rightColor)!
+        node.fillColor = color == .leftColor ? self.gameColorManager.pallete.left : self.gameColorManager.pallete.right
         
         return node
     }

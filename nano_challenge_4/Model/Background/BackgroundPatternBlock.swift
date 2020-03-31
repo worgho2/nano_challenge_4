@@ -13,14 +13,14 @@ class BackgroundPatternBlock: GameObject {
     var gameSpeedManager: GameSpeedManager!
     var gameColorManager: GameColorManager!
     
-    init(node: SKNode?, scene: SKScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(node: SKNode?, scene: GameScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         super.init(node: node, scene: scene)
         
         self.gameSpeedManager = gameSpeedManager
         self.gameColorManager = gameColorManager
     }
     
-    init(scene: SKScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         let node = SKNode()
         super.init(node: node, scene: scene)
         
@@ -33,7 +33,7 @@ class BackgroundPatternBlock: GameObject {
     //MARK: - Class Methods
     
     private func setupPatternBlock() {
-        let image = UIImage(named: "pattern")!.tint(tintColor: gameColorManager.pattern)
+        let image = UIImage(named: "pattern")!.tint(tintColor: gameColorManager.pallete.pattern)
         let texture = SKTexture(image: image)
         let width: CGFloat = self.scene.getBounds().width * 2 / 3
         let aspectRatio: CGFloat = 845/900
@@ -61,7 +61,7 @@ class BackgroundPatternBlock: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.gameSpeedManager.getCurrentSpeed() * 0.9
+        let dY = CGFloat(deltaTime) * self.gameSpeedManager.currentSpeed * 0.9
         self.node.position.y += dY
     }
     

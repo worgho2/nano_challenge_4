@@ -8,42 +8,82 @@
 
 import SpriteKit
 
-enum OnboardingStage {
-    case first
-    case second
-    case third
-}
-
 class GameOnboardingManager {
     
-    //debug
-//    static var first: Bool = false
-//    static var second: Bool = false
-//    static var third: Bool = false
+    enum OnboardingStage {
+        case first
+        case second
+        case third
+    }
     
-    var canShowFirst: Bool = true
-    var canShowSecond: Bool = false
-    var canShowThird: Bool = false
-
-    @Storage(key: "OnboardingFirst", defaultValue: false) private static var first: Bool
-    @Storage(key: "OnboardingSecond", defaultValue: false) private static var second: Bool
-    @Storage(key: "OnboardingThird", defaultValue: false) private static var third: Bool
+    private static var canShowFirst: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.canShowFirst") as? Bool ?? true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.canShowFirst")
+        }
+    }
+    
+    private static var canShowSecond: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.canShowSecond") as? Bool ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.canShowSecond")
+        }
+    }
+    
+    private static var canShowThird: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.canShowThird") as? Bool ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.canShowThird")
+        }
+    }
+    
+    private static var hasAlreadyShowedFirst: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.hasAlreadyShowedFirst") as? Bool ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.hasAlreadyShowedFirst")
+        }
+    }
+    
+    private static var hasAlreadyShowedSecond: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.hasAlreadyShowedSecond") as? Bool ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.hasAlreadyShowedSecond")
+        }
+    }
+    
+    private static var hasAlreadyShowedThird: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: "onboarding.hasAlreadyShowedThird") as? Bool ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "onboarding.hasAlreadyShowedThird")
+        }
+    }
     
     var wheelRotationRight: Bool = false {
         didSet {
-            if self.wheelRotationRight == true && !self.isStageDone(.first){
+            if self.wheelRotationRight == true && !self.hasAlreadyShowed(.first) {
                 Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { t in
-                    self.setStageDone(.first)
+                    self.finish(.first)
                 }
             }
         }
     }
-    
     var wheelRotationLeft: Bool = false {
         didSet {
-            if self.wheelRotationLeft == true && !self.isStageDone(.second) {
+            if self.wheelRotationLeft == true && !self.hasAlreadyShowed(.second) {
                 Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { t in
-                    self.setStageDone(.second)
+                    self.finish(.second)
                 }
             }
         }
@@ -51,35 +91,57 @@ class GameOnboardingManager {
     
     //MARK: - Class Mehtods
     
-    func setStageDone(_ stage: OnboardingStage) {
+    func hasAlreadyShowed(_ stage: OnboardingStage) -> Bool {
         switch stage {
         case .first:
-            GameOnboardingManager.first = true
-            self.canShowSecond = true
+            return GameOnboardingManager.hasAlreadyShowedFirst
         case .second:
-            GameOnboardingManager.second = true
-            self.canShowThird = true
+            return GameOnboardingManager.hasAlreadyShowedSecond
         case .third:
-            GameOnboardingManager.third = true
+            return GameOnboardingManager.hasAlreadyShowedThird
         }
     }
     
-    func isStageDone(_ stage: OnboardingStage) -> Bool {
+    func canShow(_ stage: OnboardingStage) -> Bool {
         switch stage {
         case .first:
-            return GameOnboardingManager.first
+            return GameOnboardingManager.canShowFirst
         case .second:
-            return GameOnboardingManager.second
+            return GameOnboardingManager.canShowSecond
         case .third:
-            return GameOnboardingManager.third
+            return GameOnboardingManager.canShowThird
+        }
+    }
+    
+    func finish(_ stage: OnboardingStage) {
+        switch stage {
+        case .first:
+            GameOnboardingManager.hasAlreadyShowedFirst = true
+            GameOnboardingManager.canShowSecond = true
+        case .second:
+            GameOnboardingManager.hasAlreadyShowedSecond = true
+            GameOnboardingManager.canShowThird = true
+        case .third:
+            GameOnboardingManager.hasAlreadyShowedThird = true
+        }
+    }
+    
+    func disable(_ stage: OnboardingStage) {
+        switch stage {
+        case .first:
+            GameOnboardingManager.canShowFirst = false
+        case .second:
+            GameOnboardingManager.canShowSecond = false
+        case .third:
+            GameOnboardingManager.canShowThird = false
         }
     }
     
     func onboardingIsNeeded() -> Bool {
         return [
-            GameOnboardingManager.first,
-            GameOnboardingManager.second,
-            GameOnboardingManager.third
+            GameOnboardingManager.hasAlreadyShowedFirst,
+            GameOnboardingManager.hasAlreadyShowedSecond,
+            GameOnboardingManager.hasAlreadyShowedThird
         ].contains(false)
     }
     

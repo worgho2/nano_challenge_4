@@ -51,6 +51,7 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
     //MARK: - Authentication Methods
     
     func authenticate(origin: UIViewController) {
+        
         print("[GAME-CENTER] - Authentication started")
         
         self.player.authenticateHandler = { [weak self] (vc, error) -> Void in
@@ -83,9 +84,8 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
     }
     
     //MARK: - Get Leaderboard ViewController
-
     
-    func presentGameCenterView(_ origin: UIViewController){
+    func presentGameCenterView(_ origin: UIViewController) {
         if self.canUseGameCenter() {
             let viewController = GKGameCenterViewController()
             viewController.gameCenterDelegate = self
@@ -94,13 +94,13 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
         } else {
             let viewController = UIAlertController(title: "Game center is not available", message: nil, preferredStyle: .alert)
             viewController.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-
+            
             origin.present(viewController, animated: true, completion: nil)
         }
     }
     
     //MARK: - Score Manager Methods
-
+    
     func setScore(leaderboard: Leaderboard, value: Int64) {
         if self.canUseGameCenter() {
             let score = GKScore(leaderboardIdentifier: leaderboard.identifier)
@@ -108,7 +108,7 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
             
             GKScore.report([score]) { (error) in
                 if let error = error {
-                    print("[GAME-CENTER] - Error(\(error))", error.localizedDescription)
+                    print("[GAME-CENTER] - ", error.localizedDescription)
                     return
                 }
                 print("[GAME-CENTER] - Send Score: (LeaderboardID: \(leaderboard.identifier), Value: \(value))")
@@ -125,9 +125,9 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
         leaderboardReference.identifier = leaderboard.identifier
         
         leaderboardReference.loadScores { (scores, error) in
-
+            
             if let error = error {
-                print("[GAME-CENTER] - Error(\(error))", error.localizedDescription)
+                print("[GAME-CENTER] - ", error.localizedDescription)
                 return
             }
             
@@ -139,13 +139,13 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
                 
                 print("[GAME-CENTER] - Get Score: (LeaderboardID: \(leaderboard.identifier), Value: \(myBestScore!.value))")
             } else {
-                print("[GAME-CENTER] - Get Score: (Without report on: \(leaderboard.identifier))")
+                print("[GAME-CENTER] - Get Score: (Empty on: \(leaderboard.identifier))")
             }
             
         }
         
     }
-        
+    
 }
 
 extension GameCenterSingleton: GKGameCenterControllerDelegate {

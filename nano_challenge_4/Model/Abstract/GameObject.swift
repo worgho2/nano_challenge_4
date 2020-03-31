@@ -14,9 +14,9 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     
     var id: Int
     var node: SKNode!
-    var scene: SKScene!
+    var scene: GameScene!
     
-    init(node: SKNode?, scene: SKScene?) {
+    init(node: SKNode?, scene: GameScene?) {
         self.id = GameObject.next_id
         GameObject.next_id += 1
         
@@ -42,6 +42,7 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     func configurePhysics(on node: SKNode) { return }
     
     //MARK: - TriggeredByGameState PROTOCOL
+    
     func onGameStart() { return }
     func onGamePause() { return }
     func onGameContinue() { return }

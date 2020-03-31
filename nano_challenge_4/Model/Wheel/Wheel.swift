@@ -28,18 +28,19 @@ class Wheel: GameObject {
     }
     
     var gameColorManager: GameColorManager!
+    var gameOnboardingManager: GameOnboardingManager!
     
     private var isTouching: (left: Bool, right: Bool) = (false, false)
     
-    init(scene: SKScene?, gameColorManager: GameColorManager) {
+    init(scene: GameScene?, gameColorManager: GameColorManager, gameOnboardingManager: GameOnboardingManager) {
         let node = SKNode()
         node.position = .zero
         
         super.init(node: node, scene: scene)
-        
         self.scene.addChild(node)
         
         self.gameColorManager = gameColorManager
+        self.gameOnboardingManager = gameOnboardingManager
         
         self.setupPainters()
         self.setupWheelBackground()
@@ -69,7 +70,7 @@ class Wheel: GameObject {
         leftPainterNode.name = "leftPainter"
         leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width * 3/5, y: 0)
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = self.gameColorManager.leftColor
+        leftPainterNode.fillColor = self.gameColorManager.pallete.left
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
         leftPainterNode.isAntialiased = true
         leftPainterNode.glowWidth = 3
@@ -78,7 +79,7 @@ class Wheel: GameObject {
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
         rightPainterNode.position = CGPoint(x: self.scene.getBounds().width * 3/5, y: 0)
-        rightPainterNode.fillColor = self.gameColorManager.rightColor
+        rightPainterNode.fillColor = self.gameColorManager.pallete.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
@@ -131,24 +132,19 @@ class Wheel: GameObject {
     
     override func touchDown(atPoint pos: CGPoint) {
         if pos.x > 0 {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.isStageDone(.second) && scene.gameOnboardingManager.isStageDone(.first) {
-                    return
-                }
-                scene.gameOnboardingManager.wheelRotationRight = true
-                self.isTouching.right = true
-                self.isTouching.left = false
-            }
-        } else {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.isStageDone(.first) && !scene.gameOnboardingManager.isStageDone(.first) {
-                    return
-                }
-                scene.gameOnboardingManager.wheelRotationLeft = true
-                self.isTouching.left = true
-                self.isTouching.right = false
-            }
+            if !scene.gameOnboardingManager.hasAlreadyShowed(.second) && scene.gameOnboardingManager.hasAlreadyShowed(.first) { return }
             
+            scene.gameOnboardingManager.wheelRotationRight = true
+            
+            self.isTouching.right = true
+            self.isTouching.left = false
+        } else {
+            if !scene.gameOnboardingManager.hasAlreadyShowed(.first) { return }
+            
+            scene.gameOnboardingManager.wheelRotationLeft = true
+            
+            self.isTouching.left = true
+            self.isTouching.right = false
         }
     }
     override func touchUp(atPoint pos: CGPoint) {

@@ -12,14 +12,14 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     var gameSpeedManager: GameSpeedManager!
     
-    var scene: SKScene!
+    var scene: GameScene!
     var obstacleFactory: ObstacleFactory!
     var obstacles: [Obstacle]
     
     private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
     
-    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
         self.obstacles = [Obstacle]()
         
@@ -57,10 +57,8 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         self.obstacles.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.onboardingIsNeeded() {
-                   self.spawn()
-                }
+            if !scene.gameOnboardingManager.onboardingIsNeeded() {
+               self.spawn()
             }
             self.currentSpawnTimer -= spawnThreshold
         }

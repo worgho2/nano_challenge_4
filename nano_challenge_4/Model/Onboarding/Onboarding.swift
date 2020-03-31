@@ -11,13 +11,14 @@ class Onboarding: GameObject {
     
     private var gameOnboardingManager: GameOnboardingManager!
     private var gameColorManager: GameColorManager!
-
-    init(scene: SKScene?, gameOnboardingManager: GameOnboardingManager, gameColorManager: GameColorManager) {
-        let node = SKNode()
-        super.init(node: node, scene: scene)
+    
+    init(scene: GameScene?, gameOnboardingManager: GameOnboardingManager, gameColorManager: GameColorManager) {
         
-        self.node.position = CGPoint(x: 0, y: -160)
-        self.node.name = "onboardingNode"
+        let node = SKNode()
+        node.position = CGPoint(x: 0, y: -160)
+        node.name = "onboardingNode"
+        
+        super.init(node: node, scene: scene)
         self.scene.addChild(node)
         
         self.gameOnboardingManager = gameOnboardingManager
@@ -33,21 +34,28 @@ class Onboarding: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        if !gameOnboardingManager.isStageDone(.first) && gameOnboardingManager.canShowFirst {
-            gameOnboardingManager.canShowFirst = false
+        if !gameOnboardingManager.hasAlreadyShowed(.first) && gameOnboardingManager.canShow(.first) {
+            
+            gameOnboardingManager.disable(.first)
             onFirstStep()
-        } else if !gameOnboardingManager.isStageDone(.second) && gameOnboardingManager.canShowSecond {
-            gameOnboardingManager.canShowSecond = false
+            
+        } else if !gameOnboardingManager.hasAlreadyShowed(.second) && gameOnboardingManager.canShow(.second) {
+            
+            gameOnboardingManager.disable(.second)
             onSecondStep()
-        } else if !gameOnboardingManager.isStageDone(.third) && gameOnboardingManager.canShowThird {
-            gameOnboardingManager.canShowThird = false
+            
+        } else if !gameOnboardingManager.hasAlreadyShowed(.third) && gameOnboardingManager.canShow(.third) {
+            
+            gameOnboardingManager.disable(.third)
             onThirdStep()
+            
         }
     }
     
     //MARK: - OnboardingDisplayable PROTOCOL
     
     override func onFirstStep() {
+        
         self.setupToNextStage()
         
         let descriptionNode = SKLabelNode()
@@ -193,7 +201,7 @@ class Onboarding: GameObject {
         
         let leftNode = SKShapeNode(circleOfRadius: 20)
         leftNode.name = "thirdLeftNode"
-        leftNode.fillColor = self.gameColorManager.leftColor
+        leftNode.fillColor = self.gameColorManager.pallete.left
         leftNode.strokeColor = .clear
         leftNode.position = CGPoint(x: -75, y: 0)
         leftNode.zPosition = 1
@@ -212,7 +220,7 @@ class Onboarding: GameObject {
         
         let rightNode = SKShapeNode(circleOfRadius: 20)
         rightNode.name = "thirdRightNode"
-        rightNode.fillColor = self.gameColorManager.rightColor
+        rightNode.fillColor = self.gameColorManager.pallete.right
         rightNode.strokeColor = .clear
         rightNode.position = CGPoint(x: 0, y: 0)
         rightNode.zPosition = 1
@@ -231,13 +239,13 @@ class Onboarding: GameObject {
         
         let backgroundNode = SKShapeNode(circleOfRadius: 20)
         backgroundNode.name = "thirdBackgroundNode"
-        backgroundNode.fillColor = self.gameColorManager.backgroundColor
+        backgroundNode.fillColor = self.gameColorManager.pallete.background
         backgroundNode.strokeColor = .clear
         backgroundNode.position = CGPoint(x: 75, y: 0)
         backgroundNode.zPosition = 1
         baseNode.addChild(backgroundNode)
         
-
+        
         self.node.addChild(startNode)
         self.node.addChild(descriptionNode)
         self.node.addChild(baseNode)
@@ -253,12 +261,14 @@ class Onboarding: GameObject {
     //MARK: - TouchSensitive PROTOCOL
     
     override func touchDown(atPoint pos: CGPoint) {
-        if pos.y > 0  && self.gameOnboardingManager.isStageDone(.first) && self.gameOnboardingManager.isStageDone(.second) && !self.gameOnboardingManager.isStageDone(.third) {
-            gameOnboardingManager.setStageDone(.third)
+        if pos.y > 0  &&
+            self.gameOnboardingManager.hasAlreadyShowed(.first) &&
+            self.gameOnboardingManager.hasAlreadyShowed(.second) &&
+            !self.gameOnboardingManager.hasAlreadyShowed(.third) {
+            
+            gameOnboardingManager.finish(.third)
             self.setupToNextStage()
-            if let scene = self.scene as? GameScene {
-                scene.onGameStart()
-            }
+            scene.onGameStart()
         }
     }
     

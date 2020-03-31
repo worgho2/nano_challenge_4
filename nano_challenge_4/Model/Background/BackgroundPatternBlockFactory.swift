@@ -10,14 +10,14 @@ import SpriteKit
 
 class BackgroundPatternBlockFactory: SceneSupplicant {
     
-    var scene: SKScene!
+    var scene: GameScene!
     
     private var backgroundPatternBlockBaseNode: SKNode!
     
     var gameSpeedManager: GameSpeedManager!
     var gameColorManager: GameColorManager!
     
-    init(scene: SKScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene
         
         self.backgroundPatternBlockBaseNode = BackgroundPatternBlock(scene: scene, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node

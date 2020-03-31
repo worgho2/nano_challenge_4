@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     
     @objc func onHighScoreNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            let score = self.scene!.score.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameScoreManager.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             t.invalidate()
         }
@@ -64,7 +64,7 @@ class GameViewController: UIViewController {
     
     @objc func onBestTimeNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            self.bestTimeLabel.text = (self.scene?.score.gameScoreManager.getHighScore().time)?.asString()
+            self.bestTimeLabel.text = self.scene!.gameScoreManager.getHighScore().time.asString()
             t.invalidate()
         }
     }
@@ -118,7 +118,6 @@ class GameViewController: UIViewController {
     }
     
     //MARK: - View Setup
-    
     private func setButtonsTo(state: ViewGameState) {
         
         switch state {
@@ -133,7 +132,12 @@ class GameViewController: UIViewController {
             
             //PauseButton
             self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
-            self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
+            
+            if #available(iOS 13.0, *) {
+                self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
+            } else {
+                self.pauseButton.setBackgroundImage(UIImage(named: "pause")!, for: .normal)
+            }
             
         case .paused:
             //GameCenterButton
@@ -147,7 +151,12 @@ class GameViewController: UIViewController {
             
             //PauseButton
             self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
-            self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
+            
+            if #available(iOS 13.0, *) {
+                self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
+            } else {
+                self.pauseButton.setBackgroundImage(UIImage(named: "play")!, for: .normal)
+            }
 
         case .waitingForStart:
             //GameCenterButton
@@ -184,11 +193,11 @@ class GameViewController: UIViewController {
             self.highScoreDefaultLabel.isHidden = false
             self.highScoreLabel.isHidden = false
             
-            let score = self.scene!.score.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameScoreManager.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             self.bestTimeDefaultLabel.isHidden = false
             self.bestTimeLabel.isHidden = false
-            self.bestTimeLabel.text = self.scene!.score.gameScoreManager.getHighScore().time.asString()
+            self.bestTimeLabel.text = self.scene!.gameScoreManager.getHighScore().time.asString()
 
         }
         
@@ -302,7 +311,6 @@ extension GameViewController: InterfaceDelegate {
         
         self.timeLabel.text = time.asString()
     }
-    
     
 }
 

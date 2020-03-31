@@ -16,7 +16,7 @@ class Obstacle: GameObject {
     var gameSpeedManager: GameSpeedManager!
     var gameColorManager: GameColorManager!
     
-    init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(node: SKNode?, scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         super.init(node: node, scene: scene)
         
         self.gameAudioManager = gameAudioManager
@@ -40,12 +40,12 @@ class Obstacle: GameObject {
             
             let gradientNode = SKShapeNode(circleOfRadius: 2)
             gradientNode.position = at
-            gradientNode.fillColor = gameColorManager.backgroundColor
+            gradientNode.fillColor = gameColorManager.pallete.background
             
-            if node.fillColor == gameColorManager.leftColor {
-                gradientNode.strokeColor = gameColorManager.rightColor
+            if node.fillColor == gameColorManager.pallete.left {
+                gradientNode.strokeColor = gameColorManager.pallete.right
             } else {
-                 gradientNode.strokeColor = gameColorManager.leftColor
+                 gradientNode.strokeColor = gameColorManager.pallete.left
             }
 
             let maskNode = SKShapeNode()
@@ -74,7 +74,7 @@ class Obstacle: GameObject {
             ))
             
             Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { (t) in
-                node.strokeColor = self.gameColorManager.pattern
+                node.strokeColor = self.gameColorManager.pallete.pattern
             }
             
             node.run(.fadeAlpha(to: 0.5, duration: 1))
@@ -107,7 +107,7 @@ class Obstacle: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.gameSpeedManager.getCurrentSpeed()
+        let dY = CGFloat(deltaTime) * self.gameSpeedManager.currentSpeed
         self.node.position.y += dY
     }
     

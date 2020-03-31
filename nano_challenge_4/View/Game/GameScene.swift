@@ -28,15 +28,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var isGameEnded: Bool = false
     
     var onboarding: Onboarding!
-    var score: Score!
     var wheel: Wheel!
     var drop: Drop!
+    
     var obstacleSpawner: ObstacleSpawner!
     var backgroundPatternBlockSpawner: BackgroundPatternBlockSpawner!
     
+    var gameScoreManager: GameScoreManager!
     var gameColorManager =  GameColorManager()
     var gameSpeedManager =  GameSpeedManager()
-    var gameScoreManager =  GameScoreManager()
     var gameAudioManager =  GameAudioManager()
     var gameHapticManager =  GameHapticManager()
     var gameOnboardingManager = GameOnboardingManager()
@@ -45,16 +45,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
-        self.backgroundColor = gameColorManager.backgroundColor
+        self.backgroundColor = gameColorManager.pallete.background
+        
+        self.gameScoreManager = GameScoreManager(interfaceDelegate: self.vc!)
         
         self.onboarding = Onboarding(scene: self, gameOnboardingManager: self.gameOnboardingManager, gameColorManager: self.gameColorManager)
-        
-        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager, gameOnboardingManager: self.gameOnboardingManager, interfaceDelegate: self.vc!)
-        self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
+        self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager, gameOnboardingManager: gameOnboardingManager)
         self.drop = Drop(scene: self)
+        
         self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
         
         self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -82,10 +84,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func getTriggeredsByGameState() -> [TriggeredByGameState] {
         return [
-            self.score,
             self.drop,
             self.wheel,
             self.vc!,
+            self.gameScoreManager,
             self.gameSpeedManager,
             self.obstacleSpawner
         ]
@@ -100,9 +102,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func getUpdatables() -> [Updateable] {
         return [
-            self.score,
             self.wheel,
             self.obstacleSpawner,
+            self.gameScoreManager,
             self.gameSpeedManager,
             self.backgroundPatternBlockSpawner,
             self.onboarding
@@ -129,7 +131,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func onGameStart() {
         self.isGameEnded = false
         self.gameAudioManager.play(soundEffect: .play)
-//        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     
@@ -139,7 +140,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func onGameContinue() {
-        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameContinue() }
     }
     
@@ -152,9 +152,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: - Physics Methods
     
     func didBegin(_ contact: SKPhysicsContact) {
+
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
-        
         
         if [nodeA.name, nodeB.name].contains("drop") {
             self.onGameOver()
@@ -177,7 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.onGameOver()
         } else {
             obstacle.onCollision(onCorrectPainter: true, at: at)
-            self.score.incrementScore()
+            self.gameScoreManager.incrementScore()
         }
     }
     

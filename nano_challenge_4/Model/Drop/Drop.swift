@@ -10,7 +10,7 @@ import SpriteKit
 
 class Drop: GameObject {
     
-    init(scene: SKScene?) {
+    init(scene: GameScene?) {
         let image = UIImage(named: "drop")!.tint(tintColor: .black)
         let texture = SKTexture(image: image)
         let size = CGSize(width: 35, height: 65)
@@ -20,7 +20,6 @@ class Drop: GameObject {
         node.name = "drop"
         
         super.init(node: node, scene: scene)
-        
         self.scene.addChild(node)
         
         self.configurePhysics(on: self.node)

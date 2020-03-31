@@ -43,8 +43,6 @@ class LoadingViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        GameCenterSingleton.instance.authenticate(origin: self)
-        
         self.animateLogo()
     }
     
@@ -55,6 +53,7 @@ class LoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        GameCenterSingleton.instance.authenticate(origin: self)
         self.setupView()
     }
     
