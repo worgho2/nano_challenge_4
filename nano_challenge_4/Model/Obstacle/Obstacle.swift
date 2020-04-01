@@ -11,18 +11,8 @@ import AudioToolbox
 
 class Obstacle: GameObject {
     
-    var gameAudioManager: GameAudioManager!
-    var gameHapticManager: GameHapticManager!
-    var gameSpeedManager: GameSpeedManager!
-    var gameColorManager: GameColorManager!
-    
-    init(node: SKNode?, scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    override init(node: SKNode?, scene: GameScene?) {
         super.init(node: node, scene: scene)
-        
-        self.gameAudioManager = gameAudioManager
-        self.gameHapticManager = gameHapticManager
-        self.gameSpeedManager = gameSpeedManager
-        self.gameColorManager = gameColorManager
         
         self.node!.zPosition = -1
     }
@@ -39,17 +29,16 @@ class Obstacle: GameObject {
         node.zPosition = -10
         
         
-        
         if onCorrectPainter {
             
             let gradientNode = SKShapeNode(circleOfRadius: 2)
             gradientNode.position = at
-            gradientNode.fillColor = gameColorManager.pallete.background
+            gradientNode.fillColor = scene.gameManager.color.pallete.background
             
-            if node.fillColor == gameColorManager.pallete.left {
-                gradientNode.strokeColor = gameColorManager.pallete.right
+            if node.fillColor == scene.gameManager.color.pallete.left {
+                gradientNode.strokeColor = scene.gameManager.color.pallete.right
             } else {
-                 gradientNode.strokeColor = gameColorManager.pallete.left
+                gradientNode.strokeColor = scene.gameManager.color.pallete.left
             }
 
             let maskNode = SKShapeNode()
@@ -78,13 +67,13 @@ class Obstacle: GameObject {
             ))
             
             Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { (t) in
-                node.strokeColor = self.gameColorManager.pallete.pattern
+                node.strokeColor = self.scene.gameManager.color.pallete.pattern
             }
             
             node.run(.fadeAlpha(to: 0.5, duration: 1))
             
-            gameAudioManager.play(soundEffect: .correct_01)
-            gameHapticManager.impact.impactOccurred()
+            scene.gameManager.audio.play(soundEffect: .correct_01)
+            scene.gameManager.haptic.impact.impactOccurred()
         } else {
             node.run(.fadeOut(withDuration: 1))
             node.run(.sequence(
@@ -102,8 +91,8 @@ class Obstacle: GameObject {
                 ]
             ))
             
-            gameAudioManager.play(soundEffect: .incorrect)
-            gameHapticManager.impact.impactOccurred()
+            scene.gameManager.audio.play(soundEffect: .incorrect)
+            scene.gameManager.haptic.impact.impactOccurred()
         }
         
     }
@@ -111,7 +100,7 @@ class Obstacle: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        let dY = CGFloat(deltaTime) * self.gameSpeedManager.currentSpeed
+        let dY = CGFloat(deltaTime) * scene.gameManager.speed.currentSpeed
         self.node.position.y += dY
     }
     

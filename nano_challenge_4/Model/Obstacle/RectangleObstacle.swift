@@ -10,15 +10,15 @@ import SpriteKit
 
 class RectangleObstacle: Obstacle {
     
-    override init(node: SKNode?, scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+    override init(node: SKNode?, scene: GameScene?) {
+        super.init(node: node, scene: scene)
     }
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         let node = SKShapeNode(rectOf: CGSize(width: 300, height: 70), cornerRadius: 35)
         node.name = "ractangleObstacle"
         
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        super.init(node: node, scene: scene)
         
         self.configurePhysics(on: self.node)
     }

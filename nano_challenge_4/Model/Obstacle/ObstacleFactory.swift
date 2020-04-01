@@ -48,26 +48,16 @@ enum ObstacleColor: CaseIterable {
 
 class ObstacleFactory: SceneSupplicant {
     
-    private var gameAudioManager: GameAudioManager!
-    private var gameHapticManager: GameHapticManager!
-    private var gameSpeedManager: GameSpeedManager!
-    private var gameColorManager: GameColorManager!
-    
     internal var scene: GameScene!
     
     private let rectangleBaseNode: SKNode!
     private let squareBaseNode: SKNode!
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
         
-        self.gameAudioManager = gameAudioManager
-        self.gameHapticManager = gameHapticManager
-        self.gameSpeedManager = gameSpeedManager
-        self.gameColorManager = gameColorManager
-        
-        self.rectangleBaseNode = RectangleObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
-        self.squareBaseNode = SquareObstacle(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
+        self.rectangleBaseNode = RectangleObstacle(scene: scene).node
+        self.squareBaseNode = SquareObstacle(scene: scene).node
     }
     
     //MARK: - Class Methods
@@ -100,7 +90,7 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
-        node.fillColor = color == .leftColor ? self.gameColorManager.pallete.left : self.gameColorManager.pallete.right
+        node.fillColor = color == .leftColor ? scene.gameManager.color.pallete.left : scene.gameManager.color.pallete.right
         
         return node
     }
@@ -114,9 +104,9 @@ class ObstacleFactory: SceneSupplicant {
         node.isAntialiased = true
         
         if type == .rectangle {
-            return RectangleObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+            return RectangleObstacle(node: node, scene: scene)
         } else {
-            return SquareObstacle(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+            return SquareObstacle(node: node, scene: scene)
         }
         
     }

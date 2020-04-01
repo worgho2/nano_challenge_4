@@ -27,20 +27,15 @@ class Wheel: GameObject {
         }
     }
     
-    var gameColorManager: GameColorManager!
-    var gameOnboardingManager: GameOnboardingManager!
-    
     private var isTouching: (left: Bool, right: Bool) = (false, false)
     
-    init(scene: GameScene?, gameColorManager: GameColorManager, gameOnboardingManager: GameOnboardingManager) {
+    init(scene: GameScene?) {
+        
         let node = SKNode()
         node.position = .zero
         
         super.init(node: node, scene: scene)
         self.scene.addChild(node)
-        
-        self.gameColorManager = gameColorManager
-        self.gameOnboardingManager = gameOnboardingManager
         
         self.setupPainters()
         self.setupWheelBackground()
@@ -66,11 +61,11 @@ class Wheel: GameObject {
     }
     
     private func setupPainters() {
-        let leftPainterNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 0.06)
+        let leftPainterNode = SKShapeNode(circleOfRadius: scene.getBounds().width * 0.06)
         leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width/2 * 3/5 , y: 0)
+        leftPainterNode.position = CGPoint(x: -scene.getBounds().width/2 * 3/5 , y: 0)
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = self.gameColorManager.pallete.left
+        leftPainterNode.fillColor = scene.gameManager.color.pallete.left
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
         leftPainterNode.isAntialiased = true
         leftPainterNode.glowWidth = 3
@@ -78,8 +73,8 @@ class Wheel: GameObject {
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: self.scene.getBounds().width/2 * 3/5 , y: 0)
-        rightPainterNode.fillColor = self.gameColorManager.pallete.right
+        rightPainterNode.position = CGPoint(x: scene.getBounds().width/2 * 3/5 , y: 0)
+        rightPainterNode.fillColor = scene.gameManager.color.pallete.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
@@ -88,7 +83,7 @@ class Wheel: GameObject {
     }
     
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width/2 * 3/5)
+        let circleNode = SKShapeNode(circleOfRadius: scene.getBounds().width/2 * 3/5)
         
         circleNode.position = .zero
         circleNode.strokeColor = .white
@@ -115,7 +110,7 @@ class Wheel: GameObject {
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(circleOfRadius: self.scene.getBounds().width * 0.06)
+        let body = SKPhysicsBody(circleOfRadius: scene.getBounds().width * 0.06)
         
         body.affectedByGravity = false
         body.allowsRotation = false
@@ -132,16 +127,16 @@ class Wheel: GameObject {
     
     override func touchDown(atPoint pos: CGPoint) {
         if pos.x > 0 {
-            if !scene.gameOnboardingManager.hasAlreadyShowed(.second) && scene.gameOnboardingManager.hasAlreadyShowed(.first) { return }
+            if !scene.gameManager.onboarding.hasAlreadyShowed(.second) && scene.gameManager.onboarding.hasAlreadyShowed(.first) { return }
             
-            scene.gameOnboardingManager.wheelRotationRight = true
+            scene.gameManager.onboarding.wheelRotationRight = true
             
             self.isTouching.right = true
             self.isTouching.left = false
         } else {
-            if !scene.gameOnboardingManager.hasAlreadyShowed(.first) { return }
+            if !scene.gameManager.onboarding.hasAlreadyShowed(.first) { return }
             
-            scene.gameOnboardingManager.wheelRotationLeft = true
+            scene.gameManager.onboarding.wheelRotationLeft = true
             
             self.isTouching.left = true
             self.isTouching.right = false

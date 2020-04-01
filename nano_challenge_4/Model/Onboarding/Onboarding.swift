@@ -9,10 +9,7 @@ import SpriteKit
 
 class Onboarding: GameObject {
     
-    private var gameOnboardingManager: GameOnboardingManager!
-    private var gameColorManager: GameColorManager!
-    
-    init(scene: GameScene?, gameOnboardingManager: GameOnboardingManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         
         let node = SKNode()
         node.position = CGPoint(x: 0, y: -160)
@@ -20,9 +17,6 @@ class Onboarding: GameObject {
         
         super.init(node: node, scene: scene)
         self.scene.addChild(node)
-        
-        self.gameOnboardingManager = gameOnboardingManager
-        self.gameColorManager = gameColorManager
     }
     
     //MARK: - Class Methods
@@ -34,19 +28,19 @@ class Onboarding: GameObject {
     //MARK: - Updateable PROTOCOL
     
     override func update(_ deltaTime: TimeInterval) {
-        if !gameOnboardingManager.hasAlreadyShowed(.first) && gameOnboardingManager.canShow(.first) {
+        if !scene.gameManager.onboarding.hasAlreadyShowed(.first) && scene.gameManager.onboarding.canShow(.first) {
             
-            gameOnboardingManager.disable(.first)
+            scene.gameManager.onboarding.disable(.first)
             onFirstStep()
             
-        } else if !gameOnboardingManager.hasAlreadyShowed(.second) && gameOnboardingManager.canShow(.second) {
+        } else if !scene.gameManager.onboarding.hasAlreadyShowed(.second) && scene.gameManager.onboarding.canShow(.second) {
             
-            gameOnboardingManager.disable(.second)
+            scene.gameManager.onboarding.disable(.second)
             onSecondStep()
             
-        } else if !gameOnboardingManager.hasAlreadyShowed(.third) && gameOnboardingManager.canShow(.third) {
+        } else if !scene.gameManager.onboarding.hasAlreadyShowed(.third) && scene.gameManager.onboarding.canShow(.third) {
             
-            gameOnboardingManager.disable(.third)
+            scene.gameManager.onboarding.disable(.third)
             onThirdStep()
             
         }
@@ -186,7 +180,7 @@ class Onboarding: GameObject {
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "thirdStageDescription"
-        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 0.75
+        descriptionNode.preferredMaxLayoutWidth = scene.getBounds().width * 0.75
         descriptionNode.numberOfLines = 5
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
@@ -201,7 +195,7 @@ class Onboarding: GameObject {
         
         let leftNode = SKShapeNode(circleOfRadius: 20)
         leftNode.name = "thirdLeftNode"
-        leftNode.fillColor = self.gameColorManager.pallete.left
+        leftNode.fillColor = scene.gameManager.color.pallete.left
         leftNode.strokeColor = .clear
         leftNode.position = CGPoint(x: -75, y: 0)
         leftNode.zPosition = 1
@@ -220,7 +214,7 @@ class Onboarding: GameObject {
         
         let rightNode = SKShapeNode(circleOfRadius: 20)
         rightNode.name = "thirdRightNode"
-        rightNode.fillColor = self.gameColorManager.pallete.right
+        rightNode.fillColor = scene.gameManager.color.pallete.right
         rightNode.strokeColor = .clear
         rightNode.position = CGPoint(x: 0, y: 0)
         rightNode.zPosition = 1
@@ -239,7 +233,7 @@ class Onboarding: GameObject {
         
         let backgroundNode = SKShapeNode(circleOfRadius: 20)
         backgroundNode.name = "thirdBackgroundNode"
-        backgroundNode.fillColor = self.gameColorManager.pallete.background
+        backgroundNode.fillColor = scene.gameManager.color.pallete.background
         backgroundNode.strokeColor = .clear
         backgroundNode.position = CGPoint(x: 75, y: 0)
         backgroundNode.zPosition = 1
@@ -261,12 +255,9 @@ class Onboarding: GameObject {
     //MARK: - TouchSensitive PROTOCOL
     
     override func touchDown(atPoint pos: CGPoint) {
-        if pos.y > 0  &&
-            self.gameOnboardingManager.hasAlreadyShowed(.first) &&
-            self.gameOnboardingManager.hasAlreadyShowed(.second) &&
-            !self.gameOnboardingManager.hasAlreadyShowed(.third) {
+        if pos.y > 0  && scene.gameManager.onboarding.hasAlreadyShowed(.first) && scene.gameManager.onboarding.hasAlreadyShowed(.second) && !scene.gameManager.onboarding.hasAlreadyShowed(.third) {
             
-            gameOnboardingManager.finish(.third)
+            scene.gameManager.onboarding.finish(.third)
             self.setupToNextStage()
             scene.onGameStart()
         }

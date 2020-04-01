@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     
     @objc func onHighScoreNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            let score = self.scene!.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameManager.score.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             t.invalidate()
         }
@@ -64,7 +64,7 @@ class GameViewController: UIViewController {
     
     @objc func onBestTimeNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            self.bestTimeLabel.text = self.scene!.gameScoreManager.getHighScore().time.asString()
+            self.bestTimeLabel.text = self.scene!.gameManager.score.getHighScore().time.asString()
             t.invalidate()
         }
     }
@@ -132,7 +132,7 @@ class GameViewController: UIViewController {
             self.playButton.isHidden = true
             
             //PauseButton
-            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
+            self.pauseButton.isHidden = scene!.gameManager.onboarding.onboardingIsNeeded() ? true : false
             
             if #available(iOS 13.0, *) {
                 self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
@@ -151,7 +151,7 @@ class GameViewController: UIViewController {
             self.playButton.isHidden = true
             
             //PauseButton
-            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
+            self.pauseButton.isHidden = scene!.gameManager.onboarding.onboardingIsNeeded() ? true : false
             
             if #available(iOS 13.0, *) {
                 self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
@@ -194,11 +194,11 @@ class GameViewController: UIViewController {
             self.highScoreDefaultLabel.isHidden = false
             self.highScoreLabel.isHidden = false
             
-            let score = self.scene!.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameManager.score.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             self.bestTimeDefaultLabel.isHidden = false
             self.bestTimeLabel.isHidden = false
-            self.bestTimeLabel.text = self.scene!.gameScoreManager.getHighScore().time.asString()
+            self.bestTimeLabel.text = self.scene!.gameManager.score.getHighScore().time.asString()
 
         }
         
@@ -209,7 +209,7 @@ class GameViewController: UIViewController {
         switch state {
             
         case .playing:
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
+            if !scene!.gameManager.onboarding.onboardingIsNeeded() {
                 self.timeDefaultLabel.isHidden = false
                 self.timeLabel.isHidden = false
                 self.scoreDefaultLabel.isHidden = false
@@ -217,7 +217,7 @@ class GameViewController: UIViewController {
             }
 
         case .paused:
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
+            if !scene!.gameManager.onboarding.onboardingIsNeeded() {
                 self.timeDefaultLabel.isHidden = false
                 self.timeLabel.isHidden = false
                 self.scoreDefaultLabel.isHidden = false

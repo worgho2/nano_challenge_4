@@ -10,24 +10,13 @@ import SpriteKit
 
 class PowerUpFactory: SceneSupplicant {
     
-    private var gameAudioManager: GameAudioManager!
-    private var gameHapticManager: GameHapticManager!
-    private var gameSpeedManager: GameSpeedManager!
-    private var gameColorManager: GameColorManager!
-    
     internal var scene: GameScene!
     
     private let colorChangerBaseNode: SKNode!
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
-        
-        self.gameAudioManager = gameAudioManager
-        self.gameHapticManager = gameHapticManager
-        self.gameSpeedManager = gameSpeedManager
-        self.gameColorManager = gameColorManager
-        
-        self.colorChangerBaseNode = ColorChanger(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
+        self.colorChangerBaseNode = ColorChanger(scene: scene).node
     }
     
     //MARK: - Class Methods
@@ -51,7 +40,7 @@ class PowerUpFactory: SceneSupplicant {
             fatalError()
         }
         
-        return ColorChanger(node: node, scene: self.scene, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+        return ColorChanger(node: node, scene: scene)
         
     }
 }

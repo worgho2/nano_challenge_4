@@ -10,23 +10,18 @@ import SpriteKit
 
 class PowerUpSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
-    private var gameSpeedManager: GameSpeedManager!
-    
     internal var scene: GameScene!
     
-    private var powerUpFactory: PowerUpFactory!
     private var powerUps: [PowerUp]
+    private var powerUpFactory: PowerUpFactory!
     
     private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
         self.powerUps = [PowerUp]()
-        
-        self.gameSpeedManager = gameSpeedManager
-        
-        self.powerUpFactory = PowerUpFactory(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.powerUpFactory = PowerUpFactory(scene: scene)
     }
     
     //MARK: - Class Methods
@@ -42,14 +37,13 @@ class PowerUpSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     //MARK: - Updateable PROTOCOL
     
     func update(_ deltaTime: TimeInterval) {
-        return 
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.gameSpeedManager.getProgress())
+        self.spawnThreshold = TimeInterval(2) - TimeInterval(scene.gameManager.speed.getProgress())
         
         self.powerUps.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
-            if !scene.gameOnboardingManager.onboardingIsNeeded() {
+            if !scene.gameManager.onboarding.onboardingIsNeeded() {
                 self.spawn()
             }
             self.currentSpawnTimer -= spawnThreshold

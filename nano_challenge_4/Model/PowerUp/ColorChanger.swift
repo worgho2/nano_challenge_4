@@ -10,18 +10,16 @@ import SpriteKit
 
 class ColorChanger: PowerUp {
     
-    override init(node: SKNode?, scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+    override init(node: SKNode?, scene: GameScene?) {
+        super.init(node: node, scene: scene)
     }
     
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        
+    init(scene: GameScene?) {
         let node = SKShapeNode(rectOf: CGSize(width: 50, height: 50), cornerRadius: 25)
         node.name = "colorChanger"
         
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
-        
+        super.init(node: node, scene: scene)
     }
     
     //MARK: - PhysicsObject PROTOCOL

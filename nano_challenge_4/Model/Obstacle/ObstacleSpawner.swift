@@ -10,26 +10,19 @@ import SpriteKit
 
 class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
-    var gameSpeedManager: GameSpeedManager!
+    internal var scene: GameScene!
     
-    var scene: GameScene!
-    
-    var obstacleFactory: ObstacleFactory!
-    var obstacles: [Obstacle]
+    private var obstacles: [Obstacle]
+    private var obstacleFactory: ObstacleFactory!
     
     private var spawnThreshold = TimeInterval(2)
     private var currentSpawnTimer = TimeInterval(0)
     
-    init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
         self.obstacles = [Obstacle]()
-        
-        self.gameSpeedManager = gameSpeedManager
-        
-        self.obstacleFactory = ObstacleFactory(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.obstacleFactory = ObstacleFactory(scene: scene)
     }
-    
-    
     
     func spawn() {
         let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), color: ObstacleColor.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
@@ -52,14 +45,13 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     //MARK: - Updateable PROTOCOL
     
     func update(_ deltaTime: TimeInterval) {
-//        return//////////////////////
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.gameSpeedManager.getProgress())
+        self.spawnThreshold = TimeInterval(2) - TimeInterval(scene.gameManager.speed.getProgress())
         
         self.obstacles.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
-            if !scene.gameOnboardingManager.onboardingIsNeeded() {
+            if !scene.gameManager.onboarding.onboardingIsNeeded() {
                 self.spawn()
             }
             self.currentSpawnTimer -= spawnThreshold

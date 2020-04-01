@@ -14,16 +14,10 @@ class BackgroundPatternBlockFactory: SceneSupplicant {
     
     private var backgroundPatternBlockBaseNode: SKNode!
     
-    var gameSpeedManager: GameSpeedManager!
-    var gameColorManager: GameColorManager!
-    
-    init(scene: GameScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
         
-        self.backgroundPatternBlockBaseNode = BackgroundPatternBlock(scene: scene, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager).node
-        
-        self.gameSpeedManager = gameSpeedManager
-        self.gameColorManager = gameColorManager
+        self.backgroundPatternBlockBaseNode = BackgroundPatternBlock(scene: scene).node
     }
     
     //MARK: - Class Methods
@@ -38,11 +32,9 @@ class BackgroundPatternBlockFactory: SceneSupplicant {
     }
     
     func getNewBackgroundPatternBlock() -> BackgroundPatternBlock {
-//        print("[SPAWN BACKGROUND_BLOCK]")
-
         let node = self.getNode()
         
-        return BackgroundPatternBlock(node: node, scene: self.scene, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+        return BackgroundPatternBlock(node: node, scene: self.scene)
     }
     
     func getInitialBackgroundPatternBlockPack() -> [BackgroundPatternBlock] {
@@ -58,7 +50,7 @@ class BackgroundPatternBlockFactory: SceneSupplicant {
             let node = self.getNode()
             node.position.y = posY
             
-            nodes.append(BackgroundPatternBlock(node: node, scene: self.scene, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager))
+            nodes.append(BackgroundPatternBlock(node: node, scene: self.scene))
         }
         
         

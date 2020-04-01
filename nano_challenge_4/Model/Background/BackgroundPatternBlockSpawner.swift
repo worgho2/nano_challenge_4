@@ -14,9 +14,9 @@ class BackgroundPatternBlockSpawner: SceneSupplicant, Updateable {
     var backgroundPatternFactory: BackgroundPatternBlockFactory!
     var backgroundPatternBlocks: [BackgroundPatternBlock]!
     
-    init(scene: GameScene?, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
-        self.backgroundPatternFactory = BackgroundPatternBlockFactory(scene: self.scene, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.backgroundPatternFactory = BackgroundPatternBlockFactory(scene: self.scene)
         self.backgroundPatternBlocks = [BackgroundPatternBlock]()
         self.initialSpawn()
     }
