@@ -17,7 +17,7 @@ class Drop: GameObject {
         
         let node = SKSpriteNode(texture: texture, size: size)
         node.position = CGPoint(x: 0, y: 500)
-        node.name = "drop"
+        node.name = GameObjectType.drop.name
         
         super.init(node: node, scene: scene)
         self.scene.addChild(node)
@@ -36,9 +36,9 @@ class Drop: GameObject {
         body.allowsRotation = false
         body.pinned = false
         body.isDynamic = true
-        body.categoryBitMask = ContactMask.drop.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.obstacle.bitMask
+        body.categoryBitMask = GameObjectType.drop.categoryBitMask
+        body.collisionBitMask = GameObjectType.drop.collisionBitMask
+        body.contactTestBitMask = GameObjectType.drop.contactTestBitMask
         
         self.node.physicsBody = body
     }

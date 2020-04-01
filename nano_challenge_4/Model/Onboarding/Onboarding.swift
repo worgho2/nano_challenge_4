@@ -13,7 +13,6 @@ class Onboarding: GameObject {
         
         let node = SKNode()
         node.position = CGPoint(x: 0, y: -160)
-        node.name = "onboardingNode"
         
         super.init(node: node, scene: scene)
         self.scene.addChild(node)
@@ -48,7 +47,7 @@ class Onboarding: GameObject {
     
     //MARK: - OnboardingDisplayable PROTOCOL
     
-    override func onFirstStep() {
+    func onFirstStep() {
         
         self.setupToNextStage()
         
@@ -100,7 +99,7 @@ class Onboarding: GameObject {
         ])))
     }
     
-    override func onSecondStep() {
+    func onSecondStep() {
         self.setupToNextStage()
         
         let descriptionNode = SKLabelNode()
@@ -152,7 +151,7 @@ class Onboarding: GameObject {
         
     }
     
-    override func onThirdStep() {
+    func onThirdStep() {
         self.setupToNextStage()
         
         let startNode = SKLabelNode(text: "Start")

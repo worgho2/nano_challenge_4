@@ -167,25 +167,68 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node else { return }
 
-        guard let nodeA = contact.bodyA.node else { return }
-        guard let nodeB = contact.bodyB.node else { return }
+        //Drop -> Obstacle
+        if nodeA.name!.contains(GameObjectType.drop.name) && nodeB.name!.contains(GameObjectType.obstacle.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeB)
+            onCollision(dropNode: nodeA, obstacleNode: nodeB, at: atPoint)
+            return
+        }
         
-        if [nodeA.name, nodeB.name].contains("drop") {
-            self.onGameOver()
-        } else if nodeA.name!.contains("Painter") {
-            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeB)
-            self.onCollision(nodeA, nodeB, at: obstacleContactPoint!)
-        } else {
-            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeA)
-            self.onCollision(nodeB, nodeA, at: obstacleContactPoint!)
+        //Obstacle -> Drop
+        if nodeA.name!.contains(GameObjectType.obstacle.name) && nodeB.name!.contains(GameObjectType.drop.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeA)
+            onCollision(dropNode: nodeB, obstacleNode: nodeA, at: atPoint)
+            return
+        }
+
+        //Painter -> Obstacle
+        if nodeA.name!.contains(GameObjectType.painter.name) && nodeB.name!.contains(GameObjectType.obstacle.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeB)
+            onCollision(painterNode: nodeA, obstacleNode: nodeB, at: atPoint)
+            return
+        }
+            
+        //Obstacle -> Painter
+        if nodeA.name!.contains(GameObjectType.obstacle.name) && nodeB.name!.contains(GameObjectType.painter.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeA)
+            onCollision(painterNode: nodeB, obstacleNode: nodeA, at: atPoint)
+            return
+        }
+            
+        //PowerUp -> Painter
+        if nodeA.name!.contains(GameObjectType.powerUp.name) && nodeB.name!.contains(GameObjectType.painter.name) {
+            onCollision(powerUpNode: nodeA, painterNode: nodeB)
+            return
+        }
+
+        //Painter -> PowerUp
+        if nodeA.name!.contains(GameObjectType.painter.name) && nodeB.name!.contains(GameObjectType.powerUp.name) {
+            onCollision(powerUpNode: nodeB, painterNode: nodeA)
+            return
         }
     }
     
-    private func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode, at: CGPoint) {
-        guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
-        guard let obstacleNode = obstacleNode as? SKShapeNode else { fatalError() }
-        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
+    private func onCollision(dropNode: SKNode, obstacleNode: SKNode, at: CGPoint) {
+        guard let obstacleNode = obstacleNode as? SKShapeNode else { return }
+        guard let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode) else { return }
+        
+        obstacle.onCollision(onCorrectPainter: false, at: at)
+        
+        self.onGameOver()
+    }
+    
+    private func onCollision(powerUpNode: SKNode, painterNode: SKNode) {
+        guard let powerUpNode = powerUpNode as? SKShapeNode, let _ = painterNode as? SKShapeNode else { return }
+        guard let powerUp = self.powerUpSpawner.getPowerUpBy(node: powerUpNode) else { return }
+        
+        powerUp.onCollision()
+    }
+    
+    private func onCollision(painterNode: SKNode, obstacleNode: SKNode, at: CGPoint) {
+        guard let painterNode = painterNode as? SKShapeNode, let obstacleNode = obstacleNode as? SKShapeNode else { return }
+        guard let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode) else { return }
         
         if painterNode.fillColor == obstacleNode.fillColor {
             obstacle.onCollision(onCorrectPainter: false, at: at)

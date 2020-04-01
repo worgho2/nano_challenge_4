@@ -18,6 +18,27 @@ class PowerUp: GameObject {
     
     //MARK: - Class Methods
     
+    func onCollision() {
+        guard let node = self.node as? SKShapeNode else { return }
+        node.physicsBody = nil
+        node.zPosition = -10
+        
+        scene.gameManager.audio.play(soundEffect: .correct_02)
+        scene.gameManager.haptic.impact.impactOccurred()
+        
+        node.run(.sequence(
+            [
+                .scale(to: 1.2, duration: 0.05),
+                .scale(to: 0.8, duration: 0.1),
+                .scale(to: 1.1, duration: 0.05),
+                .scale(to: 0.9, duration: 0.1),
+                .scale(to: 1.0, duration: 0.05),
+            ]
+        ))
+        
+        node.run(.fadeAlpha(to: 0, duration: 1))
+    }
+    
     override func shouldDespawn() -> Bool {
         return self.node.position.y > self.scene.getBounds().maxY + max(self.node.frame.height,  self.node.frame.width)/2
     }

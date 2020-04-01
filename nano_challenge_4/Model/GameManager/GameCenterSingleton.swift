@@ -108,13 +108,13 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
             
             GKScore.report([score]) { (error) in
                 if let error = error {
-                    print("[GAME-CENTER] - ", error.localizedDescription)
+                    print("[GAME-CENTER] ->", error.localizedDescription)
                     return
                 }
                 print("[GAME-CENTER] - Send Score: (LeaderboardID: \(leaderboard.identifier), Value: \(value))")
             }
         } else {
-            print("[GAME-CENTER] - Fail to send score)")
+            print("[GAME-CENTER] -> Fail to send score)")
         }
         
     }
@@ -127,7 +127,7 @@ class GameCenterSingleton: NSObject, GKLocalPlayerListener {
         leaderboardReference.loadScores { (scores, error) in
             
             if let error = error {
-                print("[GAME-CENTER] - ", error.localizedDescription)
+                print("[GAME-CENTER] ->", error.localizedDescription)
                 return
             }
             

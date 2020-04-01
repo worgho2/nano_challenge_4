@@ -19,7 +19,7 @@ class GameColorManager {
     
     static var avaliablePalletes: [Pallete]!
     
-    private(set) var pallete: Pallete!
+    var pallete: Pallete!
     
     init() {
         GameColorManager.avaliablePalletes = [

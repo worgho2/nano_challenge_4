@@ -15,7 +15,7 @@ class PowerUpSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     private var powerUps: [PowerUp]
     private var powerUpFactory: PowerUpFactory!
     
-    private var spawnThreshold = TimeInterval(2)
+    private var spawnThreshold = TimeInterval(10)
     private var currentSpawnTimer = TimeInterval(0)
     
     init(scene: GameScene?) {
@@ -33,12 +33,16 @@ class PowerUpSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         self.scene.addChild(newPowerUp.node)
     }
     
+    func getPowerUpBy(node: SKNode) -> PowerUp? {
+        return powerUps.first(where: {$0.node == node})
+    }
     
     //MARK: - Updateable PROTOCOL
     
     func update(_ deltaTime: TimeInterval) {
+//        return
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(scene.gameManager.speed.getProgress())
+        self.spawnThreshold = TimeInterval(10) - TimeInterval(scene.gameManager.speed.getProgress())
         
         self.powerUps.forEach { $0.update(deltaTime) }
         

@@ -336,7 +336,7 @@ extension GameViewController: TriggeredByGameState {
         
         //vai sair com o ad Manager
         if Int.random(in: 0...100) > 60 {
-            self.showInterAD()
+//            self.showInterAD()
         }
     }
     

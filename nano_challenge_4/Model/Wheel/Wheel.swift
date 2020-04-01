@@ -62,7 +62,7 @@ class Wheel: GameObject {
     
     private func setupPainters() {
         let leftPainterNode = SKShapeNode(circleOfRadius: scene.getBounds().width * 0.06)
-        leftPainterNode.name = "leftPainter"
+        leftPainterNode.name = GameObjectType.painter.name + "_left"
         leftPainterNode.position = CGPoint(x: -scene.getBounds().width/2 * 3/5 , y: 0)
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = scene.gameManager.color.pallete.left
@@ -72,7 +72,7 @@ class Wheel: GameObject {
         self.configurePhysics(on: leftPainterNode)
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
-        rightPainterNode.name = "rightPainter"
+        rightPainterNode.name = GameObjectType.painter.name + "_right"
         rightPainterNode.position = CGPoint(x: scene.getBounds().width/2 * 3/5 , y: 0)
         rightPainterNode.fillColor = scene.gameManager.color.pallete.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
@@ -116,9 +116,9 @@ class Wheel: GameObject {
         body.allowsRotation = false
         body.pinned = false
         body.isDynamic = true
-        body.categoryBitMask = ContactMask.painter.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.obstacle.bitMask | ContactMask.powerUp.bitMask
+        body.categoryBitMask = GameObjectType.painter.categoryBitMask
+        body.collisionBitMask = GameObjectType.painter.collisionBitMask
+        body.contactTestBitMask = GameObjectType.painter.contactTestBitMask
         
         node.physicsBody = body
     }
@@ -169,13 +169,5 @@ class Wheel: GameObject {
         self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
         self.node.run(.rotate(toAngle: 0, duration: 0.4))
     }
-    
-    //MARK: - OnboardingDisplayable PROTOCOL
-    
-    override func onFirstStep() {
-        self.onGameStart()
-    }
-    override func onSecondStep() {
-        self.onGameStart()
-    }
+
 }

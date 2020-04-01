@@ -12,7 +12,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     internal var scene: GameScene!
     
-    private var obstacles: [Obstacle]
+    public var obstacles: [Obstacle]
     private var obstacleFactory: ObstacleFactory!
     
     private var spawnThreshold = TimeInterval(2)
@@ -38,13 +38,14 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         self.scene.addChild(newObstacle.node)
     }
     
-    func getObstacleBy(node: SKNode) -> Obstacle {
-        return obstacles.first(where: {$0.node == node})!
+    func getObstacleBy(node: SKNode) -> Obstacle? {
+        return obstacles.first(where: {$0.node == node})
     }
     
     //MARK: - Updateable PROTOCOL
     
     func update(_ deltaTime: TimeInterval) {
+
         self.currentSpawnTimer += deltaTime
         self.spawnThreshold = TimeInterval(2) - TimeInterval(scene.gameManager.speed.getProgress())
         

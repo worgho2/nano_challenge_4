@@ -13,7 +13,7 @@ class GameSpeedManager {
     private(set) var currentSpeed: CGFloat!
     
     private var currentAngle: CGFloat = 0
-    private let acceleration: CGFloat = 0.1
+    private let acceleration: CGFloat = 0.06
     private let maxVelocity: CGFloat = 600
     private let minVelocity: CGFloat = 250
     

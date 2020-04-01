@@ -17,7 +17,7 @@ class SquareObstacle: Obstacle {
     
     init(scene: GameScene?) {
         let node = SKShapeNode(rectOf: CGSize(width: 120, height: 120), cornerRadius: 30)
-        node.name = "squareObstacle"
+        node.name = GameObjectType.obstacle.name
         
         super.init(node: node, scene: scene)
         
@@ -39,9 +39,9 @@ class SquareObstacle: Obstacle {
         body.allowsRotation = false
         body.pinned = false
         body.isDynamic = true
-        body.categoryBitMask = ContactMask.obstacle.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.painter.bitMask | ContactMask.drop.bitMask
+        body.categoryBitMask = GameObjectType.obstacle.categoryBitMask
+        body.collisionBitMask = GameObjectType.obstacle.collisionBitMask
+        body.contactTestBitMask = GameObjectType.obstacle.contactTestBitMask
         
         self.node.physicsBody = body
     }
