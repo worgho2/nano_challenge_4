@@ -12,18 +12,16 @@ enum ContactMask {
     case painter
     case obstacle
     case drop
+    case powerUp
     case none
     
     var bitMask: UInt32 {
         switch self {
-        case .painter:
-            return 0b001
-        case .obstacle:
-            return 0b010
-        case .drop:
-            return 0b100
-        case .none:
-            return 0b000
+        case .painter:  return 0b1000
+        case .obstacle: return 0b0100
+        case .drop:     return 0b0010
+        case .powerUp:  return 0b0001
+        case .none:     return 0b0000
         }
     }
 }

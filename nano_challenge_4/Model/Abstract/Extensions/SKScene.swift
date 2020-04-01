@@ -13,8 +13,8 @@ extension SKScene {
     func getBounds() -> CGRect {
         return CGRect(x: -self.size.width/2,
                       y: -self.size.height/2,
-                      width: self.size.width/2,
-                      height: self.size.height/2
+                      width: self.size.width,
+                      height: self.size.height
         )
     }
     

@@ -48,15 +48,15 @@ enum ObstacleColor: CaseIterable {
 
 class ObstacleFactory: SceneSupplicant {
     
-    var gameAudioManager: GameAudioManager!
-    var gameHapticManager: GameHapticManager!
-    var gameSpeedManager: GameSpeedManager!
-    var gameColorManager: GameColorManager!
+    private var gameAudioManager: GameAudioManager!
+    private var gameHapticManager: GameHapticManager!
+    private var gameSpeedManager: GameSpeedManager!
+    private var gameColorManager: GameColorManager!
     
-    var scene: GameScene!
+    internal var scene: GameScene!
     
-    private var rectangleBaseNode: SKNode!
-    private var squareBaseNode: SKNode!
+    private let rectangleBaseNode: SKNode!
+    private let squareBaseNode: SKNode!
     
     init(scene: GameScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
         self.scene = scene

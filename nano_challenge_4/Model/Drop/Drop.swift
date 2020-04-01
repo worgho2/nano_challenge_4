@@ -47,7 +47,7 @@ class Drop: GameObject {
     
     override func onGameStart() {
         self.node.removeAllActions()
-        self.node.run(.move(to: CGPoint(x: 0, y: self.scene.getBounds().height - self.node.frame.height - 20), duration: 0.4))
+        self.node.run(.move(to: CGPoint(x: 0, y: self.scene.getBounds().maxY - self.node.frame.height - 20), duration: 0.4))
     }
     
     override func onGameOver() {

@@ -72,7 +72,7 @@ class Onboarding: GameObject {
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "firstStageDescription"
-        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
+        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 0.75
         descriptionNode.numberOfLines = 3
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
@@ -123,7 +123,7 @@ class Onboarding: GameObject {
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "secondStageDescription"
-        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
+        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 0.75
         descriptionNode.numberOfLines = 3
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1
@@ -186,7 +186,7 @@ class Onboarding: GameObject {
         descriptionNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         descriptionNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         descriptionNode.name = "thirdStageDescription"
-        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 2 * 0.75
+        descriptionNode.preferredMaxLayoutWidth = self.scene.getBounds().width * 0.75
         descriptionNode.numberOfLines = 5
         descriptionNode.position = CGPoint(x: 0, y: 70)
         descriptionNode.zPosition = 1

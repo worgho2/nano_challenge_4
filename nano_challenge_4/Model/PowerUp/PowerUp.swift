@@ -26,6 +26,11 @@ class PowerUp: GameObject {
         self.node!.zPosition = -1
     }
     
+    //MARK: - Class Methods
+    
+    override func shouldDespawn() -> Bool {
+        return self.node.position.y > self.scene.getBounds().maxY + max(self.node.frame.height,  self.node.frame.width)/2
+    }
     
     //MARK: - Updateable PROTOCOL
     

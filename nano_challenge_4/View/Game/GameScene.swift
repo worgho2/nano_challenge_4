@@ -32,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var drop: Drop!
     
     var obstacleSpawner: ObstacleSpawner!
+    var powerUpSpawner: PowerUpSpawner!
     var backgroundPatternBlockSpawner: BackgroundPatternBlockSpawner!
     
     var gameScoreManager: GameScoreManager!
@@ -54,6 +55,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.drop = Drop(scene: self)
         
         self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
+        
+        
+        self.powerUpSpawner = PowerUpSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
         
         self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
         
@@ -89,7 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.vc!,
             self.gameScoreManager,
             self.gameSpeedManager,
-            self.obstacleSpawner
+            self.obstacleSpawner,
+            self.powerUpSpawner
         ]
     }
     
@@ -104,6 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return [
             self.wheel,
             self.obstacleSpawner,
+            self.powerUpSpawner,
             self.gameScoreManager,
             self.gameSpeedManager,
             self.backgroundPatternBlockSpawner,

@@ -102,8 +102,9 @@ class GameViewController: UIViewController {
             gradientLayer.frame = skView.bounds
             
             skView.layer.insertSublayer(gradientLayer, at: 0)
-            skView.backgroundColor = .clear
+            skView.backgroundColor = .white
             skView.isMultipleTouchEnabled = true
+            
             skView.presentScene(scene)
         }
     }
@@ -233,7 +234,7 @@ class GameViewController: UIViewController {
         
     }
     
-    private func setCoverView(state: ViewGameState) {
+    private func setCoverViewTo(state: ViewGameState) {
         
         switch state {
         case .playing:
@@ -263,7 +264,7 @@ class GameViewController: UIViewController {
         self.setButtonsTo(state: state)
         self.setHighScoresTo(state: state)
         self.setScoresTo(state: state)
-        self.setCoverView(state: state)
+        self.setCoverViewTo(state: state)
     }
     
     private func loadUI() {

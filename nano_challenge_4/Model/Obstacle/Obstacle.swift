@@ -29,6 +29,10 @@ class Obstacle: GameObject {
     
     //MARK: - Class Methods
     
+    override func shouldDespawn() -> Bool {
+        return self.node.position.y > self.scene.getBounds().maxY + max(self.node.frame.height,  self.node.frame.width)/2
+    }
+    
     func onCollision(onCorrectPainter: Bool, at: CGPoint) {
         guard let node = self.node as? SKShapeNode else { return }
         node.physicsBody = nil

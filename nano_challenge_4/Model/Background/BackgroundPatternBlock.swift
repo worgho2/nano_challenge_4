@@ -35,7 +35,7 @@ class BackgroundPatternBlock: GameObject {
     private func setupPatternBlock() {
         let image = UIImage(named: "pattern")!.tint(tintColor: gameColorManager.pallete.pattern)
         let texture = SKTexture(image: image)
-        let width: CGFloat = self.scene.getBounds().width * 2 / 3
+        let width: CGFloat = self.scene.getBounds().width/3
         let aspectRatio: CGFloat = 845/900
         let height: CGFloat = width * aspectRatio
         
@@ -47,7 +47,7 @@ class BackgroundPatternBlock: GameObject {
         leftNode.position = CGPoint(x: self.scene.getBounds().minX + leftNode.frame.width/2, y: 0)
         
         let rightNode = baseNode.copy() as! SKSpriteNode
-        rightNode.position = CGPoint(x: self.scene.getBounds().width - rightNode.frame.width/2, y: 0)
+        rightNode.position = CGPoint(x: self.scene.getBounds().maxX - rightNode.frame.width/2, y: 0)
         
         self.node.addChild(baseNode)
         self.node.addChild(leftNode)

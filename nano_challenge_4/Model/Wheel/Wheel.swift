@@ -66,9 +66,9 @@ class Wheel: GameObject {
     }
     
     private func setupPainters() {
-        let leftPainterNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 0.12)
+        let leftPainterNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 0.06)
         leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width * 3/5, y: 0)
+        leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width/2 * 3/5 , y: 0)
         leftPainterNode.zPosition = 1
         leftPainterNode.fillColor = self.gameColorManager.pallete.left
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
@@ -78,7 +78,7 @@ class Wheel: GameObject {
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: self.scene.getBounds().width * 3/5, y: 0)
+        rightPainterNode.position = CGPoint(x: self.scene.getBounds().width/2 * 3/5 , y: 0)
         rightPainterNode.fillColor = self.gameColorManager.pallete.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
@@ -88,7 +88,7 @@ class Wheel: GameObject {
     }
     
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 3/5)
+        let circleNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width/2 * 3/5)
         
         circleNode.position = .zero
         circleNode.strokeColor = .white
@@ -115,7 +115,7 @@ class Wheel: GameObject {
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(circleOfRadius: self.scene.getBounds().width * 0.12)
+        let body = SKPhysicsBody(circleOfRadius: self.scene.getBounds().width * 0.06)
         
         body.affectedByGravity = false
         body.allowsRotation = false
@@ -123,7 +123,7 @@ class Wheel: GameObject {
         body.isDynamic = true
         body.categoryBitMask = ContactMask.painter.bitMask
         body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.obstacle.bitMask
+        body.contactTestBitMask = ContactMask.obstacle.bitMask | ContactMask.powerUp.bitMask
         
         node.physicsBody = body
     }
@@ -147,6 +147,7 @@ class Wheel: GameObject {
             self.isTouching.right = false
         }
     }
+    
     override func touchUp(atPoint pos: CGPoint) {
         if pos.x > 0 {
             self.isTouching.right = false
