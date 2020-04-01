@@ -16,6 +16,8 @@
 		7A0DEBA7242264F8009088D9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0DEBA6242264F8009088D9 /* GameKit.framework */; };
 		7A0DEBA924226B21009088D9 /* GameCenterSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DEBA824226B21009088D9 /* GameCenterSingleton.swift */; };
 		7A395F152433B39600858E56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A395F142433B39600858E56 /* UIImage.swift */; };
+		7A395F172434BEE700858E56 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A395F162434BEE700858E56 /* PowerUp.swift */; };
+		7A395F1A2434C0D900858E56 /* ColorChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A395F192434C0D900858E56 /* ColorChanger.swift */; };
 		7A6412222412891D005ABD82 /* RectangleObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6412212412891D005ABD82 /* RectangleObstacle.swift */; };
 		7A64122424128934005ABD82 /* SquareObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64122324128934005ABD82 /* SquareObstacle.swift */; };
 		7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A641225241289B0005ABD82 /* PhysicsObject.swift */; };
@@ -81,6 +83,8 @@
 		7A0DEBA6242264F8009088D9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7A0DEBA824226B21009088D9 /* GameCenterSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterSingleton.swift; sourceTree = "<group>"; };
 		7A395F142433B39600858E56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		7A395F162434BEE700858E56 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
+		7A395F192434C0D900858E56 /* ColorChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChanger.swift; sourceTree = "<group>"; };
 		7A6412212412891D005ABD82 /* RectangleObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleObstacle.swift; sourceTree = "<group>"; };
 		7A64122324128934005ABD82 /* SquareObstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareObstacle.swift; sourceTree = "<group>"; };
 		7A641225241289B0005ABD82 /* PhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsObject.swift; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 				7A004404242E25E4005AA745 /* LoadingViewController.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		7A395F182434BEF900858E56 /* PowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				7A395F162434BEE700858E56 /* PowerUp.swift */,
+				7A395F192434C0D900858E56 /* ColorChanger.swift */,
+			);
+			path = PowerUp;
 			sourceTree = "<group>";
 		};
 		7A60FA1A24157AF1009D9361 /* Abstract */ = {
@@ -309,11 +322,12 @@
 			children = (
 				7A60FA1A24157AF1009D9361 /* Abstract */,
 				7A60FA1B24157B07009D9361 /* Game */,
+				7ACD686E2420F33600DB9089 /* Onboarding */,
+				7AA0D256241A58C300B8C200 /* Background */,
 				7AC3C38D241158480011F586 /* Drop */,
 				7AC3C38C2411583B0011F586 /* Wheel */,
 				7AC3C38B2411575F0011F586 /* Obstacle */,
-				7ACD686E2420F33600DB9089 /* Onboarding */,
-				7AA0D256241A58C300B8C200 /* Background */,
+				7A395F182434BEF900858E56 /* PowerUp */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -577,6 +591,7 @@
 				7AA04BD7242006FF008D1147 /* GameOnboardingManager.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,
+				7A395F172434BEE700858E56 /* PowerUp.swift in Sources */,
 				7AB85A8F2417F74200A7FB68 /* Storage.swift in Sources */,
 				7A6C6957242E655400FD724B /* InterfaceDelegate.swift in Sources */,
 				7AA04BBA241FAB4A008D1147 /* AudioLibrary.swift in Sources */,
@@ -586,6 +601,7 @@
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
 				7AA04BD924200C2B008D1147 /* OnboardingDisplayable.swift in Sources */,
+				7A395F1A2434C0D900858E56 /* ColorChanger.swift in Sources */,
 				7A641226241289B0005ABD82 /* PhysicsObject.swift in Sources */,
 				7AA04BBB241FAB4A008D1147 /* Song.swift in Sources */,
 				7AB85A942418054600A7FB68 /* TimeInterval.swift in Sources */,

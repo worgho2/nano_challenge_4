@@ -31,7 +31,7 @@ class LoadingViewController: UIViewController {
             self.logoImage.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
             self.logoImage.alpha = 1
             self.backgroundImage.alpha = 1
-        }){ (success: Bool) in
+        }){ (_) in
             self.readyToStart()
         }
     }
