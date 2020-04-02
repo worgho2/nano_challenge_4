@@ -116,6 +116,8 @@ class GameViewController: UIViewController {
         self.loadUI()
         self.loadInterAD()
         self.loadNotificationObservers()
+        
+        GameCenterSingleton.instance.authenticate(origin: self)
     }
     
     //MARK: - View Setup
@@ -334,9 +336,9 @@ extension GameViewController: TriggeredByGameState {
     func onGameOver() {
         self.setUITo(state: .waitingForStart)
         
-        //vai sair com o ad Manager
+//        vai sair com o ad Manager
         if Int.random(in: 0...100) > 60 {
-//            self.showInterAD()
+            self.showInterAD()
         }
     }
     

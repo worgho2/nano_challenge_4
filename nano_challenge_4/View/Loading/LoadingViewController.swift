@@ -18,7 +18,7 @@ class LoadingViewController: UIViewController {
         UIView.animate(withDuration: 1, delay: 0.5, options: [.curveLinear], animations: {
             
             self.logoImage.alpha = 0
-            self.backgroundImage.alpha = 0
+            self.backgroundImage.alpha = 0.8
             
         }) { (_) in
             
@@ -69,8 +69,6 @@ class LoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        GameCenterSingleton.instance.authenticate(origin: self)
         self.setupView()
     }
     

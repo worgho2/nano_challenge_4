@@ -161,7 +161,7 @@ class Onboarding: GameObject {
         startNode.fontName = "SF-Pro-Rounded-Light"
         startNode.verticalAlignmentMode = .center
         startNode.horizontalAlignmentMode = .center
-        startNode.position = CGPoint(x: 0, y: 300)
+        startNode.position = CGPoint(x: 0, y: 340)
         startNode.zPosition = 999
         startNode.alpha = 0
         
