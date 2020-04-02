@@ -26,6 +26,7 @@
 		7A6FC93D2434D86F00EC2E88 /* PowerUpSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6FC93C2434D86F00EC2E88 /* PowerUpSpawner.swift */; };
 		7A6FC93F2434E2EB00EC2E88 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6FC93E2434E2EB00EC2E88 /* GameManager.swift */; };
 		7A81038B2421060800AFA19C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A81038A2421060800AFA19C /* GoogleService-Info.plist */; };
+		7A86DCE22436109E006F38A1 /* PowerUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A86DCE12436109E006F38A1 /* PowerUpDelegate.swift */; };
 		7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC823241C0F610047FB3F /* GameScene.swift */; };
 		7A9DC827241C10430047FB3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A9DC825241C0FEF0047FB3F /* GameScene.sks */; };
 		7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */; };
@@ -95,6 +96,7 @@
 		7A6FC93C2434D86F00EC2E88 /* PowerUpSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpSpawner.swift; sourceTree = "<group>"; };
 		7A6FC93E2434E2EB00EC2E88 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		7A81038A2421060800AFA19C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7A86DCE12436109E006F38A1 /* PowerUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpDelegate.swift; sourceTree = "<group>"; };
 		7A9DC823241C0F610047FB3F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7A9DC825241C0FEF0047FB3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 		7AE988B9241924B6002AD679 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7A86DCE12436109E006F38A1 /* PowerUpDelegate.swift */,
 				7A6C6956242E655400FD724B /* InterfaceDelegate.swift */,
 				7AB85A9724180DDA00A7FB68 /* TriggeredByGameState.swift */,
 				7A641225241289B0005ABD82 /* PhysicsObject.swift */,
@@ -606,6 +609,7 @@
 				7AA0D258241A58EA00B8C200 /* BackgroundPatternBlock.swift in Sources */,
 				7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */,
 				7AB85A9824180DDA00A7FB68 /* TriggeredByGameState.swift in Sources */,
+				7A86DCE22436109E006F38A1 /* PowerUpDelegate.swift in Sources */,
 				7AC3C38024112F860011F586 /* SceneSupplicant.swift in Sources */,
 				7A6FC93F2434E2EB00EC2E88 /* GameManager.swift in Sources */,
 				7A395F1A2434C0D900858E56 /* ColorChanger.swift in Sources */,

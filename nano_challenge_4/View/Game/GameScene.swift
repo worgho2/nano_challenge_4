@@ -239,3 +239,11 @@ extension GameScene: SKPhysicsContactDelegate {
         }
     }
 }
+
+extension GameScene: PowerUpDelegate {
+    
+    func onColorChanger() {
+        run(.colorize(with: gameManager.color.pallete.background, colorBlendFactor: 1.0, duration: 1.0))
+    }
+    
+}
