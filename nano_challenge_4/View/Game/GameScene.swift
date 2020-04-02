@@ -8,9 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    var vc: GameViewController?
+class GameScene: SKScene {
     
     private var lastUpdate = TimeInterval(0)
     var realPaused: Bool = false {
@@ -27,34 +25,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private var isGameEnded: Bool = false
     
+    var vc: GameViewController?
+    var gameManager: GameManager!
+    
     var onboarding: Onboarding!
-    var score: Score!
     var wheel: Wheel!
     var drop: Drop!
-    var obstacleSpawner: ObstacleSpawner!
-    var backgroundPatternBlockSpawner: BackgroundPatternBlockSpawner!
     
-    var gameColorManager =  GameColorManager()
-    var gameSpeedManager =  GameSpeedManager()
-    var gameScoreManager =  GameScoreManager()
-    var gameAudioManager =  GameAudioManager()
-    var gameHapticManager =  GameHapticManager()
-    var gameOnboardingManager = GameOnboardingManager()
+    var obstacleSpawner: ObstacleSpawner!
+    var powerUpSpawner: PowerUpSpawner!
+    var backgroundPatternBlockSpawner: BackgroundPatternBlockSpawner!
     
     //MARK: - Class Methods
     
     override func didMove(to view: SKView) {
-        self.physicsWorld.contactDelegate = self
-        self.backgroundColor = gameColorManager.backgroundColor
+        self.gameManager = GameManager(score: GameScoreManager(interfaceDelegate: self.vc!),
+                                       color: GameColorManager(),
+                                       speed: GameSpeedManager(),
+                                       audio: GameAudioManager(),
+                                       haptic: GameHapticManager(),
+                                       onboarding: GameOnboardingManager()
+        )
         
-        self.onboarding = Onboarding(scene: self, gameOnboardingManager: self.gameOnboardingManager, gameColorManager: self.gameColorManager)
-        
-        self.score = Score(scene: self, gameScoreManager: self.gameScoreManager, gameOnboardingManager: self.gameOnboardingManager, interfaceDelegate: self.vc!)
-        self.wheel = Wheel(scene: self, gameColorManager: self.gameColorManager)
+        self.onboarding = Onboarding(scene: self)
+        self.wheel = Wheel(scene: self)
         self.drop = Drop(scene: self)
-        self.obstacleSpawner = ObstacleSpawner(scene: self, gameAudioManager: self.gameAudioManager, gameHapticManager: self.gameHapticManager, gameSpeedManager: self.gameSpeedManager, gameColorManager: self.gameColorManager)
         
-        self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.powerUpSpawner = PowerUpSpawner(scene: self)
+        self.obstacleSpawner = ObstacleSpawner(scene: self)
+        self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self)
+        
+        self.backgroundColor = gameManager.color.palette.background
+        self.physicsWorld.contactDelegate = self
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -82,30 +84,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func getTriggeredsByGameState() -> [TriggeredByGameState] {
         return [
-            self.score,
-            self.drop,
-            self.wheel,
             self.vc!,
-            self.gameSpeedManager,
-            self.obstacleSpawner
+            self.onboarding,
+            self.wheel,
+            self.drop,
+            self.gameManager.score,
+            self.gameManager.speed,
+            self.obstacleSpawner,
+            self.powerUpSpawner
         ]
     }
     
     private func getTouchSensitives() -> [TouchSensitive] {
         return [
-            self.wheel,
-            self.onboarding
+            self.onboarding,
+            self.wheel
         ]
     }
     
     private func getUpdatables() -> [Updateable] {
         return [
-            self.score,
+            self.onboarding,
             self.wheel,
+            self.gameManager.score,
+            self.gameManager.speed,
             self.obstacleSpawner,
-            self.gameSpeedManager,
+            self.powerUpSpawner,
             self.backgroundPatternBlockSpawner,
-            self.onboarding
+            
         ]
     }
     
@@ -128,57 +134,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func onGameStart() {
         self.isGameEnded = false
-        self.gameAudioManager.play(soundEffect: .play)
-//        self.gameAudioManager.play(song: .main)
+        gameManager.audio.play(soundEffect: .play)
         self.getTriggeredsByGameState().forEach { $0.onGameStart() }
     }
     
     private func onGamePause() {
-        self.gameAudioManager.pause()
+        gameManager.audio.pause()
         self.getTriggeredsByGameState().forEach { $0.onGamePause() }
     }
     
     private func onGameContinue() {
-        self.gameAudioManager.play(song: .main)
         self.getTriggeredsByGameState().forEach { $0.onGameContinue() }
     }
     
     func onGameOver() {
         self.isGameEnded = true
-        self.gameAudioManager.stopCurrentSongs()
+        gameManager.audio.stopCurrentSongs()
         self.getTriggeredsByGameState().forEach { $0.onGameOver() }
-    }
-    
-    // MARK: - Physics Methods
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        guard let nodeA = contact.bodyA.node else { return }
-        guard let nodeB = contact.bodyB.node else { return }
-        
-        
-        if [nodeA.name, nodeB.name].contains("drop") {
-            self.onGameOver()
-        } else if nodeA.name!.contains("Painter") {
-            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeB)
-            self.onCollision(nodeA, nodeB, at: obstacleContactPoint!)
-        } else {
-            let obstacleContactPoint = self.scene?.convert(contact.contactPoint, to: nodeA)
-            self.onCollision(nodeB, nodeA, at: obstacleContactPoint!)
-        }
-    }
-    
-    func onCollision(_ painterNode: SKNode, _ obstacleNode: SKNode, at: CGPoint) {
-        guard let painterNode = painterNode as? SKShapeNode else { fatalError() }
-        guard let obstacleNode = obstacleNode as? SKShapeNode else { fatalError() }
-        let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode)
-        
-        if painterNode.fillColor == obstacleNode.fillColor {
-            obstacle.onCollision(onCorrectPainter: false, at: at)
-            self.onGameOver()
-        } else {
-            obstacle.onCollision(onCorrectPainter: true, at: at)
-            self.score.incrementScore()
-        }
     }
     
     // MARK: - Touch Callbacks
@@ -190,4 +162,97 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.getTouchSensitives().forEach { $0.touchUp(atPoint: t.location(in: self)) } }
     }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node else { return }
+
+        //Drop -> Obstacle
+        if nodeA.name!.contains(GameObjectType.drop.name) && nodeB.name!.contains(GameObjectType.obstacle.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeB)
+            onCollision(dropNode: nodeA, obstacleNode: nodeB, at: atPoint)
+            return
+        }
+        
+        //Obstacle -> Drop
+        if nodeA.name!.contains(GameObjectType.obstacle.name) && nodeB.name!.contains(GameObjectType.drop.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeA)
+            onCollision(dropNode: nodeB, obstacleNode: nodeA, at: atPoint)
+            return
+        }
+
+        //Painter -> Obstacle
+        if nodeA.name!.contains(GameObjectType.painter.name) && nodeB.name!.contains(GameObjectType.obstacle.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeB)
+            onCollision(painterNode: nodeA, obstacleNode: nodeB, at: atPoint)
+            return
+        }
+            
+        //Obstacle -> Painter
+        if nodeA.name!.contains(GameObjectType.obstacle.name) && nodeB.name!.contains(GameObjectType.painter.name) {
+            let atPoint = scene!.convert(contact.contactPoint, to: nodeA)
+            onCollision(painterNode: nodeB, obstacleNode: nodeA, at: atPoint)
+            return
+        }
+            
+        //PowerUp -> Painter
+        if nodeA.name!.contains(GameObjectType.powerUp.name) && nodeB.name!.contains(GameObjectType.painter.name) {
+            onCollision(powerUpNode: nodeA, painterNode: nodeB)
+            return
+        }
+
+        //Painter -> PowerUp
+        if nodeA.name!.contains(GameObjectType.painter.name) && nodeB.name!.contains(GameObjectType.powerUp.name) {
+            onCollision(powerUpNode: nodeB, painterNode: nodeA)
+            return
+        }
+    }
+    
+    private func onCollision(dropNode: SKNode, obstacleNode: SKNode, at: CGPoint) {
+        guard let obstacleNode = obstacleNode as? SKShapeNode else { return }
+        guard let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode) else { return }
+        
+        obstacle.onCollision(onCorrectPainter: false, at: at)
+        
+        self.onGameOver()
+    }
+    
+    private func onCollision(powerUpNode: SKNode, painterNode: SKNode) {
+        guard let powerUpNode = powerUpNode as? SKShapeNode, let _ = painterNode as? SKShapeNode else { return }
+        guard let powerUp = self.powerUpSpawner.getPowerUpBy(node: powerUpNode) else { return }
+        
+        powerUp.onCollision()
+    }
+    
+    private func onCollision(painterNode: SKNode, obstacleNode: SKNode, at: CGPoint) {
+        guard let painterNode = painterNode as? SKShapeNode, let obstacleNode = obstacleNode as? SKShapeNode else { return }
+        guard let obstacle = self.obstacleSpawner.getObstacleBy(node: obstacleNode) else { return }
+        
+        if painterNode.fillColor == obstacleNode.fillColor {
+            obstacle.onCollision(onCorrectPainter: false, at: at)
+            self.onGameOver()
+        } else {
+            obstacle.onCollision(onCorrectPainter: true, at: at)
+            gameManager.score.incrementScore()
+        }
+    }
+}
+
+extension GameScene: PowerUpDelegate {
+    
+    private func getPowerUpDelegateds() -> [PowerUpDelegate] {
+        return [
+            self.gameManager.color,
+            self.obstacleSpawner,
+            self.wheel
+        ]
+    }
+    
+    func onColorChanger() {
+        getPowerUpDelegateds().forEach { $0.onColorChanger() }
+        run(.colorize(with: gameManager.color.palette.background, colorBlendFactor: 1.0, duration: 1.0))
+    }
+    
 }

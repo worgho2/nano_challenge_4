@@ -27,19 +27,15 @@ class Wheel: GameObject {
         }
     }
     
-    var gameColorManager: GameColorManager!
-    
     private var isTouching: (left: Bool, right: Bool) = (false, false)
     
-    init(scene: SKScene?, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
+        
         let node = SKNode()
         node.position = .zero
         
         super.init(node: node, scene: scene)
-        
         self.scene.addChild(node)
-        
-        self.gameColorManager = gameColorManager
         
         self.setupPainters()
         self.setupWheelBackground()
@@ -65,20 +61,20 @@ class Wheel: GameObject {
     }
     
     private func setupPainters() {
-        let leftPainterNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 0.12)
-        leftPainterNode.name = "leftPainter"
-        leftPainterNode.position = CGPoint(x: -self.scene.getBounds().width * 3/5, y: 0)
+        let leftPainterNode = SKShapeNode(circleOfRadius: scene.getBounds().width * 0.06)
+        leftPainterNode.name = GameObjectType.painter.name + "_left"
+        leftPainterNode.position = CGPoint(x: -scene.getBounds().width/2 * 3/5 , y: 0)
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = self.gameColorManager.leftColor
+        leftPainterNode.fillColor = scene.gameManager.color.palette.left
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
         leftPainterNode.isAntialiased = true
         leftPainterNode.glowWidth = 3
         self.configurePhysics(on: leftPainterNode)
         
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
-        rightPainterNode.name = "rightPainter"
-        rightPainterNode.position = CGPoint(x: self.scene.getBounds().width * 3/5, y: 0)
-        rightPainterNode.fillColor = self.gameColorManager.rightColor
+        rightPainterNode.name = GameObjectType.painter.name + "_right"
+        rightPainterNode.position = CGPoint(x: scene.getBounds().width/2 * 3/5 , y: 0)
+        rightPainterNode.fillColor = scene.gameManager.color.palette.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
@@ -87,7 +83,7 @@ class Wheel: GameObject {
     }
     
     private func setupWheelBackground() {
-        let circleNode = SKShapeNode(circleOfRadius: self.scene.getBounds().width * 3/5)
+        let circleNode = SKShapeNode(circleOfRadius: scene.getBounds().width/2 * 3/5)
         
         circleNode.position = .zero
         circleNode.strokeColor = .white
@@ -114,15 +110,15 @@ class Wheel: GameObject {
     //MARK: - PhysicsObject PROTOCOL
     
     override func configurePhysics(on node: SKNode) {
-        let body = SKPhysicsBody(circleOfRadius: self.scene.getBounds().width * 0.12)
+        let body = SKPhysicsBody(circleOfRadius: scene.getBounds().width * 0.06)
         
         body.affectedByGravity = false
         body.allowsRotation = false
         body.pinned = false
         body.isDynamic = true
-        body.categoryBitMask = ContactMask.painter.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.obstacle.bitMask
+        body.categoryBitMask = GameObjectType.painter.categoryBitMask
+        body.collisionBitMask = GameObjectType.painter.collisionBitMask
+        body.contactTestBitMask = GameObjectType.painter.contactTestBitMask
         
         node.physicsBody = body
     }
@@ -131,26 +127,22 @@ class Wheel: GameObject {
     
     override func touchDown(atPoint pos: CGPoint) {
         if pos.x > 0 {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.isStageDone(.second) && scene.gameOnboardingManager.isStageDone(.first) {
-                    return
-                }
-                scene.gameOnboardingManager.wheelRotationRight = true
-                self.isTouching.right = true
-                self.isTouching.left = false
-            }
-        } else {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.isStageDone(.first) && !scene.gameOnboardingManager.isStageDone(.first) {
-                    return
-                }
-                scene.gameOnboardingManager.wheelRotationLeft = true
-                self.isTouching.left = true
-                self.isTouching.right = false
-            }
+            if !scene.gameManager.onboarding.hasAlreadyShowed(.second) && scene.gameManager.onboarding.hasAlreadyShowed(.first) { return }
             
+            scene.gameManager.onboarding.wheelRotationRight = true
+            
+            self.isTouching.right = true
+            self.isTouching.left = false
+        } else {
+            if !scene.gameManager.onboarding.hasAlreadyShowed(.first) { return }
+            
+            scene.gameManager.onboarding.wheelRotationLeft = true
+            
+            self.isTouching.left = true
+            self.isTouching.right = false
         }
     }
+    
     override func touchUp(atPoint pos: CGPoint) {
         if pos.x > 0 {
             self.isTouching.right = false
@@ -169,21 +161,47 @@ class Wheel: GameObject {
     //MARK: - TriggeredByGameState PROTOCOL
     
     override func onGameStart() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 140), duration: 0.4))
+        self.node.run(.move(to: CGPoint(x: 0, y: 180), duration: 0.4))
         self.node.run(.rotate(toAngle: .pi, duration: 0.4))
+        self.isTouching = (false, false)
     }
     
     override func onGameOver() {
         self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
         self.node.run(.rotate(toAngle: 0, duration: 0.4))
+        self.isTouching = (false, false)
     }
     
-    //MARK: - OnboardingDisplayable PROTOCOL
+    //MARK: - PowerUpDelegate
     
-    override func onFirstStep() {
-        self.onGameStart()
+    override func onColorChanger() {
+        guard let leftNode = self.node.children.first(where: { $0.name!.contains("left")}) as? SKShapeNode, let rightNode = self.node.children.first(where: { $0.name!.contains("right")}) as? SKShapeNode else { return }
+        
+        leftNode.run(.sequence(
+            [
+                .scale(to: 1.2, duration: 0.05),
+                .scale(to: 0.8, duration: 0.1),
+                .scale(to: 1.1, duration: 0.05),
+                .scale(to: 0.9, duration: 0.1),
+                .scale(to: 1.0, duration: 0.05),
+            ]
+        ))
+        
+        rightNode.run(.sequence(
+            [
+                .scale(to: 1.2, duration: 0.05),
+                .scale(to: 0.8, duration: 0.1),
+                .scale(to: 1.1, duration: 0.05),
+                .scale(to: 0.9, duration: 0.1),
+                .scale(to: 1.0, duration: 0.05),
+            ]
+        ))
+        
+        leftNode.fillColor = scene.gameManager.color.palette.left
+        leftNode.strokeColor = scene.gameManager.color.palette.left
+        
+        rightNode.fillColor = scene.gameManager.color.palette.right
+        rightNode.strokeColor = scene.gameManager.color.palette.right
     }
-    override func onSecondStep() {
-        self.onGameStart()
-    }
+
 }

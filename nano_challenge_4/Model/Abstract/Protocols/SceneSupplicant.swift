@@ -9,5 +9,5 @@
 import SpriteKit
 
 protocol SceneSupplicant {
-    var scene: SKScene! { get set }
+    var scene: GameScene! { get set }
 }

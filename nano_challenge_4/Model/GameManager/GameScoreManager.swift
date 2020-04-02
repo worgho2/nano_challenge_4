@@ -10,11 +10,39 @@ import GameKit
 
 class GameScoreManager {
     
-    @Storage(key: "ObstacleHighScore", defaultValue: 0) private static var obstaclehighScore: Int
-    @Storage(key: "TimeHighScore", defaultValue: TimeInterval(0)) private static var timeHighScore: TimeInterval
-    @Storage(key: "TotalObstaclesScore", defaultValue: 0) private static var totalObstaclesScore: Int
+    private static var obstaclehighScore: Int {
+        get {
+            return UserDefaults.standard.object(forKey: "ObstacleHighScore") as? Int ?? 0
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ObstacleHighScore")
+        }
+    }
+    private static var timeHighScore: TimeInterval {
+        get {
+            return UserDefaults.standard.object(forKey: "TimeHighScore") as? TimeInterval ?? TimeInterval(0)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "TimeHighScore")
+        }
+    }
+    private static var totalObstaclesScore: Int {
+        get {
+            return UserDefaults.standard.object(forKey: "TotalObstaclesScore") as? Int ?? 0
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "TotalObstaclesScore")
+        }
+    }
     
-    init() {
+    private var currentTime: TimeInterval!
+    private var currentScore: Int!
+    
+    var interfaceDelegate: InterfaceDelegate!
+    
+    init(interfaceDelegate: InterfaceDelegate) {
+        self.interfaceDelegate = interfaceDelegate
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.onTotalObstaclesNotification(_:)), name: Leaderboard.totalObstacles.notificationName, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onHighScoreNotification(_:)), name: Leaderboard.highScore.notificationName, object: nil)
@@ -68,6 +96,19 @@ class GameScoreManager {
     
     //MARK: - Class Mehtods
     
+    private func setupValues() {
+        self.currentTime = 0
+        self.currentScore = 0
+    }
+    
+    func incrementTime(by: TimeInterval = 1) {
+        self.currentTime += by
+    }
+    
+    func incrementScore(by: Int = 1) {
+        self.currentScore += by
+    }
+    
     func getHighScore() -> (time: TimeInterval, obstacle: Int, totalObstacles: Int) {
         return (GameScoreManager.timeHighScore, GameScoreManager.obstaclehighScore, GameScoreManager.totalObstaclesScore)
     }
@@ -103,5 +144,30 @@ class GameScoreManager {
             GameCenterSingleton.instance.setScore(leaderboard: .totalObstacles, value: Int64(newScore))
         }
     }
+    
+}
+
+extension GameScoreManager: Updateable {
+    
+    func update(_ deltaTime: TimeInterval) {
+        self.incrementTime(by: deltaTime)
+        self.interfaceDelegate.sendScore(score: currentScore, time: currentTime)
+    }
+    
+}
+
+extension GameScoreManager: TriggeredByGameState {
+    
+    func onGameStart() {
+        self.setupValues()
+    }
+    
+    func onGameOver() {
+        self.setHighScore(newTimeHighScore: self.currentTime, newObstacleHighScore: self.currentScore)
+    }
+    
+    func onGamePause() { return }
+    
+    func onGameContinue() { return }
     
 }

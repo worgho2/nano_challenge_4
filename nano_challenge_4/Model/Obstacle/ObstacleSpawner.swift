@@ -8,59 +8,52 @@
 
 import SpriteKit
 
-class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
+class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState, PowerUpDelegate {
     
-    var gameSpeedManager: GameSpeedManager!
+    internal var scene: GameScene!
     
-    var scene: SKScene!
-    var obstacleFactory: ObstacleFactory!
-    var obstacles: [Obstacle]
+    public var obstacles: [Obstacle]
+    private var obstacleFactory: ObstacleFactory!
     
-    private var spawnThreshold = TimeInterval(2)
+    private var spawnThreshold = TimeInterval(3)
     private var currentSpawnTimer = TimeInterval(0)
     
-    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         self.scene = scene
         self.obstacles = [Obstacle]()
-        
-        self.gameSpeedManager = gameSpeedManager
-        
-        self.obstacleFactory = ObstacleFactory(scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        self.obstacleFactory = ObstacleFactory(scene: scene)
     }
     
-    //MARK: - Class Methods
-
     func spawn() {
         let newObstacle = self.obstacleFactory.getNewObstacle(type: ObstacleType.random(), color: ObstacleColor.random(), orientation: ObstacleOrientation.random(), position: ObstaclePosition.random())
-                       
-       self.obstacles.append(newObstacle)
-       self.scene.addChild(newObstacle.node)
-    }
-    
-    func spawnByParameters(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) {
-         let newObstacle = self.obstacleFactory.getNewObstacle(type: type, color: color, orientation: orientation, position: position)
         
         self.obstacles.append(newObstacle)
         self.scene.addChild(newObstacle.node)
     }
     
-    func getObstacleBy(node: SKNode) -> Obstacle {
-        return obstacles.first(where: {$0.node == node})!
+    func spawnByParameters(type: ObstacleType, color: ObstacleColor, orientation: ObstacleOrientation, position: ObstaclePosition) {
+        let newObstacle = self.obstacleFactory.getNewObstacle(type: type, color: color, orientation: orientation, position: position)
+        
+        self.obstacles.append(newObstacle)
+        self.scene.addChild(newObstacle.node)
+    }
+    
+    func getObstacleBy(node: SKNode) -> Obstacle? {
+        return obstacles.first(where: {$0.node == node})
     }
     
     //MARK: - Updateable PROTOCOL
     
     func update(_ deltaTime: TimeInterval) {
+
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(self.gameSpeedManager.getProgress())
+        self.spawnThreshold = TimeInterval(3) - TimeInterval(scene.gameManager.speed.getProgress())
         
         self.obstacles.forEach { $0.update(deltaTime) }
         
         if currentSpawnTimer > self.spawnThreshold {
-            if let scene = self.scene as? GameScene {
-                if !scene.gameOnboardingManager.onboardingIsNeeded() {
-                   self.spawn()
-                }
+            if !scene.gameManager.onboarding.onboardingIsNeeded() {
+                self.spawn()
             }
             self.currentSpawnTimer -= spawnThreshold
         }
@@ -74,7 +67,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         }
     }
     
-    //MARK: - TriggeredByGameState PROTOCOL
+    //MARK: - TriggeredByGameState
     
     func onGameStart() {
         obstacles.forEach{ $0.node.removeFromParent() }
@@ -93,6 +86,22 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     func onGameContinue() {
         return
+    }
+    
+    //MARK: - PowerUpDelegate
+    
+    func onColorChanger() {
+        let disabledObstacles = obstacles
+        self.obstacles = []
+        
+        disabledObstacles.forEach { obstacle in
+            obstacle.node.run(.fadeOut(withDuration: 0.1))
+            obstacle.node.run(.scale(to: 0.5, duration: 0.1)) {
+                obstacle.node.removeFromParent()
+
+            }
+        }
+        
     }
     
     

@@ -15,42 +15,56 @@ class LoadingViewController: UIViewController {
     
     func readyToStart() {
         
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 1, delay: 0.5, options: [.curveLinear], animations: {
+            
             self.logoImage.alpha = 0
-            self.backgroundImage.alpha = 0
+            self.backgroundImage.alpha = 0.8
+            
         }) { (_) in
-            self.backgroundImage.stopAnimating()
+            
             self.logoImage.stopAnimating()
+            self.backgroundImage.stopAnimating()
             
             self.performSegue(withIdentifier: "segueGame", sender: nil)
+            
         }
     }
     
     func animateLogo() {
-        UIView.animate(withDuration: 1, delay: 0, options: [.curveEaseInOut], animations: {
+        self.logoImage.isHidden = false
+        
+        UIView.animate(withDuration: 1, delay: 0.2, options: [.curveEaseInOut], animations: {
+            
             self.logoImage.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
             self.logoImage.alpha = 1
-            self.backgroundImage.alpha = 1
-        }){ (success: Bool) in
+            
+        }){ (_) in
+            
             self.readyToStart()
+            
         }
     }
     
     func animateBackground() {
-        UIView.animate(withDuration: 1, delay: 0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 1.2, delay: 0, options: [.curveEaseOut], animations: {
+            
+            self.view.backgroundColor = GameColorManager.avaliablePalettes[GameColorManager.currentIndex].background
             self.backgroundImage.alpha = 1
+            
         })
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        GameCenterSingleton.instance.authenticate(origin: self)
+        super.viewDidAppear(animated)
         
+        self.animateBackground()
         self.animateLogo()
     }
     
     func setupView() {
+        self.logoImage.isHidden = true
         self.logoImage.alpha = 0
-        self.backgroundImage.alpha = 0.3
+        self.backgroundImage.alpha = 0
     }
     
     override func viewDidLoad() {

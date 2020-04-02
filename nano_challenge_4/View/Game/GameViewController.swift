@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     
     @objc func onHighScoreNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            let score = self.scene!.score.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameManager.score.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             t.invalidate()
         }
@@ -64,7 +64,7 @@ class GameViewController: UIViewController {
     
     @objc func onBestTimeNotification(_ notification: NSNotification) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (t) in
-            self.bestTimeLabel.text = (self.scene?.score.gameScoreManager.getHighScore().time)?.asString()
+            self.bestTimeLabel.text = self.scene!.gameManager.score.getHighScore().time.asString()
             t.invalidate()
         }
     }
@@ -102,8 +102,9 @@ class GameViewController: UIViewController {
             gradientLayer.frame = skView.bounds
             
             skView.layer.insertSublayer(gradientLayer, at: 0)
-            skView.backgroundColor = .clear
+            skView.backgroundColor = .white
             skView.isMultipleTouchEnabled = true
+            
             skView.presentScene(scene)
         }
     }
@@ -115,10 +116,11 @@ class GameViewController: UIViewController {
         self.loadUI()
         self.loadInterAD()
         self.loadNotificationObservers()
+        
+        GameCenterSingleton.instance.authenticate(origin: self)
     }
     
     //MARK: - View Setup
-    
     private func setButtonsTo(state: ViewGameState) {
         
         switch state {
@@ -132,8 +134,13 @@ class GameViewController: UIViewController {
             self.playButton.isHidden = true
             
             //PauseButton
-            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
-            self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
+            self.pauseButton.isHidden = scene!.gameManager.onboarding.onboardingIsNeeded() ? true : false
+            
+            if #available(iOS 13.0, *) {
+                self.pauseButton.setBackgroundImage(UIImage(systemName: "pause.circle.fill")!, for: .normal)
+            } else {
+                self.pauseButton.setBackgroundImage(UIImage(named: "pause")!, for: .normal)
+            }
             
         case .paused:
             //GameCenterButton
@@ -146,8 +153,13 @@ class GameViewController: UIViewController {
             self.playButton.isHidden = true
             
             //PauseButton
-            self.pauseButton.isHidden = (self.scene?.gameOnboardingManager.onboardingIsNeeded())! ? true : false
-            self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
+            self.pauseButton.isHidden = scene!.gameManager.onboarding.onboardingIsNeeded() ? true : false
+            
+            if #available(iOS 13.0, *) {
+                self.pauseButton.setBackgroundImage(UIImage(systemName: "play.circle.fill")!, for: .normal)
+            } else {
+                self.pauseButton.setBackgroundImage(UIImage(named: "play")!, for: .normal)
+            }
 
         case .waitingForStart:
             //GameCenterButton
@@ -184,11 +196,11 @@ class GameViewController: UIViewController {
             self.highScoreDefaultLabel.isHidden = false
             self.highScoreLabel.isHidden = false
             
-            let score = self.scene!.score.gameScoreManager.getHighScore().obstacle
+            let score = self.scene!.gameManager.score.getHighScore().obstacle
             self.highScoreLabel.text = score < 10 ? "00\(score)" : (score < 100 ? "0\(score)" : "\(score)" )
             self.bestTimeDefaultLabel.isHidden = false
             self.bestTimeLabel.isHidden = false
-            self.bestTimeLabel.text = self.scene!.score.gameScoreManager.getHighScore().time.asString()
+            self.bestTimeLabel.text = self.scene!.gameManager.score.getHighScore().time.asString()
 
         }
         
@@ -199,7 +211,7 @@ class GameViewController: UIViewController {
         switch state {
             
         case .playing:
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
+            if !scene!.gameManager.onboarding.onboardingIsNeeded() {
                 self.timeDefaultLabel.isHidden = false
                 self.timeLabel.isHidden = false
                 self.scoreDefaultLabel.isHidden = false
@@ -207,7 +219,7 @@ class GameViewController: UIViewController {
             }
 
         case .paused:
-            if !(self.scene?.gameOnboardingManager.onboardingIsNeeded())! {
+            if !scene!.gameManager.onboarding.onboardingIsNeeded() {
                 self.timeDefaultLabel.isHidden = false
                 self.timeLabel.isHidden = false
                 self.scoreDefaultLabel.isHidden = false
@@ -224,7 +236,7 @@ class GameViewController: UIViewController {
         
     }
     
-    private func setCoverView(state: ViewGameState) {
+    private func setCoverViewTo(state: ViewGameState) {
         
         switch state {
         case .playing:
@@ -254,7 +266,7 @@ class GameViewController: UIViewController {
         self.setButtonsTo(state: state)
         self.setHighScoresTo(state: state)
         self.setScoresTo(state: state)
-        self.setCoverView(state: state)
+        self.setCoverViewTo(state: state)
     }
     
     private func loadUI() {
@@ -303,7 +315,6 @@ extension GameViewController: InterfaceDelegate {
         self.timeLabel.text = time.asString()
     }
     
-    
 }
 
 extension GameViewController: TriggeredByGameState {
@@ -325,7 +336,7 @@ extension GameViewController: TriggeredByGameState {
     func onGameOver() {
         self.setUITo(state: .waitingForStart)
         
-        //vai sair com o ad Manager
+//        vai sair com o ad Manager
         if Int.random(in: 0...100) > 60 {
             self.showInterAD()
         }

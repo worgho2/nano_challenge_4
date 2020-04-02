@@ -10,15 +10,15 @@ import SpriteKit
 
 class RectangleObstacle: Obstacle {
     
-    override init(node: SKNode?, scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+    override init(node: SKNode?, scene: GameScene?) {
+        super.init(node: node, scene: scene)
     }
     
-    init(scene: SKScene?, gameAudioManager: GameAudioManager, gameHapticManager: GameHapticManager, gameSpeedManager: GameSpeedManager, gameColorManager: GameColorManager) {
+    init(scene: GameScene?) {
         let node = SKShapeNode(rectOf: CGSize(width: 300, height: 70), cornerRadius: 35)
-        node.name = "ractangleObstacle"
+        node.name = GameObjectType.obstacle.name
         
-        super.init(node: node, scene: scene, gameAudioManager: gameAudioManager, gameHapticManager: gameHapticManager, gameSpeedManager: gameSpeedManager, gameColorManager: gameColorManager)
+        super.init(node: node, scene: scene)
         
         self.configurePhysics(on: self.node)
     }
@@ -38,9 +38,9 @@ class RectangleObstacle: Obstacle {
         body.allowsRotation = false
         body.pinned = false
         body.isDynamic = true
-        body.categoryBitMask = ContactMask.obstacle.bitMask
-        body.collisionBitMask = ContactMask.none.bitMask
-        body.contactTestBitMask = ContactMask.painter.bitMask | ContactMask.drop.bitMask
+        body.categoryBitMask = GameObjectType.obstacle.categoryBitMask
+        body.collisionBitMask = GameObjectType.obstacle.collisionBitMask
+        body.contactTestBitMask = GameObjectType.obstacle.contactTestBitMask
         
         self.node.physicsBody = body
     }

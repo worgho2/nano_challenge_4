@@ -27,3 +27,8 @@ struct Storage<T> {
         }
     }
 }
+
+
+//    @Storage(key: "ObstacleHighScore", defaultValue: 0) private static var obstaclehighScore: Int
+//    @Storage(key: "TimeHighScore", defaultValue: TimeInterval(0)) private static var timeHighScore: TimeInterval
+//    @Storage(key: "TotalObstaclesScore", defaultValue: 0) private static var totalObstaclesScore: Int

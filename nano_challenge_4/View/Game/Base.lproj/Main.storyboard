@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,13 +44,13 @@
                                     <action selector="onPlayButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2gy-31-5nb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
                                 <rect key="frame" x="103.5" y="695.5" width="207" height="66.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="312:100" id="SaI-Aq-DuP"/>
                                 </constraints>
-                                <state key="normal" image="gamecenter">
+                                <state key="normal" backgroundImage="gamecenter">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -57,14 +58,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsR-DI-VVE">
-                                <rect key="frame" x="314" y="59.5" width="75" height="74"/>
+                                <rect key="frame" x="314" y="59" width="75" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="X8K-tw-AUC"/>
                                     <constraint firstAttribute="width" secondItem="YsR-DI-VVE" secondAttribute="height" multiplier="1:1" id="jfF-1T-JUl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" backgroundImage="pause.circle.fill" catalog="system">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="light">
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -183,7 +184,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gamecenter" width="312" height="100"/>
-        <image name="pause.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="gamecenter" width="156" height="50"/>
     </resources>
 </document>

@@ -8,18 +8,12 @@
 
 import SpriteKit
 
-class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState, OnboardingDisplayable {
+class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState, PowerUpDelegate {
     
-    static var next_id = 0
-    
-    var id: Int
     var node: SKNode!
-    var scene: SKScene!
+    var scene: GameScene!
     
-    init(node: SKNode?, scene: SKScene?) {
-        self.id = GameObject.next_id
-        GameObject.next_id += 1
-        
+    init(node: SKNode?, scene: GameScene?) {
         self.node = node
         self.scene = scene
     }
@@ -42,15 +36,13 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     func configurePhysics(on node: SKNode) { return }
     
     //MARK: - TriggeredByGameState PROTOCOL
+    
     func onGameStart() { return }
     func onGamePause() { return }
     func onGameContinue() { return }
     func onGameOver() { return }
     
-    //MARK: - OnboardingDisplayable PROTOCOL
+    //MARK: - PowerUpDelegete
     
-    func onFirstStep() { return }
-    func onSecondStep() { return }
-    func onThirdStep() { return }
-    func onFourthStep() { return }
+    func onColorChanger() { return }
 }
