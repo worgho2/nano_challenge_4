@@ -90,7 +90,7 @@ class ObstacleFactory: SceneSupplicant {
         node.position = nodePosition
         node.zRotation = nodeRotation
         node.zPosition = 100
-        node.fillColor = color == .leftColor ? scene.gameManager.color.pallete.left : scene.gameManager.color.pallete.right
+        node.fillColor = color == .leftColor ? scene.gameManager.color.palette.left : scene.gameManager.color.palette.right
         
         return node
     }

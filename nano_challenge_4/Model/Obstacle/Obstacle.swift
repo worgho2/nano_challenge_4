@@ -33,12 +33,12 @@ class Obstacle: GameObject {
             
             let gradientNode = SKShapeNode(circleOfRadius: 2)
             gradientNode.position = at
-            gradientNode.fillColor = scene.gameManager.color.pallete.background
+            gradientNode.fillColor = scene.gameManager.color.palette.background
             
-            if node.fillColor == scene.gameManager.color.pallete.left {
-                gradientNode.strokeColor = scene.gameManager.color.pallete.right
+            if node.fillColor == scene.gameManager.color.palette.left {
+                gradientNode.strokeColor = scene.gameManager.color.palette.right
             } else {
-                gradientNode.strokeColor = scene.gameManager.color.pallete.left
+                gradientNode.strokeColor = scene.gameManager.color.palette.left
             }
 
             let maskNode = SKShapeNode()
@@ -67,7 +67,7 @@ class Obstacle: GameObject {
             ))
             
             Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { (t) in
-                node.strokeColor = self.scene.gameManager.color.pallete.pattern
+                node.strokeColor = self.scene.gameManager.color.palette.background.darker(by: 30)
             }
             
             node.run(.fadeAlpha(to: 0.5, duration: 1))

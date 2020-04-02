@@ -10,13 +10,20 @@ import SpriteKit
 
 class ColorChanger: PowerUp {
     
+    var palette: Palette!
+    
     override init(node: SKNode?, scene: GameScene?) {
         super.init(node: node, scene: scene)
+        
+        palette = scene?.gameManager.color.getNextPalette()
+        self.setupAppearance(on: self.node)
     }
     
     init(scene: GameScene?) {
-        let node = SKShapeNode(rectOf: CGSize(width: 50, height: 50), cornerRadius: 25)
+        let node = SKShapeNode(circleOfRadius: scene!.getBounds().width * 0.06)
         node.name =  GameObjectType.powerUp.name
+        node.fillColor = .clear
+        node.strokeColor = .clear
         
         super.init(node: node, scene: scene)
         
@@ -28,29 +35,42 @@ class ColorChanger: PowerUp {
     override func onCollision() {
         super.onCollision()
         
-        //Desacoplar depois para um protocolo
-        
-        let index = GameColorManager.avaliablePalletes.firstIndex(where: {$0.background == scene.gameManager.color.pallete.background})
-        
-        scene.gameManager.color.pallete = GameColorManager.avaliablePalletes[(index! + 1) % 3]
-        
-        scene.run(.colorize(with: scene.gameManager.color.pallete.background, colorBlendFactor: 1, duration: 1))
-        
-        guard let leftNode = scene.wheel.node.children.first(where: { $0.name!.contains("left")}) as? SKShapeNode else { return }
-        guard let rightNode = scene.wheel.node.children.first(where: { $0.name!.contains("right")}) as? SKShapeNode else { return }
-        
-        leftNode.fillColor = scene.gameManager.color.pallete.left
-        leftNode.strokeColor = scene.gameManager.color.pallete.left
-        
-        rightNode.fillColor = scene.gameManager.color.pallete.right
-        rightNode.strokeColor = scene.gameManager.color.pallete.right
-        
-        
-        scene.obstacleSpawner.obstacles.forEach {
-            $0.node.removeFromParent()
-        }
-        scene.obstacleSpawner.obstacles = []
+        scene.onColorChanger()
+    }
     
+    private func setupAppearance(on node: SKNode) {
+        
+        let leftNode = SKShapeNode(circleOfRadius: scene.getBounds().width * 0.05)
+        leftNode.position = CGPoint(x: -10, y: 0)
+        leftNode.fillColor = palette.left
+        leftNode.strokeColor = palette.left.darker(by: 30)
+        leftNode.glowWidth = 2
+        
+        let rightNode = leftNode.copy() as! SKShapeNode
+        rightNode.position = CGPoint(x: 10, y: 0)
+        rightNode.fillColor = palette.right
+        rightNode.strokeColor = palette.right.darker(by: 30)
+        rightNode.glowWidth = 2
+        
+        let leftScaleAction = SKAction.repeatForever(.sequence([
+            .scale(to: 1.2, duration: 0.4),
+            .scale(to: 0.9, duration: 0.4)
+        ]))
+        
+        let rightScaleAction = SKAction.repeatForever(.sequence([
+            .scale(to: 0.9, duration: 0.4),
+            .scale(to: 1.2, duration: 0.4)
+        ]))
+        
+        leftNode.run(.repeatForever(.sequence([.fadeAlpha(to: 0.8, duration: 0.5), .fadeAlpha(to: 1, duration: 0.5)])))
+        rightNode.run(.repeatForever(.sequence([.fadeAlpha(to: 1, duration: 0.5), .fadeAlpha(to: 0.8, duration: 0.5)])))
+        
+        leftNode.run(leftScaleAction)
+        rightNode.run(rightScaleAction)
+        
+        
+        node.addChild(leftNode)
+        node.addChild(rightNode)
     }
     
     //MARK: - PhysicsObject PROTOCOL

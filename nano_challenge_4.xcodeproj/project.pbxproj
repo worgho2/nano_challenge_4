@@ -27,6 +27,7 @@
 		7A6FC93F2434E2EB00EC2E88 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6FC93E2434E2EB00EC2E88 /* GameManager.swift */; };
 		7A81038B2421060800AFA19C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A81038A2421060800AFA19C /* GoogleService-Info.plist */; };
 		7A86DCE22436109E006F38A1 /* PowerUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A86DCE12436109E006F38A1 /* PowerUpDelegate.swift */; };
+		7A86DCE424362EC3006F38A1 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A86DCE324362EC3006F38A1 /* Comparable.swift */; };
 		7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC823241C0F610047FB3F /* GameScene.swift */; };
 		7A9DC827241C10430047FB3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A9DC825241C0FEF0047FB3F /* GameScene.sks */; };
 		7AA04BA2241FA862008D1147 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */; };
@@ -43,11 +44,6 @@
 		7AA0D25A241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D259241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift */; };
 		7AA0D25D241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA0D25C241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift */; };
 		7AB85A7A2416C55800A7FB68 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A792416C55800A7FB68 /* UIColor.swift */; };
-		7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7C2416D38C00A7FB68 /* HSV.swift */; };
-		7AB85A812416D38D00A7FB68 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7D2416D38C00A7FB68 /* RGBA.swift */; };
-		7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7E2416D38C00A7FB68 /* Palette.swift */; };
-		7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A7F2416D38D00A7FB68 /* Serialize.swift */; };
-		7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A842416D45E00A7FB68 /* PaletteGenerator.swift */; };
 		7AB85A872417C55D00A7FB68 /* GameColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A862417C55D00A7FB68 /* GameColorManager.swift */; };
 		7AB85A892417F0A600A7FB68 /* GameSpeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */; };
 		7AB85A8D2417F64200A7FB68 /* GameScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */; };
@@ -97,6 +93,7 @@
 		7A6FC93E2434E2EB00EC2E88 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		7A81038A2421060800AFA19C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7A86DCE12436109E006F38A1 /* PowerUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpDelegate.swift; sourceTree = "<group>"; };
+		7A86DCE324362EC3006F38A1 /* Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
 		7A9DC823241C0F610047FB3F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7A9DC825241C0FEF0047FB3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AA04B9F241FA862008D1147 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -113,11 +110,6 @@
 		7AA0D259241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternBlockFactory.swift; sourceTree = "<group>"; };
 		7AA0D25C241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPatternBlockSpawner.swift; sourceTree = "<group>"; };
 		7AB85A792416C55800A7FB68 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		7AB85A7C2416D38C00A7FB68 /* HSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
-		7AB85A7D2416D38C00A7FB68 /* RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
-		7AB85A7E2416D38C00A7FB68 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
-		7AB85A7F2416D38D00A7FB68 /* Serialize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialize.swift; sourceTree = "<group>"; };
-		7AB85A842416D45E00A7FB68 /* PaletteGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteGenerator.swift; sourceTree = "<group>"; };
 		7AB85A862417C55D00A7FB68 /* GameColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColorManager.swift; sourceTree = "<group>"; };
 		7AB85A882417F0A600A7FB68 /* GameSpeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSpeedManager.swift; sourceTree = "<group>"; };
 		7AB85A8C2417F64200A7FB68 /* GameScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreManager.swift; sourceTree = "<group>"; };
@@ -277,20 +269,9 @@
 				7AB85A932418054600A7FB68 /* TimeInterval.swift */,
 				7AB85A952418055D00A7FB68 /* Int.swift */,
 				7AE988B624191F67002AD679 /* SKScene.swift */,
+				7A86DCE324362EC3006F38A1 /* Comparable.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		7AB85A7B2416D1ED00A7FB68 /* ColorCore(Talvez saia daqui) */ = {
-			isa = PBXGroup;
-			children = (
-				7AB85A842416D45E00A7FB68 /* PaletteGenerator.swift */,
-				7AB85A7C2416D38C00A7FB68 /* HSV.swift */,
-				7AB85A7E2416D38C00A7FB68 /* Palette.swift */,
-				7AB85A7D2416D38C00A7FB68 /* RGBA.swift */,
-				7AB85A7F2416D38D00A7FB68 /* Serialize.swift */,
-			);
-			path = "ColorCore(Talvez saia daqui)";
 			sourceTree = "<group>";
 		};
 		7AC3C354240FF8300011F586 = {
@@ -414,7 +395,6 @@
 				7AE988B8241923E4002AD679 /* PropertyWrappers */,
 				7AA04BBE241FAB4E008D1147 /* Audio */,
 				7A9DC817241C063B0047FB3F /* Fonts */,
-				7AB85A7B2416D1ED00A7FB68 /* ColorCore(Talvez saia daqui) */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -582,22 +562,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB85A812416D38D00A7FB68 /* RGBA.swift in Sources */,
 				7AC3C379240FFC370011F586 /* GameObject.swift in Sources */,
 				7AA0D25D241A5EE400B8C200 /* BackgroundPatternBlockSpawner.swift in Sources */,
 				7AC3C369240FF8300011F586 /* GameViewController.swift in Sources */,
 				7A395F152433B39600858E56 /* UIImage.swift in Sources */,
-				7AB85A802416D38D00A7FB68 /* HSV.swift in Sources */,
 				7A9DC824241C0F610047FB3F /* GameScene.swift in Sources */,
 				7AC3C37B24101A260011F586 /* GameObjectType.swift in Sources */,
 				7AE988B724191F67002AD679 /* SKScene.swift in Sources */,
 				7A6FC93B2434D41200EC2E88 /* PowerUpFactory.swift in Sources */,
-				7AB85A832416D38D00A7FB68 /* Serialize.swift in Sources */,
-				7AB85A852416D45E00A7FB68 /* PaletteGenerator.swift in Sources */,
-				7AB85A822416D38D00A7FB68 /* Palette.swift in Sources */,
 				7AB85A872417C55D00A7FB68 /* GameColorManager.swift in Sources */,
 				7AA0D25A241A5C5F00B8C200 /* BackgroundPatternBlockFactory.swift in Sources */,
 				7AC3C38224112FFB0011F586 /* Obstacle.swift in Sources */,
+				7A86DCE424362EC3006F38A1 /* Comparable.swift in Sources */,
 				7AA04BD7242006FF008D1147 /* GameOnboardingManager.swift in Sources */,
 				7AC3C388241130700011F586 /* Wheel.swift in Sources */,
 				7AC3C3842411301C0011F586 /* ObstacleFactory.swift in Sources */,

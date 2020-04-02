@@ -55,7 +55,7 @@ class GameScene: SKScene {
         self.obstacleSpawner = ObstacleSpawner(scene: self)
         self.backgroundPatternBlockSpawner = BackgroundPatternBlockSpawner(scene: self)
         
-        self.backgroundColor = gameManager.color.pallete.background
+        self.backgroundColor = gameManager.color.palette.background
         self.physicsWorld.contactDelegate = self
     }
     
@@ -242,8 +242,17 @@ extension GameScene: SKPhysicsContactDelegate {
 
 extension GameScene: PowerUpDelegate {
     
+    private func getPowerUpDelegateds() -> [PowerUpDelegate] {
+        return [
+            self.gameManager.color,
+            self.obstacleSpawner,
+            self.wheel
+        ]
+    }
+    
     func onColorChanger() {
-        run(.colorize(with: gameManager.color.pallete.background, colorBlendFactor: 1.0, duration: 1.0))
+        getPowerUpDelegateds().forEach { $0.onColorChanger() }
+        run(.colorize(with: gameManager.color.palette.background, colorBlendFactor: 1.0, duration: 1.0))
     }
     
 }

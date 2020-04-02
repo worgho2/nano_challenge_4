@@ -8,18 +8,12 @@
 
 import SpriteKit
 
-class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState {
+class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, TriggeredByGameState, PowerUpDelegate {
     
-    static var next_id = 0
-    
-    var id: Int
     var node: SKNode!
     var scene: GameScene!
     
     init(node: SKNode?, scene: GameScene?) {
-        self.id = GameObject.next_id
-        GameObject.next_id += 1
-        
         self.node = node
         self.scene = scene
     }
@@ -48,4 +42,7 @@ class GameObject: Updateable, SceneSupplicant, TouchSensitive, PhysicsObject, Tr
     func onGameContinue() { return }
     func onGameOver() { return }
     
+    //MARK: - PowerUpDelegete
+    
+    func onColorChanger() { return }
 }

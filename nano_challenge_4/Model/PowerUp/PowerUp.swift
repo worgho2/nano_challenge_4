@@ -36,7 +36,7 @@ class PowerUp: GameObject {
             ]
         ))
         
-        node.run(.fadeAlpha(to: 0, duration: 1))
+        node.run(.fadeAlpha(to: 0, duration: 0.5))
     }
     
     override func shouldDespawn() -> Bool {

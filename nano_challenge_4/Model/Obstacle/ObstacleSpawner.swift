@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
+class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState, PowerUpDelegate {
     
     internal var scene: GameScene!
     
@@ -67,7 +67,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
         }
     }
     
-    //MARK: - TriggeredByGameState PROTOCOL
+    //MARK: - TriggeredByGameState
     
     func onGameStart() {
         obstacles.forEach{ $0.node.removeFromParent() }
@@ -86,6 +86,22 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState {
     
     func onGameContinue() {
         return
+    }
+    
+    //MARK: - PowerUpDelegate
+    
+    func onColorChanger() {
+        let disabledObstacles = obstacles
+        self.obstacles = []
+        
+        disabledObstacles.forEach { obstacle in
+            obstacle.node.run(.fadeOut(withDuration: 0.1))
+            obstacle.node.run(.scale(to: 0.5, duration: 0.1)) {
+                obstacle.node.removeFromParent()
+
+            }
+        }
+        
     }
     
     

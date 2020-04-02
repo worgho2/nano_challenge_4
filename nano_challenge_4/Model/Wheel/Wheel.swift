@@ -65,7 +65,7 @@ class Wheel: GameObject {
         leftPainterNode.name = GameObjectType.painter.name + "_left"
         leftPainterNode.position = CGPoint(x: -scene.getBounds().width/2 * 3/5 , y: 0)
         leftPainterNode.zPosition = 1
-        leftPainterNode.fillColor = scene.gameManager.color.pallete.left
+        leftPainterNode.fillColor = scene.gameManager.color.palette.left
         leftPainterNode.strokeColor = leftPainterNode.fillColor.withAlphaComponent(0.2)
         leftPainterNode.isAntialiased = true
         leftPainterNode.glowWidth = 3
@@ -74,7 +74,7 @@ class Wheel: GameObject {
         let rightPainterNode = leftPainterNode.copy() as! SKShapeNode
         rightPainterNode.name = GameObjectType.painter.name + "_right"
         rightPainterNode.position = CGPoint(x: scene.getBounds().width/2 * 3/5 , y: 0)
-        rightPainterNode.fillColor = scene.gameManager.color.pallete.right
+        rightPainterNode.fillColor = scene.gameManager.color.palette.right
         rightPainterNode.strokeColor = rightPainterNode.fillColor.withAlphaComponent(0.2)
         self.configurePhysics(on: rightPainterNode)
         
@@ -168,6 +168,38 @@ class Wheel: GameObject {
     override func onGameOver() {
         self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
         self.node.run(.rotate(toAngle: 0, duration: 0.4))
+    }
+    
+    //MARK: - PowerUpDelegate
+    
+    override func onColorChanger() {
+        guard let leftNode = self.node.children.first(where: { $0.name!.contains("left")}) as? SKShapeNode, let rightNode = self.node.children.first(where: { $0.name!.contains("right")}) as? SKShapeNode else { return }
+        
+        leftNode.run(.sequence(
+            [
+                .scale(to: 1.2, duration: 0.05),
+                .scale(to: 0.8, duration: 0.1),
+                .scale(to: 1.1, duration: 0.05),
+                .scale(to: 0.9, duration: 0.1),
+                .scale(to: 1.0, duration: 0.05),
+            ]
+        ))
+        
+        rightNode.run(.sequence(
+            [
+                .scale(to: 1.2, duration: 0.05),
+                .scale(to: 0.8, duration: 0.1),
+                .scale(to: 1.1, duration: 0.05),
+                .scale(to: 0.9, duration: 0.1),
+                .scale(to: 1.0, duration: 0.05),
+            ]
+        ))
+        
+        leftNode.fillColor = scene.gameManager.color.palette.left
+        leftNode.strokeColor = scene.gameManager.color.palette.left
+        
+        rightNode.fillColor = scene.gameManager.color.palette.right
+        rightNode.strokeColor = scene.gameManager.color.palette.right
     }
 
 }

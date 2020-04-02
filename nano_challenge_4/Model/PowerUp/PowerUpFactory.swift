@@ -22,23 +22,16 @@ class PowerUpFactory: SceneSupplicant {
     //MARK: - Class Methods
 
     private func getNode() -> SKNode {
-        let node = self.colorChangerBaseNode.copy() as! SKShapeNode
-        
-        node.fillColor = .black
-        node.strokeColor = .white
+        let node = self.colorChangerBaseNode.copy() as! SKNode
+
         node.position = CGPoint(x: 0, y: self.scene.getBounds().minY - node.frame.height/2)
         node.zPosition = 100
-        node.isAntialiased = true
-        node.glowWidth = 5
        
         return node
     }
     
     func getNewPowerUp() -> PowerUp {
-        
-        guard let node = self.getNode() as? SKShapeNode else {
-            fatalError()
-        }
+        let node = self.getNode()
         
         return ColorChanger(node: node, scene: scene)
         

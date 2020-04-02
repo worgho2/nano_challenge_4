@@ -194,7 +194,7 @@ class Onboarding: GameObject {
         
         let leftNode = SKShapeNode(circleOfRadius: 20)
         leftNode.name = "thirdLeftNode"
-        leftNode.fillColor = scene.gameManager.color.pallete.left
+        leftNode.fillColor = scene.gameManager.color.palette.left
         leftNode.strokeColor = .clear
         leftNode.position = CGPoint(x: -75, y: 0)
         leftNode.zPosition = 1
@@ -213,7 +213,7 @@ class Onboarding: GameObject {
         
         let rightNode = SKShapeNode(circleOfRadius: 20)
         rightNode.name = "thirdRightNode"
-        rightNode.fillColor = scene.gameManager.color.pallete.right
+        rightNode.fillColor = scene.gameManager.color.palette.right
         rightNode.strokeColor = .clear
         rightNode.position = CGPoint(x: 0, y: 0)
         rightNode.zPosition = 1
@@ -232,7 +232,7 @@ class Onboarding: GameObject {
         
         let backgroundNode = SKShapeNode(circleOfRadius: 20)
         backgroundNode.name = "thirdBackgroundNode"
-        backgroundNode.fillColor = scene.gameManager.color.pallete.background
+        backgroundNode.fillColor = scene.gameManager.color.palette.background
         backgroundNode.strokeColor = .clear
         backgroundNode.position = CGPoint(x: 75, y: 0)
         backgroundNode.zPosition = 1
