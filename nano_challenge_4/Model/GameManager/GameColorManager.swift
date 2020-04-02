@@ -16,13 +16,13 @@ struct Palette {
 
 class GameColorManager: PowerUpDelegate {
     
-    private static var avaliablePalettes: [Palette] = [
+    static var avaliablePalettes: [Palette] = [
         Palette(right: #colorLiteral(red: 0, green: 0.7529411765, blue: 0.8980392157, alpha: 1), left: #colorLiteral(red: 0.9764705882, green: 0.1803921569, blue: 0.6509803922, alpha: 1), background: #colorLiteral(red: 0.1803921569, green: 0.1921568627, blue: 0.5725490196, alpha: 1)),
         Palette(right: #colorLiteral(red: 0.9764705882, green: 0.1803921569, blue: 0.6509803922, alpha: 1), left: #colorLiteral(red: 0.9960784314, green: 0.9137254902, blue: 0, alpha: 1), background: #colorLiteral(red: 0.7450980392, green: 0.1529411765, blue: 0.09411764706, alpha: 1)),
         Palette(right: #colorLiteral(red: 0, green: 0.7529411765, blue: 0.8980392157, alpha: 1), left: #colorLiteral(red: 0.9960784314, green: 0.9137254902, blue: 0, alpha: 1), background: #colorLiteral(red: 0.1568627451, green: 0.6039215686, blue: 0.2588235294, alpha: 1))
     ]
     
-    private static var currentIndex: Int {
+    static var currentIndex: Int {
         get {
             return UserDefaults.standard.object(forKey: "colorManager.currentIndex") as? Int ?? 0
         }
@@ -36,6 +36,10 @@ class GameColorManager: PowerUpDelegate {
     }
     
     //MARK: - Class Methods
+    
+    func getPalette() -> Palette {
+        return GameColorManager.avaliablePalettes[GameColorManager.currentIndex]
+    }
     
     func getNextPalette() -> Palette {
         let nextIndex = (GameColorManager.currentIndex + 1) % GameColorManager.avaliablePalettes.count

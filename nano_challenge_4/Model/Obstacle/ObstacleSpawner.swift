@@ -15,7 +15,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState, PowerU
     public var obstacles: [Obstacle]
     private var obstacleFactory: ObstacleFactory!
     
-    private var spawnThreshold = TimeInterval(2)
+    private var spawnThreshold = TimeInterval(3)
     private var currentSpawnTimer = TimeInterval(0)
     
     init(scene: GameScene?) {
@@ -47,7 +47,7 @@ class ObstacleSpawner: SceneSupplicant, Updateable, TriggeredByGameState, PowerU
     func update(_ deltaTime: TimeInterval) {
 
         self.currentSpawnTimer += deltaTime
-        self.spawnThreshold = TimeInterval(2) - TimeInterval(scene.gameManager.speed.getProgress())
+        self.spawnThreshold = TimeInterval(3) - TimeInterval(scene.gameManager.speed.getProgress())
         
         self.obstacles.forEach { $0.update(deltaTime) }
         

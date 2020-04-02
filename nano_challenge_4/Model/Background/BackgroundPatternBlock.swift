@@ -32,7 +32,7 @@ class BackgroundPatternBlock: GameObject {
         
         let baseNode = SKSpriteNode(texture: texture, size: CGSize(width: width, height: height))
         baseNode.position = CGPoint(x: 0, y: 0)
-        baseNode.alpha = 0.2
+        baseNode.alpha = 0.15
         
         let leftNode = baseNode.copy() as! SKSpriteNode
         leftNode.position = CGPoint(x: self.scene.getBounds().minX + leftNode.frame.width/2, y: 0)

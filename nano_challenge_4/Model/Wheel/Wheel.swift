@@ -161,13 +161,15 @@ class Wheel: GameObject {
     //MARK: - TriggeredByGameState PROTOCOL
     
     override func onGameStart() {
-        self.node.run(.move(to: CGPoint(x: 0, y: 140), duration: 0.4))
+        self.node.run(.move(to: CGPoint(x: 0, y: 180), duration: 0.4))
         self.node.run(.rotate(toAngle: .pi, duration: 0.4))
+        self.isTouching = (false, false)
     }
     
     override func onGameOver() {
         self.node.run(.move(to: CGPoint(x: 0, y: 0), duration: 0.4))
         self.node.run(.rotate(toAngle: 0, duration: 0.4))
+        self.isTouching = (false, false)
     }
     
     //MARK: - PowerUpDelegate

@@ -44,13 +44,13 @@
                                     <action selector="onPlayButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2gy-31-5nb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-br-dsM">
                                 <rect key="frame" x="103.5" y="695.5" width="207" height="66.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="VQN-br-dsM" secondAttribute="height" multiplier="312:100" id="SaI-Aq-DuP"/>
                                 </constraints>
-                                <state key="normal" image="gamecenter">
+                                <state key="normal" backgroundImage="gamecenter">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -184,6 +184,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gamecenter" width="312" height="100"/>
+        <image name="gamecenter" width="156" height="50"/>
     </resources>
 </document>
