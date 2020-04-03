@@ -35,7 +35,7 @@ class LoadingViewController: UIViewController {
         
         UIView.animate(withDuration: 1, delay: 0.2, options: [.curveEaseInOut], animations: {
             
-            self.logoImage.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
+            self.logoImage.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/3)
             self.logoImage.alpha = 1
             
         }){ (_) in
