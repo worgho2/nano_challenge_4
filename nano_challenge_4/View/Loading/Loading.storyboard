@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="PIh-Sb-ELE">
-                                <rect key="frame" x="62" y="44" width="290" height="101.5"/>
+                                <rect key="frame" x="103.5" y="44" width="207" height="72.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PIh-Sb-ELE" secondAttribute="height" multiplier="485:170" id="Cgq-0i-3YB"/>
                                 </constraints>
@@ -29,7 +29,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PIh-Sb-ELE" firstAttribute="width" secondItem="b4g-yP-vrf" secondAttribute="width" multiplier="0.7" id="1Ey-qu-3P1"/>
+                            <constraint firstItem="PIh-Sb-ELE" firstAttribute="width" secondItem="b4g-yP-vrf" secondAttribute="width" multiplier="0.5" id="1Ey-qu-3P1"/>
                             <constraint firstItem="PIh-Sb-ELE" firstAttribute="top" secondItem="EeX-OY-6yE" secondAttribute="top" id="2Qg-gL-anI"/>
                             <constraint firstItem="BKl-H7-xbp" firstAttribute="top" secondItem="b4g-yP-vrf" secondAttribute="top" id="5lB-Ts-7h2"/>
                             <constraint firstItem="BKl-H7-xbp" firstAttribute="leading" secondItem="EeX-OY-6yE" secondAttribute="leading" id="NnX-Gi-Ydq"/>
