@@ -30,7 +30,7 @@ class GameScene: SKScene {
     
     var onboarding: Onboarding!
     var wheel: Wheel!
-    var drop: Drop!
+//    var drop: Drop!
     
     var obstacleSpawner: ObstacleSpawner!
     var powerUpSpawner: PowerUpSpawner!
@@ -49,7 +49,7 @@ class GameScene: SKScene {
         
         self.onboarding = Onboarding(scene: self)
         self.wheel = Wheel(scene: self)
-        self.drop = Drop(scene: self)
+//        self.drop = Drop(scene: self)
         
         self.powerUpSpawner = PowerUpSpawner(scene: self)
         self.obstacleSpawner = ObstacleSpawner(scene: self)
@@ -87,7 +87,7 @@ class GameScene: SKScene {
             self.vc!,
             self.onboarding,
             self.wheel,
-            self.drop,
+//            self.drop,
             self.gameManager.score,
             self.gameManager.speed,
             self.obstacleSpawner,

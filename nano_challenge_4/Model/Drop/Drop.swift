@@ -22,7 +22,7 @@ class Drop: GameObject {
         super.init(node: node, scene: scene)
         self.scene.addChild(node)
         
-        self.configurePhysics(on: self.node)
+//        self.configurePhysics(on: self.node)
     }
     
     //MARK: - PhysicsObject PROTOCOL

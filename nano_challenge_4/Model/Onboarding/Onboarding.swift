@@ -167,7 +167,7 @@ class Onboarding: GameObject {
         
         let descriptionNode = SKLabelNode()
         
-        let text = "Mix the colors to get the background color and prevent the black ink drop from touching the obstacles"
+        let text = "Mix the colors to get the background"
         let attrString = NSMutableAttributedString(string: text)
         let range = NSRange(location: 0, length: text.count)
         let paragraphStyle = NSMutableParagraphStyle()
