@@ -75,7 +75,6 @@ class Obstacle: GameObject {
             scene.gameManager.audio.play(soundEffect: .correct_01)
             scene.gameManager.haptic.impact.impactOccurred()
         } else {
-            node.run(.fadeOut(withDuration: 1))
             node.run(.sequence(
                 [
                     .move(by: CGVector(dx: 10, dy: 0), duration: 0.08),
