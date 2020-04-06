@@ -384,7 +384,12 @@ extension GameViewController: GADInterstitialDelegate {
     
     func loadInterAD() {
         //        let id = "ca-app-pub-3940256099942544/4411468910" //debug
-        let id = "ca-app-pub-3805796666758486/8999632594"
+        var id = "ca-app-pub-3805796666758486/8999632594"
+        
+        #if DEBUG
+        id = "ca-app-pub-3940256099942544/4411468910"
+        #endif
+        
         let newAdd = GADInterstitial(adUnitID: id)
         
         newAdd.delegate = self
